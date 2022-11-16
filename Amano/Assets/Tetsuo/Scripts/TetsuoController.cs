@@ -12,8 +12,8 @@ public class TetsuoController : MonoBehaviour
     [SerializeField] public Animator animator;
 
     private float _horizontal;
-    private float _speed = 8f;
-    private float _jumpingPower = 16f;
+    private float _speed = 4f;
+    private float _jumpingPower = 8f;
     private bool _isFacingRight = true;
     
     void Update()
