@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Path;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TetsuoShuriken : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] public SpriteRenderer shuriken;
+    [SerializeField] public Transform shurikenPosition;
+
+    // Update is called once per frame
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShootShuriken(InputAction.CallbackContext context)
     {
-        
+        if (!context.performed) return;
+        var shurikenObj = Instantiate(shuriken.gameObject, shurikenPosition.position, Quaternion.identity);
     }
 }
