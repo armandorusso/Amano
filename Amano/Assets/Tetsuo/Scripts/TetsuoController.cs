@@ -61,16 +61,33 @@ public class TetsuoController : MonoBehaviour
         _horizontal = context.ReadValue<Vector2>().x;
     }
 
+    public void Run(InputAction.CallbackContext context)
+    {
+        if(_horizontal is > 0f or < 0f && context.performed)
+            _speed = 6f;
+        else if (context.canceled)
+            _speed = 4f;
+    }
+
     public void SetAnimatorState()
     {
         if (_horizontal is > 0f or < 0f)
         {
-            animator.SetBool("isWalking", true);
+            if (_speed == 4f)
+            {
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isRunning", false);
+            }
+            else if (_speed == 6f)
+            {
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isRunning", true);
+            }
         }
-
         else
         {
             animator.SetBool("isWalking", false);
+            animator.SetBool("isRunning", false);
         }
     }
 }
