@@ -65,6 +65,7 @@ public class ShurikenProjectile : MonoBehaviour
                     teleportableObject = otherObject.transform
                 };
                 ShurikenAttachedEvent.Invoke(this, args);
+                hitTeleportableObj = false;
             }
         }
     }
