@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1773835547415062491}
   - component: {fileID: 5587403623764837078}
   - component: {fileID: 4857226855842975782}
+  - component: {fileID: 8634714177944014448}
   m_Layer: 0
   m_Name: Tetsuo
   m_TagString: Untagged
@@ -412,3 +413,15 @@ MonoBehaviour:
   rotationPosition: {fileID: 5428644879463700709}
   mouseTracker: {fileID: 0}
   shurikenForce: 20
+--- !u!114 &8634714177944014448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3f594761ea2214cbc460097bc4aca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
