@@ -7,12 +7,12 @@
             "actions": [
                 {
                     "name": "Fire",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "e26228ff-d2b4-4e06-9ec5-51c34b0256f1",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -30,7 +30,7 @@
                 {
                     "name": "",
                     "id": "120b64c2-18e5-4aae-8820-711efd72d411",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

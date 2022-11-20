@@ -13,7 +13,7 @@ public class TetsuoController : MonoBehaviour
 
     private float _horizontal;
     private float _speed = 4f;
-    private float _jumpingPower = 8f;
+    private float _jumpingPower = 12f;
     private bool _isFacingRight = true;
     private SpriteRenderer _sprite;
 
