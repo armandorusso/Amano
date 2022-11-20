@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -10,8 +11,16 @@ public class ShootingShuriken : MonoBehaviour
     [SerializeField] public Transform rotationPosition;
     [SerializeField] public MousePosTracker mouseTracker;
     [SerializeField] public float shurikenForce;
+    [SerializeField] public float shurikenShootCooldown;
+
+    private bool canShoot;
 
     private Vector3 mousePos;
+
+    private void Start()
+    {
+        canShoot = true;
+    }
 
     void Update()
     {
@@ -23,9 +32,19 @@ public class ShootingShuriken : MonoBehaviour
 
     public void SpawnShuriken(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
-        var shurikenObj = Instantiate(shuriken.gameObject, shurikenTransform.position, Quaternion.identity);
-        ShootShuriken(shurikenObj);
+        if (context.started && canShoot)
+        {
+            var shurikenObj = Instantiate(shuriken.gameObject, shurikenTransform.position, Quaternion.identity);
+            ShootShuriken(shurikenObj);
+            canShoot = false;
+            StartCoroutine(ShurikenCooldown());
+        }
+    }
+
+    private IEnumerator ShurikenCooldown()
+    {
+        yield return new WaitForSeconds(shurikenShootCooldown);
+        canShoot = true;
     }
 
     private void ShootShuriken(GameObject shurikenObj)
