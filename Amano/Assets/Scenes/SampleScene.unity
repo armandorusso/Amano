@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 334207595340738683, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 334207595340738683, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -289,6 +289,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &598430453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5428644879463700709, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+  m_PrefabInstance: {fileID: 3365518847721839498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &646515144
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +377,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &646515147
 BoxCollider2D:
@@ -477,7 +482,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &752305518
 MonoBehaviour:
@@ -538,7 +543,7 @@ PrefabInstance:
       objectReference: {fileID: 3365518847721839500}
     - target: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -584,6 +589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tetsuo
       objectReference: {fileID: 0}
+    - target: {fileID: 4415898484591573548, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: rotationPosition
+      value: 
+      objectReference: {fileID: 598430453}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
 --- !u!1 &3365518847721839499 stripped
@@ -605,6 +614,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shuriken: {fileID: 1543230434}
   shurikenPosition: {fileID: 3365518847721839501}
+  rotationPosition: {fileID: 598430453}
+  mouseTracker: {fileID: 752305518}
 --- !u!4 &3365518847721839501 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1699846089903928653, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
@@ -619,7 +630,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6273173654964714559, guid: 64e016d1b65377748a1d779970bd1f13, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6273173654964714559, guid: 64e016d1b65377748a1d779970bd1f13, type: 3}
       propertyPath: m_LocalPosition.x

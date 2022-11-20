@@ -15,7 +15,13 @@ public class TetsuoController : MonoBehaviour
     private float _speed = 4f;
     private float _jumpingPower = 8f;
     private bool _isFacingRight = true;
-    
+    private SpriteRenderer _sprite;
+
+    void Start()
+    {
+        _sprite = GetComponent<SpriteRenderer>();
+    }
+
     void Update()
     {
         rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
@@ -51,9 +57,7 @@ public class TetsuoController : MonoBehaviour
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        var localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
+        _sprite.flipX = !_isFacingRight;
     }
 
     public void Move(InputAction.CallbackContext context)
