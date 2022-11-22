@@ -44,7 +44,7 @@ public class ShurikenProjectile : MonoBehaviour
     {
         GameObject otherObject = col.gameObject;
 
-        if (otherObject.layer == 8)
+        if (otherObject.layer == 8 || otherObject.layer == 9)
         {
             Assert.IsNotNull(_rb);
             Assert.IsNotNull(_animator);

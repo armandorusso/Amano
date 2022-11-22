@@ -15,30 +15,108 @@ public class TetsuoController : MonoBehaviour
     private float _speed = 4f;
     private float _jumpingPower = 12f;
     private bool _isFacingRight = true;
+    private float _isFacingRightScale = 1f;
     private SpriteRenderer _sprite;
+
+    [SerializeField] private float wallSlideSpeed = 0f;
+    [SerializeField] public Transform wallCheckPoint;
+    [SerializeField] public LayerMask wallLayer;
+    private bool isWallSliding;
+
+    [SerializeField] private Vector2 wallJumpPower;
+    private float wallJumpDirection;
+    private bool _isWallJumping = false;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
 
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
+        wallJumpDirection = -1f;
     }
 
     void Update()
     {
-        rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
-        SetAnimatorState();
-
+        if(!_isWallJumping)
+            rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
+        WallSlide();
+        CheckIfPlayerCanWallJump();
         switch (_isFacingRight)
         {
             case false when _horizontal > 0f:
             case true when _horizontal < 0f:
-                Flip();
+                if(!_isWallJumping)
+                    Flip();
                 break;
         }
+        SetAnimatorState();
+    }
+
+    private void FixedUpdate()
+    {
+        SetAnimatorState();
     }
 
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    private bool IsTouchingWall()
+    {
+        return Physics2D.OverlapCircle(wallCheckPoint.position, 0.2f, wallLayer);
+    }
+
+    private void WallSlide()
+    {
+        if (IsTouchingWall() && !IsGrounded() &&
+            _horizontal != 0) // if you started falling down while touching the wall
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    public void WallJump(InputAction.CallbackContext context)
+    {
+        if (context.performed && wallJumpingCounter > 0f)
+        {
+            _isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
+            wallJumpingCounter = 0f;
+
+            if (transform.localScale.x != wallJumpDirection)
+            {
+                Flip();
+            }
+            
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+
+    private void CheckIfPlayerCanWallJump()
+    {
+        if (isWallSliding)
+        {
+            _isWallJumping = false;
+            wallJumpDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+    }
+
+    private void StopWallJumping()
+    {
+        _isWallJumping = false;
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -57,7 +135,9 @@ public class TetsuoController : MonoBehaviour
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        _sprite.flipX = !_isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -75,7 +155,7 @@ public class TetsuoController : MonoBehaviour
 
     public void SetAnimatorState()
     {
-        if (_horizontal is > 0f or < 0f)
+        if (_horizontal is > 0f or < 0f && IsGrounded())
         {
             if (_speed == 4f)
             {

@@ -28,6 +28,11 @@ public class ShootingShuriken : MonoBehaviour
         Vector3 rotation = mousePos - rotationPosition.position;
         float zRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
+
+        if (transform.localScale.x != rotationPosition.localScale.x)
+        {
+            rotationPosition.localScale = transform.localScale;
+        }
     }
 
     public void SpawnShuriken(InputAction.CallbackContext context)
