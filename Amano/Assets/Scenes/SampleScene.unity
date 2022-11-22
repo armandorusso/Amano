@@ -1301,14 +1301,6 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4415898484591573548, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-      propertyPath: wallJumpPower.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4415898484591573548, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-      propertyPath: wallJumpPower.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4415898484591573548, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: rotationPosition
       value: 
       objectReference: {fileID: 598430453}

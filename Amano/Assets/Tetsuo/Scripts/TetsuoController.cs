@@ -80,6 +80,8 @@ public class TetsuoController : MonoBehaviour
         {
             isWallSliding = false;
         }
+        
+        _sprite.flipX = isWallSliding;
     }
 
     public void WallJump(InputAction.CallbackContext context)
@@ -172,6 +174,15 @@ public class TetsuoController : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
             animator.SetBool("isRunning", false);
+        }
+
+        if (isWallSliding)
+        {
+            animator.SetBool("isWallSliding", true);
+        }
+        else
+        {
+            animator.SetBool("isWallSliding", false);
         }
     }
 }
