@@ -14,6 +14,7 @@ public class TetsuoController : MonoBehaviour
     private float _horizontal;
     private float _speed = 4f;
     private float _jumpingPower = 12f;
+    private bool _isJumping;
     private bool _isFacingRight = true;
     private float _isFacingRightScale = 1f;
     public bool isGrounded;
@@ -156,6 +157,7 @@ public class TetsuoController : MonoBehaviour
     {
         if (context.performed && IsGrounded())
         {
+            animator.SetBool("isJumping", true);
             jumpOrLandEventArgs.isDustActivated = true;
             jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
             rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
@@ -163,6 +165,7 @@ public class TetsuoController : MonoBehaviour
 
         if (context.canceled && rb.velocity.y > 0)
         {
+            animator.SetBool("isJumping", false);
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
         jumpOrLandEventArgs.isDustActivated = false;
@@ -178,6 +181,7 @@ public class TetsuoController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
+        animator.SetBool("isJumping", false);
         _horizontal = context.ReadValue<Vector2>().x;
     }
 
