@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c6e80c9f5f21d9049b28f4cd22ae0e3d
+guid: 43a1a934bae5ea64390da299198bd4b6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ninja_character_jumping_0
+      name: ninja_character_airtime_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1df8da5dfc7f96d41817b8369e701689
+      internalID: 1171943750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninja_character_airtime_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e66538710d977a94fb855d4a51cf8412
+      internalID: 1061352680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninja_character_airtime_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d96a17de954b62847b4e1b2ce709af89
+      internalID: -1161903659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninja_character_airtime_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47173e952a8754940b0ad0f11fbaba41
+      internalID: -1294045225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninja_character_airtime_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a572027bbf340214182c12ca18eaa28a
+      internalID: 614285765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninja_character_airtime_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d15a264ff8eba441acd600211b8b0a0
+      internalID: -2057046259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninja_character_airtime_6
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f1fd1ed35f6e574aa306c108bfd8e2a
-      internalID: -611316395
+      spriteID: 3ac0d6714db68a245b8055170cdce1f1
+      internalID: 1260533018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_jumping_1
+      name: ninja_character_airtime_7
       rect:
         serializedVersion: 2
         x: 16
@@ -140,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2620e05d22c83947ad6c89f5b529be4
-      internalID: -1610059999
+      spriteID: 1f243dde97234324b80b47e1d0a4b95b
+      internalID: 691132158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_jumping_2
+      name: ninja_character_airtime_8
       rect:
         serializedVersion: 2
         x: 32
@@ -161,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c130c9f6fd2364f4fbdc1cfcf6c7f641
-      internalID: 1800661607
+      spriteID: a4ba6baa14160ff4baf2744ccaf4e2b1
+      internalID: 1411867312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_jumping_3
+      name: ninja_character_airtime_9
       rect:
         serializedVersion: 2
         x: 48
@@ -182,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2af3dfab5e0ab4f4a9e236db00dbc42a
-      internalID: 1380655925
+      spriteID: 5b2809bedcc00964c89e707f7f212f28
+      internalID: 1170669111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_jumping_4
+      name: ninja_character_airtime_10
       rect:
         serializedVersion: 2
         x: 64
@@ -203,14 +329,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc92051e0a4e5264f92df9568396be10
-      internalID: -1653608012
+      spriteID: 10fe10206885b874d949dea390395986
+      internalID: -1890024349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_jumping_5
+      name: ninja_character_airtime_11
       rect:
         serializedVersion: 2
         x: 80
@@ -224,8 +350,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a005433bbcc44042aa4a704a3fd9410
-      internalID: -151418304
+      spriteID: 93ce197f7b0b8c0489285a779a488a55
+      internalID: 1801578531
       vertices: []
       indices: 
       edges: []
@@ -241,12 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ninja_character_jumping_0: -611316395
-      ninja_character_jumping_1: -1610059999
-      ninja_character_jumping_2: 1800661607
-      ninja_character_jumping_5: -151418304
-      ninja_character_jumping_3: 1380655925
-      ninja_character_jumping_4: -1653608012
+      ninja_character_airtime_11: 1801578531
+      ninja_character_airtime_0: 1171943750
+      ninja_character_airtime_5: -2057046259
+      ninja_character_airtime_7: 691132158
+      ninja_character_airtime_9: 1170669111
+      ninja_character_airtime_2: -1161903659
+      ninja_character_airtime_10: -1890024349
+      ninja_character_airtime_8: 1411867312
+      ninja_character_airtime_4: 614285765
+      ninja_character_airtime_3: -1294045225
+      ninja_character_airtime_6: 1260533018
+      ninja_character_airtime_1: 1061352680
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

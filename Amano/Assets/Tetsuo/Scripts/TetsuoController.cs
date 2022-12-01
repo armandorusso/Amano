@@ -203,11 +203,13 @@ public class TetsuoController : MonoBehaviour
         {
             if (_speed == 4f)
             {
+                animator.SetBool("isJumping", false);
                 animator.SetBool("isWalking", true);
                 animator.SetBool("isRunning", false);
             }
             else if (_speed == 6f)
             {
+                animator.SetBool("isJumping", false);
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isRunning", true);
             }
@@ -220,6 +222,7 @@ public class TetsuoController : MonoBehaviour
 
         if (isWallSliding)
         {
+            animator.SetBool("isJumping", false);
             animator.SetBool("isWallSliding", true);
         }
         else
