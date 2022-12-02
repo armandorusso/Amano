@@ -42,3 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: In Front of Walls
+    uniqueID: 19742485
+    locked: 0

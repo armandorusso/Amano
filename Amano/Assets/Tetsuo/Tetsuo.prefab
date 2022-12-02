@@ -250,9 +250,10 @@ MonoBehaviour:
   wallCheckPoint: {fileID: 263263850758630252}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 512
   isWallSliding: 0
   wallJumpPower: {x: 5.6, y: 9}
+  _isWallJumping: 0
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0

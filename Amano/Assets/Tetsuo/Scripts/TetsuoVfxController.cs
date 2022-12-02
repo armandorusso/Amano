@@ -8,6 +8,8 @@ public class TetsuoVfxController : MonoBehaviour
     [SerializeField] private ParticleSystem groundDustFx;
     [SerializeField] private ParticleSystem wallDustFx;
 
+    private bool isWallDustPlaying;
+
     private void Start()
     {
         TetsuoController.wallSlidingEvent += OnWallSlidingEvent;
@@ -16,9 +18,29 @@ public class TetsuoVfxController : MonoBehaviour
 
     private void OnWallSlidingEvent(object sender, TetsuoController.WallSlidingFxEventArgs e)
     {
+        if (isWallDustPlaying)
+            return;
+        
+        if (!e.isSliding)
+        {
+            isWallDustPlaying = false;
+            wallDustFx.Stop();
+        }
+
         if (e.isSliding)
         {
+            Debug.Log("Dust wall playing");
+            var transformLocalScale = wallDustFx.gameObject.transform.localScale;
+            if (e.isFacingRight)
+            {
+                transformLocalScale.x = -1f;
+            }
+            else
+            {
+                transformLocalScale.x = 1f;
+            }
             wallDustFx.Play();
+            isWallDustPlaying = true;
         }
     }
 

@@ -27,7 +27,7 @@ public class TetsuoController : MonoBehaviour
 
     [SerializeField] private Vector2 wallJumpPower;
     private float wallJumpDirection;
-    private bool _isWallJumping = false;
+    public bool _isWallJumping;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
@@ -35,6 +35,7 @@ public class TetsuoController : MonoBehaviour
     public class WallSlidingFxEventArgs : EventArgs
     {
         public bool isSliding { get; set; }
+        public bool isFacingRight { get; set; }
     }
 
     public static event EventHandler<WallSlidingFxEventArgs> wallSlidingEvent;
@@ -54,7 +55,8 @@ public class TetsuoController : MonoBehaviour
         wallJumpDirection = -1f;
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
-            isSliding = isWallSliding
+            isSliding = isWallSliding,
+            isFacingRight = _isFacingRight
         };
 
         jumpOrLandEventArgs = new GroundFxEventArgs
@@ -87,6 +89,7 @@ public class TetsuoController : MonoBehaviour
 
     private bool IsGrounded()
     {
+        // var ray = Physics2D.Raycast(groundCheck.position, Vector2.down);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         return isGrounded;
     }
@@ -103,14 +106,13 @@ public class TetsuoController : MonoBehaviour
         {
             isWallSliding = true;
             wallSlidingEventArgs.isSliding = isWallSliding;
-            // wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
+            wallSlidingEventArgs.isFacingRight = _isFacingRight;
+            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
             rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
         }
         else
         {
             isWallSliding = false;
-            wallSlidingEventArgs.isSliding = isWallSliding;
-            // wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
         }
         
         _sprite.flipX = isWallSliding;
@@ -121,6 +123,9 @@ public class TetsuoController : MonoBehaviour
         if (context.performed && wallJumpingCounter > 0f)
         {
             _isWallJumping = true;
+            wallSlidingEventArgs.isSliding = false;
+            wallSlidingEventArgs.isFacingRight = _isFacingRight;
+            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
             rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpingCounter = 0f;
 
