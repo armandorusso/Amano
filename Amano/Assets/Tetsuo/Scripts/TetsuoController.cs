@@ -113,29 +113,12 @@ public class TetsuoController : MonoBehaviour
         else
         {
             isWallSliding = false;
-        }
-        
-        _sprite.flipX = isWallSliding;
-    }
-
-    public void WallJump(InputAction.CallbackContext context)
-    {
-        if (context.performed && wallJumpingCounter > 0f)
-        {
-            _isWallJumping = true;
             wallSlidingEventArgs.isSliding = false;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
-            rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
-            wallJumpingCounter = 0f;
-
-            if (transform.localScale.x != wallJumpDirection)
-            {
-                Flip();
-            }
-            
-            Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
+        
+        _sprite.flipX = isWallSliding;
     }
 
     private void CheckIfPlayerCanWallJump()
@@ -150,6 +133,23 @@ public class TetsuoController : MonoBehaviour
         else
         {
             wallJumpingCounter -= Time.deltaTime;
+        }
+    }
+
+    public void WallJump(InputAction.CallbackContext context)
+    {
+        if (context.performed && wallJumpingCounter > 0f)
+        {
+            _isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
+            wallJumpingCounter = 0f;
+
+            if (transform.localScale.x != wallJumpDirection)
+            {
+                Flip();
+            }
+            
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
     }
 

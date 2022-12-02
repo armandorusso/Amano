@@ -3001,14 +3001,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tetsuo
       objectReference: {fileID: 0}
-    - target: {fileID: 3376676585700836228, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-      propertyPath: m_Size.x
-      value: 0.3155359
-      objectReference: {fileID: 0}
-    - target: {fileID: 3376676585700836228, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.035736978
-      objectReference: {fileID: 0}
     - target: {fileID: 4415898484591573548, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: dustGround
       value: 

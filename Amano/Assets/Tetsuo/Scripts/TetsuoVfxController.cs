@@ -18,17 +18,21 @@ public class TetsuoVfxController : MonoBehaviour
 
     private void OnWallSlidingEvent(object sender, TetsuoController.WallSlidingFxEventArgs e)
     {
-        if (isWallDustPlaying)
-            return;
-        
         if (!e.isSliding)
         {
-            isWallDustPlaying = false;
-            wallDustFx.Stop();
+            if (isWallDustPlaying)
+            {
+                Debug.Log("Stop WallDust Playing");
+                wallDustFx.Stop();
+                isWallDustPlaying = false;
+            }
         }
 
         if (e.isSliding)
         {
+            if (isWallDustPlaying)
+                return;
+            
             Debug.Log("Dust wall playing");
             var transformLocalScale = wallDustFx.gameObject.transform.localScale;
             if (e.isFacingRight)
