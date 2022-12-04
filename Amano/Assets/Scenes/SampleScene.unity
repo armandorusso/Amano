@@ -2951,6 +2951,10 @@ PrefabInstance:
       value: 0.094
       objectReference: {fileID: 0}
     - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}

@@ -114,14 +114,18 @@ public class TetsuoController : MonoBehaviour
         return Physics2D.OverlapCircle(wallCheckPoint.position, 0.2f, wallLayer);
     }
 
-    private bool UpdateIsFalling()
+    private void UpdateIsFalling()
     {
         if (!_isWallSliding && !_isGrounded && rb.velocity.y < 0)
         {
+            _isJumping = false;
             _isFalling = true;
         }
 
-        return _isFalling;
+        else
+        {
+            _isFalling = false;
+        }
     }
 
     private void WallSlide()
@@ -180,11 +184,6 @@ public class TetsuoController : MonoBehaviour
         }
     }
 
-    private void StopWallJumping()
-    {
-        _isWallJumping = false;
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
@@ -200,6 +199,11 @@ public class TetsuoController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
         jumpOrLandEventArgs.isDustActivated = false;
+    }
+
+    private void StopWallJumping()
+    {
+        _isWallJumping = false;
     }
 
     private void Flip()

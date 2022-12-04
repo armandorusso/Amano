@@ -33,11 +33,12 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isGrounded = _tetsuoController._isGrounded;
             _isWallSliding = _tetsuoController._isWallSliding;
         }
-        
+
+        SetJumpAnimation();
         SetFallingAnimation();
     }
 
-    public void SetJumpAnimation(InputAction.CallbackContext context)
+    private void SetJumpAnimation()
     {
         _animationController.SetBool("isJumping", _isJumping);
     }
