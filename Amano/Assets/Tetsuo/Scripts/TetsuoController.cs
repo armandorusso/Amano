@@ -13,31 +13,33 @@ public class TetsuoController : MonoBehaviour
 
     private float _horizontal;
     private float _speed = 4f;
+    
     private float _jumpingPower = 12f;
-    private bool _isJumping;
+    public bool _isJumping { get; private set; }
     private bool _isFacingRight = true;
     private float _isFacingRightScale = 1f;
-    public bool isGrounded;
+    public bool _isGrounded { get; set; }
     private SpriteRenderer _sprite;
 
     [SerializeField] private float wallSlideSpeed = 0f;
     [SerializeField] public Transform wallCheckPoint;
     [SerializeField] public LayerMask wallLayer;
-    public bool isWallSliding;
+    public bool _isWallSliding { get; private set; }
 
     [SerializeField] private Vector2 wallJumpPower;
     private float wallJumpDirection;
-    public bool _isWallJumping;
+    public bool _isWallJumping { get; private set; }
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
+
+    public bool _isFalling { get; private set; }
 
     public class WallSlidingFxEventArgs : EventArgs
     {
         public bool isSliding { get; set; }
         public bool isFacingRight { get; set; }
     }
-
     public static event EventHandler<WallSlidingFxEventArgs> wallSlidingEvent;
     private WallSlidingFxEventArgs wallSlidingEventArgs;
     
@@ -45,9 +47,17 @@ public class TetsuoController : MonoBehaviour
     {
         public bool isDustActivated { get; set; }
     }
-    
     public static event EventHandler<GroundFxEventArgs> jumpOrLandEvent;
     private GroundFxEventArgs jumpOrLandEventArgs;
+    
+    public class AnimationEventArgs : EventArgs
+    {
+        public bool isAnimationActivated { get; set; }
+    }
+    public static event EventHandler<AnimationEventArgs> animationEvent;
+    private AnimationEventArgs fallingEventArgs;
+    
+    
 
     void Start()
     {
@@ -55,7 +65,7 @@ public class TetsuoController : MonoBehaviour
         wallJumpDirection = -1f;
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
-            isSliding = isWallSliding,
+            isSliding = _isWallSliding,
             isFacingRight = _isFacingRight
         };
 
@@ -69,6 +79,7 @@ public class TetsuoController : MonoBehaviour
     {
         if(!_isWallJumping)
             rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
+        
         WallSlide();
         CheckIfPlayerCanWallJump();
         switch (_isFacingRight)
@@ -79,7 +90,8 @@ public class TetsuoController : MonoBehaviour
                     Flip();
                 break;
         }
-        SetAnimatorState();
+
+        UpdateIsFalling();
     }
 
     private void FixedUpdate()
@@ -89,9 +101,12 @@ public class TetsuoController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        // var ray = Physics2D.Raycast(groundCheck.position, Vector2.down);
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        return isGrounded;
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        
+        if (_isGrounded)
+            _isFalling = false;
+        
+        return _isGrounded;
     }
 
     private bool IsTouchingWall()
@@ -99,31 +114,42 @@ public class TetsuoController : MonoBehaviour
         return Physics2D.OverlapCircle(wallCheckPoint.position, 0.2f, wallLayer);
     }
 
+    private bool UpdateIsFalling()
+    {
+        if (!_isWallSliding && !_isGrounded && rb.velocity.y < 0)
+        {
+            _isFalling = true;
+        }
+
+        return _isFalling;
+    }
+
     private void WallSlide()
     {
         if (IsTouchingWall() && !IsGrounded() &&
             _horizontal != 0) // if you are falling and are running towards the wall
         {
-            isWallSliding = true;
-            wallSlidingEventArgs.isSliding = isWallSliding;
+            _isWallSliding = true;
+            _isFalling = false;
+            wallSlidingEventArgs.isSliding = _isWallSliding;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
             rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
         }
         else
         {
-            isWallSliding = false;
+            _isWallSliding = false;
             wallSlidingEventArgs.isSliding = false;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
         }
         
-        _sprite.flipX = isWallSliding;
+        _sprite.flipX = _isWallSliding;
     }
 
     private void CheckIfPlayerCanWallJump()
     {
-        if (isWallSliding)
+        if (_isWallSliding)
         {
             _isWallJumping = false;
             wallJumpDirection = -transform.localScale.x;
@@ -141,6 +167,7 @@ public class TetsuoController : MonoBehaviour
         if (context.performed && wallJumpingCounter > 0f)
         {
             _isWallJumping = true;
+            _isFalling = false;
             rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpingCounter = 0f;
 
@@ -162,7 +189,7 @@ public class TetsuoController : MonoBehaviour
     {
         if (context.performed && IsGrounded())
         {
-            animator.SetBool("isJumping", true);
+            _isJumping = true;
             jumpOrLandEventArgs.isDustActivated = true;
             jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
             rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
@@ -170,7 +197,6 @@ public class TetsuoController : MonoBehaviour
 
         if (context.canceled && rb.velocity.y > 0)
         {
-            animator.SetBool("isJumping", false);
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
         jumpOrLandEventArgs.isDustActivated = false;
@@ -206,17 +232,18 @@ public class TetsuoController : MonoBehaviour
     {
         if (_horizontal is > 0f or < 0f && IsGrounded())
         {
-            if (_speed == 4f)
+            switch (_speed)
             {
-                animator.SetBool("isJumping", false);
-                animator.SetBool("isWalking", true);
-                animator.SetBool("isRunning", false);
-            }
-            else if (_speed == 6f)
-            {
-                animator.SetBool("isJumping", false);
-                animator.SetBool("isWalking", false);
-                animator.SetBool("isRunning", true);
+                case 4f:
+                    animator.SetBool("isJumping", false);
+                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isRunning", false);
+                    break;
+                case 6f:
+                    animator.SetBool("isJumping", false);
+                    animator.SetBool("isWalking", false);
+                    animator.SetBool("isRunning", true);
+                    break;
             }
         }
         else
@@ -225,7 +252,7 @@ public class TetsuoController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
 
-        if (isWallSliding)
+        if (_isWallSliding)
         {
             animator.SetBool("isJumping", false);
             animator.SetBool("isWallSliding", true);

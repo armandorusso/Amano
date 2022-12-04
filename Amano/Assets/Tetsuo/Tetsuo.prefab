@@ -178,7 +178,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 8f957499602d1084c85f25a248d707ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   animator: {fileID: 5587403623764837078}
-  isGrounded: 0
+  _isGrounded: 0
   wallSlideSpeed: 0.01
   wallCheckPoint: {fileID: 263263850758630252}
   wallLayer:
@@ -316,6 +316,18 @@ MonoBehaviour:
       - m_Target: {fileID: 4415898484591573548}
         m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
         m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TetsuoAnimatorController, Assembly-CSharp
+        m_MethodName: JumpAnimation
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

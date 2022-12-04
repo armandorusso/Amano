@@ -2263,6 +2263,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 334207595340738681, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
   amountToPool: 10
+--- !u!1 &1702494687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3365518849668369170, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+  m_PrefabInstance: {fileID: 3365518847721839498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1797884896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2945,6 +2950,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.094
       objectReference: {fileID: 0}
+    - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3365518847721839525}
+    - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TetsuoController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2063878399030481582, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.276
@@ -3128,6 +3149,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   m_PrefabInstance: {fileID: 3365518847721839498}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3365518847721839525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702494687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ea8459deda46d44bf9960b57c31244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6792691748186174627
 PrefabInstance:
   m_ObjectHideFlags: 0
