@@ -41,6 +41,7 @@ public class TetsuoAnimatorController : MonoBehaviour
     private void SetJumpAnimation()
     {
         _animationController.SetBool("isJumping", _isJumping);
+        // Try Crossfade instead? Blends smoothly between animations
     }
 
     private void SetFallingAnimation()

@@ -102,10 +102,13 @@ public class TetsuoController : MonoBehaviour
     private bool IsGrounded()
     {
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        
+
         if (_isGrounded)
+        {
+            _isJumping = false;
             _isFalling = false;
-        
+        }
+
         return _isGrounded;
     }
 
@@ -135,6 +138,7 @@ public class TetsuoController : MonoBehaviour
         {
             _isWallSliding = true;
             _isFalling = false;
+            _isJumping = false;
             wallSlidingEventArgs.isSliding = _isWallSliding;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
@@ -172,6 +176,7 @@ public class TetsuoController : MonoBehaviour
         {
             _isWallJumping = true;
             _isFalling = false;
+            _isJumping = true;
             rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpingCounter = 0f;
 
