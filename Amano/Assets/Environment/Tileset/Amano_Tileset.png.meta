@@ -108,8 +108,8 @@ TextureImporter:
       name: Amano_Tileset_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 176
+        x: 48
+        y: 208
         width: 16
         height: 16
       alignment: 0
@@ -129,7 +129,7 @@ TextureImporter:
       name: Amano_Tileset_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 176
         width: 16
         height: 16
@@ -150,7 +150,7 @@ TextureImporter:
       name: Amano_Tileset_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 176
         width: 16
         height: 16
@@ -171,8 +171,8 @@ TextureImporter:
       name: Amano_Tileset_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
+        x: 64
+        y: 176
         width: 16
         height: 16
       alignment: 0
@@ -192,8 +192,8 @@ TextureImporter:
       name: Amano_Tileset_4
       rect:
         serializedVersion: 2
-        x: 48
-        y: 160
+        x: 96
+        y: 176
         width: 16
         height: 16
       alignment: 0
@@ -213,8 +213,8 @@ TextureImporter:
       name: Amano_Tileset_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
+        x: 112
+        y: 176
         width: 16
         height: 16
       alignment: 0
@@ -235,7 +235,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 144
+        y: 160
         width: 16
         height: 16
       alignment: 0
@@ -256,7 +256,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
-        y: 144
+        y: 160
         width: 16
         height: 16
       alignment: 0
@@ -277,7 +277,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 144
+        y: 160
         width: 16
         height: 16
       alignment: 0
@@ -289,6 +289,111 @@ TextureImporter:
       bones: []
       spriteID: d5df7039e4c1eea418a9dc6430a18032
       internalID: 1881095297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0d6559c408f5834f8cfa59eca2c74a5
+      internalID: -1727032532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_10
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a57ce31dae733844c9291c53f1f8ec83
+      internalID: 314016427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_11
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d84e3ce742e5b304885839a9dbd96d00
+      internalID: 878291856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_12
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70c773fc1757c694a9dccee8064d7147
+      internalID: 1749461432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e42b68be5d68034e949852d06e4bf47
+      internalID: -2138245044
       vertices: []
       indices: 
       edges: []
@@ -305,14 +410,19 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Amano_Tileset_5: -529967631
+      Amano_Tileset_11: 878291856
       Amano_Tileset_4: 2145637530
       Amano_Tileset_7: -226341769
       Amano_Tileset_0: 797268712
       Amano_Tileset_2: -1050599220
+      Amano_Tileset_10: 314016427
+      Amano_Tileset_12: 1749461432
       Amano_Tileset_1: 1561057721
       Amano_Tileset_3: -2064496268
+      Amano_Tileset_13: -2138245044
       Amano_Tileset_8: 1881095297
       Amano_Tileset_6: 874230940
+      Amano_Tileset_9: -1727032532
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
