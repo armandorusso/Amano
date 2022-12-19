@@ -245,15 +245,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   animator: {fileID: 5587403623764837078}
-  _isGrounded: 0
   wallSlideSpeed: 0.01
   wallCheckPoint: {fileID: 263263850758630252}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 512
-  isWallSliding: 0
+    m_Bits: 768
   wallJumpPower: {x: 5.6, y: 9}
-  _isWallJumping: 0
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0
