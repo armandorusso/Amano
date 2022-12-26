@@ -12,7 +12,7 @@ public class TetsuoController : MonoBehaviour
     [SerializeField] public Animator animator;
 
     private float _horizontal;
-    private float _speed = 4f;
+    private float _speed = 6f;
     
     private float _jumpingPower = 12f;
     public bool _isJumping { get; private set; }
@@ -34,6 +34,8 @@ public class TetsuoController : MonoBehaviour
     private float wallJumpingDuration = 0.4f;
 
     public bool _isFalling { get; private set; }
+    public bool _isWalking { get; private set; }
+    public bool _isRunning { get; private set; }
 
     public class WallSlidingFxEventArgs : EventArgs
     {
@@ -73,6 +75,8 @@ public class TetsuoController : MonoBehaviour
         {
             isDustActivated = false
         };
+        _isWalking = false;
+        _isRunning = true;
     }
 
     void Update()
@@ -225,15 +229,20 @@ public class TetsuoController : MonoBehaviour
         _horizontal = context.ReadValue<Vector2>().x;
     }
 
-    public void Run(InputAction.CallbackContext context)
+    public void Walk(InputAction.CallbackContext context)
     {
-        if (_horizontal is > 0f or < 0f && context.performed)
+        if (!context.started) return;
+        if (_isRunning)
         {
-            _speed = 6f;
-        }
-        else if (context.canceled)
-        {
+            _isRunning = false;
+            _isWalking = true;
             _speed = 4f;
+        }
+        else
+        {
+            _isRunning = true;
+            _isWalking = false;
+            _speed = 6f;
         }
     }
 
@@ -241,19 +250,9 @@ public class TetsuoController : MonoBehaviour
     {
         if (_horizontal is > 0f or < 0f && IsGrounded())
         {
-            switch (_speed)
-            {
-                case 4f:
-                    animator.SetBool("isJumping", false);
-                    animator.SetBool("isWalking", true);
-                    animator.SetBool("isRunning", false);
-                    break;
-                case 6f:
-                    animator.SetBool("isJumping", false);
-                    animator.SetBool("isWalking", false);
-                    animator.SetBool("isRunning", true);
-                    break;
-            }
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isWalking", _isWalking);
+            animator.SetBool("isRunning", _isRunning);
         }
         else
         {

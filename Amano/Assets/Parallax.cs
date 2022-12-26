@@ -16,8 +16,9 @@ public class Parallax : MonoBehaviour
     private float distanceFromPlayer => transform.position.z - player.position.z;
 
     private float clippingPlane => (camera.transform.position.z +
-                                    (distanceFromPlayer > 0 ? camera.farClipPlane : camera.nearClipPlane));
-    private float parallaxFactor => Mathf.Abs(distanceFromPlayer) / clippingPlane;
+                                    (distanceFromPlayer > 0 ? camera.farClipPlane : camera.nearClipPlane)); // Used to take into account things that are nearer to move in the opposite direction
+                                                                                                            // (different value for the parallax factor when its closer)
+    private float parallaxFactor => Mathf.Abs(distanceFromPlayer) / clippingPlane; // Determines the speed when the background moves. This depends on how far the background is from the subject (player) 
 
     private void Start()
     {
@@ -27,7 +28,7 @@ public class Parallax : MonoBehaviour
 
     private void Update()
     {
-        var pos = transform.position = startPosition + travel * parallaxFactor;
+        var pos = startPosition + travel * parallaxFactor;
         transform.position = new Vector3(pos.x, pos.y, startZ);
     }
 }

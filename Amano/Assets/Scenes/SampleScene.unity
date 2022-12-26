@@ -383,6 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 344386159}
   - component: {fileID: 344386158}
+  - component: {fileID: 344386160}
   m_Layer: 0
   m_Name: Amano_Parallax - 2
   m_TagString: Untagged
@@ -457,6 +458,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &344386160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344386157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a75b544d60bce4b930985e65b85aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 519420031}
+  player: {fileID: 3365518847721839515}
 --- !u!1 &430638179
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +696,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.92549026, g: 0.5254902, b: 0.37254903, a: 0}
+  m_BackGroundColor: {r: 0.9960785, g: 0.6509804, b: 0.45882356, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5434,10 +5449,6 @@ PrefabInstance:
     - target: {fileID: 1699846089903928653, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.094
-      objectReference: {fileID: 0}
-    - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1773835547415062491, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode

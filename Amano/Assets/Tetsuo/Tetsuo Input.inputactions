@@ -273,7 +273,7 @@
                 {
                     "name": "",
                     "id": "512c15d5-e596-4078-aafd-2bb7d69c6c18",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
