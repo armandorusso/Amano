@@ -15,6 +15,7 @@ public class TetsuoController : MonoBehaviour
     private float _speed = 6f;
     
     private float _jumpingPower = 12f;
+    private float _gravityScale;
     public bool _isJumping { get; private set; }
     private bool _isFacingRight = true;
     private float _isFacingRightScale = 1f;
@@ -36,6 +37,8 @@ public class TetsuoController : MonoBehaviour
     public bool _isFalling { get; private set; }
     public bool _isWalking { get; private set; }
     public bool _isRunning { get; private set; }
+    public bool _isWallSticking { get; private set; }
+    private float _WallStickingTimer = 120f;
 
     public class WallSlidingFxEventArgs : EventArgs
     {
@@ -65,6 +68,7 @@ public class TetsuoController : MonoBehaviour
     {
         _sprite = GetComponent<SpriteRenderer>();
         wallJumpDirection = -1f;
+        _gravityScale = rb.gravityScale;
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
             isSliding = _isWallSliding,
@@ -77,11 +81,12 @@ public class TetsuoController : MonoBehaviour
         };
         _isWalking = false;
         _isRunning = true;
+        _isWallSticking = false;
     }
 
     void Update()
     {
-        if(!_isWallJumping)
+        if(!_isWallJumping && !_isWallSticking)
             rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
         
         WallSlide();
@@ -100,17 +105,19 @@ public class TetsuoController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        StickToWall();
         SetAnimatorState();
     }
 
     private bool IsGrounded()
     {
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-
         if (_isGrounded)
         {
             _isJumping = false;
             _isFalling = false;
+            _isWallSticking = false;
+            _WallStickingTimer = 120f;
         }
 
         return _isGrounded;
@@ -128,17 +135,32 @@ public class TetsuoController : MonoBehaviour
             _isJumping = false;
             _isFalling = true;
         }
-
         else
         {
             _isFalling = false;
         }
     }
 
+    private void StickToWall()
+    {
+        if (IsTouchingWall() && !IsGrounded() && _horizontal != 0 && _WallStickingTimer > 0f)
+        {
+            _isWallSticking = true;
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
+            _WallStickingTimer--;
+        }
+        else
+        {
+            _isWallSticking = false;
+            rb.gravityScale = _gravityScale;
+        }
+    }
+
     private void WallSlide()
     {
-        if (IsTouchingWall() && !IsGrounded() &&
-            _horizontal != 0) // if you are falling and are running towards the wall
+        if (IsTouchingWall() && !IsGrounded() && !_isWallSticking
+            && _horizontal != 0) // if you are falling and are running towards the wall
         {
             _isWallSliding = true;
             _isFalling = false;
@@ -161,7 +183,7 @@ public class TetsuoController : MonoBehaviour
 
     private void CheckIfPlayerCanWallJump()
     {
-        if (_isWallSliding)
+        if (_isWallSliding || _isWallSticking)
         {
             _isWallJumping = false;
             wallJumpDirection = -transform.localScale.x;
