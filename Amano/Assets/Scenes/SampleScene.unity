@@ -4242,11 +4242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 334207595340738681, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
   amountToPool: 10
---- !u!1 &1702494687 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3365518849668369170, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-  m_PrefabInstance: {fileID: 3365518847721839498}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1797884896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5860,13 +5855,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   m_PrefabInstance: {fileID: 3365518847721839498}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3365518847721839525
+--- !u!114 &3365518847721839525 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4774640018617696223, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+  m_PrefabInstance: {fileID: 3365518847721839498}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702494687}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94ea8459deda46d44bf9960b57c31244, type: 3}

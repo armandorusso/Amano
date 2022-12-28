@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 4857226855842975782}
   - component: {fileID: 8634714177944014448}
   - component: {fileID: 8999089129893173837}
+  - component: {fileID: 4774640018617696223}
   m_Layer: 0
   m_Name: Tetsuo
   m_TagString: Untagged
@@ -481,6 +482,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundDustFx: {fileID: 0}
   wallDustFx: {fileID: 580608158163245011}
+--- !u!114 &4774640018617696223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ea8459deda46d44bf9960b57c31244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7574503943195773515
 GameObject:
   m_ObjectHideFlags: 0
