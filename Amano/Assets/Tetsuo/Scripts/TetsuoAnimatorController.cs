@@ -54,6 +54,11 @@ public class TetsuoAnimatorController : MonoBehaviour
 
     private void SetWallHoldingAnimation()
     {
+        if (!_isFalling && _isWallSticking)
+        {
+            _animationController.SetBool("isWallSliding", true);
+            return;
+        }
         _animationController.SetBool("isWallSliding", _isWallSliding);
         _animationController.SetBool("isWallSticking", _isWallSticking);
     }

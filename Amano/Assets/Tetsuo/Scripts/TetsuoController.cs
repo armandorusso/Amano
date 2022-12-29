@@ -88,7 +88,7 @@ public class TetsuoController : MonoBehaviour
         {
             case false when _horizontal > 0f:
             case true when _horizontal < 0f:
-                if(!_isWallJumping)
+                if(!_isWallJumping || !_isWallSticking)
                     Flip();
                 break;
         }
@@ -104,7 +104,7 @@ public class TetsuoController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, groundLayer);
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (_isGrounded)
         {
             _isJumping = false;
@@ -139,6 +139,7 @@ public class TetsuoController : MonoBehaviour
         if (IsTouchingWall() && !IsGrounded() && _horizontal != 0 && _WallStickingTimer > 0f)
         {
             _isWallSticking = true;
+            _isWallSliding = false;
             _isFalling = false;
             _isJumping = false;
             rb.gravityScale = 0f;
@@ -151,7 +152,7 @@ public class TetsuoController : MonoBehaviour
             rb.gravityScale = _gravityScale;
         }
         
-        _sprite.flipX = _isWallSliding;
+        _sprite.flipX = _isWallSticking;
     }
 
     private void WallSlide()
@@ -159,6 +160,7 @@ public class TetsuoController : MonoBehaviour
         if (IsTouchingWall() && !IsGrounded() && !_isWallSticking
             && _horizontal != 0) // if you are falling and are running towards the wall
         {
+            _sprite.flipX = _isWallSliding;
             _isWallSliding = true;
             wallSlidingEventArgs.isSliding = _isWallSliding;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
@@ -174,8 +176,6 @@ public class TetsuoController : MonoBehaviour
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
         }
-        
-        _sprite.flipX = _isWallSliding;
     }
 
     private void CheckIfPlayerCanWallJump()
@@ -277,16 +277,6 @@ public class TetsuoController : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
             animator.SetBool("isRunning", false);
-        }
-
-        if (_isWallSliding)
-        {
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isWallSliding", true);
-        }
-        else
-        {
-            animator.SetBool("isWallSliding", false);
         }
     }
 
