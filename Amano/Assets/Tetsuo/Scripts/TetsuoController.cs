@@ -10,36 +10,34 @@ public class TetsuoController : MonoBehaviour
     [SerializeField] public Transform groundCheck;
     [SerializeField] public LayerMask groundLayer;
     [SerializeField] public Animator animator;
-
+    
+    [Header("Movement")]
     private float _horizontal;
     private float _speed = 6f;
-    
-    private float _jumpingPower = 12f;
-    private float _gravityScale;
-    public bool _isJumping { get; private set; }
-    private bool _isFacingRight = true;
-    private float _isFacingRightScale = 1f;
     public bool _isGrounded { get; set; }
+    public bool _isWalking { get; private set; }
+    public bool _isRunning { get; private set; }
+    private bool _isFacingRight { get; set; }
+    private float _isFacingRightScale = 1f;
     private SpriteRenderer _sprite;
+        
+    public class GroundFxEventArgs : EventArgs
+    {
+        public bool isDustActivated { get; set; }
+    }
+    public static event EventHandler<GroundFxEventArgs> jumpOrLandEvent;
+    private GroundFxEventArgs jumpOrLandEventArgs;
 
+    [Header("Jumping")]
+    private float _jumpingPower = 12f;
+    public bool _isJumping { get; private set; }
+    public bool _isFalling { get; private set; }
+
+    [Header("Wallsliding")]
     [SerializeField] private float wallSlideSpeed = 0f;
     [SerializeField] public Transform wallCheckPoint;
     [SerializeField] public LayerMask wallLayer;
     public bool _isWallSliding { get; private set; }
-
-    [SerializeField] private Vector2 wallJumpPower;
-    private float wallJumpDirection;
-    public bool _isWallJumping { get; private set; }
-    private float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
-
-    public bool _isFalling { get; private set; }
-    public bool _isWalking { get; private set; }
-    public bool _isRunning { get; private set; }
-    public bool _isWallSticking { get; private set; }
-    private float _WallStickingTimer = 120f;
-
     public class WallSlidingFxEventArgs : EventArgs
     {
         public bool isSliding { get; set; }
@@ -47,14 +45,18 @@ public class TetsuoController : MonoBehaviour
     }
     public static event EventHandler<WallSlidingFxEventArgs> wallSlidingEvent;
     private WallSlidingFxEventArgs wallSlidingEventArgs;
+
+    [Header("Walljumping")]
+    [SerializeField] private Vector2 wallJumpPower;
+    private float wallJumpDirection;
+    public bool _isWallJumping { get; private set; }
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
     
-    public class GroundFxEventArgs : EventArgs
-    {
-        public bool isDustActivated { get; set; }
-    }
-    public static event EventHandler<GroundFxEventArgs> jumpOrLandEvent;
-    private GroundFxEventArgs jumpOrLandEventArgs;
-    
+    public bool _isWallSticking { get; private set; }
+    private float _gravityScale;
+    private float _WallStickingTimer = 2f;
 
     void Start()
     {
@@ -74,16 +76,11 @@ public class TetsuoController : MonoBehaviour
         
         _isWalking = false;
         _isRunning = true;
-        _isWallSticking = false;
+        _isFacingRight = true;
     }
 
     void Update()
     {
-        if(!_isWallJumping && !_isWallSticking)
-            rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
-        
-        WallSlide();
-        CheckIfPlayerCanWallJump();
         switch (_isFacingRight)
         {
             case false when _horizontal > 0f:
@@ -92,25 +89,29 @@ public class TetsuoController : MonoBehaviour
                     Flip();
                 break;
         }
-
-        UpdateIsFalling();
     }
 
     private void FixedUpdate()
     {
+        UpdateIsGrounded();
+        UpdateIsFalling();
         StickToWall();
+        WallSlide();
+        CheckIfPlayerCanWallJump();
+        
+        if(!_isWallJumping && !_isWallSticking)
+            rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
+        
         SetAnimatorState();
     }
 
-    private bool IsGrounded()
+    private bool UpdateIsGrounded()
     {
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (_isGrounded)
         {
-            _isJumping = false;
-            _isFalling = false;
             _isWallSticking = false;
-            _WallStickingTimer = 120f;
+            _WallStickingTimer = 2f;
         }
         Debug.Log("Is Ground: " + _isGrounded);
         return _isGrounded;
@@ -118,14 +119,13 @@ public class TetsuoController : MonoBehaviour
 
     private bool IsTouchingWall()
     {
-        return Physics2D.OverlapCircle(wallCheckPoint.position, 0.2f, wallLayer);
+        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.03956366f, 0.7018313f), 0, wallLayer, 0, 0);
     }
 
     private void UpdateIsFalling()
     {
         if ( (!_isWallSliding || !_isWallSticking) && !_isGrounded && rb.velocity.y < 0)
         {
-            _isJumping = false;
             _isFalling = true;
         }
         else
@@ -136,15 +136,13 @@ public class TetsuoController : MonoBehaviour
 
     private void StickToWall()
     {
-        if (IsTouchingWall() && !IsGrounded() && _horizontal != 0 && _WallStickingTimer > 0f)
+        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && _WallStickingTimer > 0f)
         {
             _isWallSticking = true;
             _isWallSliding = false;
-            _isFalling = false;
-            _isJumping = false;
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
-            _WallStickingTimer--;
+            _WallStickingTimer -= Time.deltaTime;
         }
         else
         {
@@ -157,17 +155,16 @@ public class TetsuoController : MonoBehaviour
 
     private void WallSlide()
     {
-        if (IsTouchingWall() && !IsGrounded() && !_isWallSticking
+        if (IsTouchingWall() && !_isGrounded && !_isWallSticking
             && _horizontal != 0) // if you are falling and are running towards the wall
         {
             _sprite.flipX = _isWallSliding;
+            rb.gravityScale = _gravityScale;
             _isWallSliding = true;
             wallSlidingEventArgs.isSliding = _isWallSliding;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
             rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
-            _isFalling = false;
-            _isJumping = false;
         }
         else
         {
@@ -195,11 +192,12 @@ public class TetsuoController : MonoBehaviour
 
     public void WallJump(InputAction.CallbackContext context)
     {
-        if (context.performed && IsTouchingWall() && wallJumpingCounter > 0f)
+        Debug.Log("WallJumped: " + IsTouchingWall());
+        if (context.performed && (_isWallSticking || _isWallSliding) && wallJumpingCounter > 0f)
         {
+            Debug.Log("Executed WallJump");
             _isWallJumping = true;
-            _isFalling = false;
-            _isJumping = true;
+            rb.gravityScale = _gravityScale;
             rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpingCounter = 0f;
 
@@ -214,7 +212,7 @@ public class TetsuoController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGrounded())
+        if (context.performed && _isGrounded && !(_isWallSliding || _isWallSticking))
         {
             _isJumping = true;
             jumpOrLandEventArgs.isDustActivated = true;
@@ -225,6 +223,7 @@ public class TetsuoController : MonoBehaviour
         if (context.canceled && rb.velocity.y > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            _isJumping = false;
         }
         jumpOrLandEventArgs.isDustActivated = false;
     }
@@ -267,7 +266,7 @@ public class TetsuoController : MonoBehaviour
 
     private void SetAnimatorState()
     {
-        if (_horizontal is > 0f or < 0f && IsGrounded())
+        if (_horizontal is > 0f or < 0f && UpdateIsGrounded())
         {
             animator.SetBool("isJumping", false);
             animator.SetBool("isWalking", _isWalking);
@@ -280,4 +279,9 @@ public class TetsuoController : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), new Vector2(1, 1));
+    }
 }

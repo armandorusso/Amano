@@ -104,8 +104,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3365518849668369168}
   - component: {fileID: 3365518849668369171}
-  - component: {fileID: 3376676585700836228}
   - component: {fileID: -6485009791357503609}
+  - component: {fileID: 8363664640580913995}
   - component: {fileID: 4415898484591573548}
   - component: {fileID: 1773835547415062491}
   - component: {fileID: 5587403623764837078}
@@ -191,22 +191,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &3376676585700836228
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3365518849668369170}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.035736978, y: 0}
-  m_Size: {x: 0.3155359, y: 1}
-  m_Direction: 0
 --- !u!50 &-6485009791357503609
 Rigidbody2D:
   serializedVersion: 4
@@ -228,6 +212,32 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!61 &8363664640580913995
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.02902776, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.3116294, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &4415898484591573548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +254,7 @@ MonoBehaviour:
   groundCheck: {fileID: 7750300403286753087}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1280
   animator: {fileID: 5587403623764837078}
   wallSlideSpeed: 0.01
   wallCheckPoint: {fileID: 263263850758630252}
