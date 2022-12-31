@@ -50,7 +50,7 @@ public class TetsuoController : MonoBehaviour
     [SerializeField] private Vector2 wallJumpPower;
     private float wallJumpDirection;
     public bool _isWallJumping { get; private set; }
-    private float wallJumpingTime = 0.2f;
+    private float wallJumpingTime;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
     
@@ -58,10 +58,16 @@ public class TetsuoController : MonoBehaviour
     private float _gravityScale;
     private float _WallStickingTimer = 2f;
 
+    [SerializeField] public float dashPower;
+    public bool _hasDashed { get; private set; }
+    public bool _isDashing { get; private set; }
+    [SerializeField] public float dashTime;
+
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
         wallJumpDirection = -1f;
+        wallJumpingTime = 0.2f;
         _gravityScale = rb.gravityScale;
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
@@ -85,7 +91,7 @@ public class TetsuoController : MonoBehaviour
         {
             case false when _horizontal > 0f:
             case true when _horizontal < 0f:
-                if(!_isWallJumping || !_isWallSticking)
+                if(!_isWallJumping)
                     Flip();
                 break;
         }
@@ -99,7 +105,7 @@ public class TetsuoController : MonoBehaviour
         WallSlide();
         CheckIfPlayerCanWallJump();
         
-        if(!_isWallJumping && !_isWallSticking)
+        if(!_isWallJumping)
             rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
         
         SetAnimatorState();
@@ -112,6 +118,7 @@ public class TetsuoController : MonoBehaviour
         {
             _isWallSticking = false;
             _WallStickingTimer = 2f;
+            _hasDashed = false;
         }
         Debug.Log("Is Ground: " + _isGrounded);
         return _isGrounded;
@@ -195,7 +202,7 @@ public class TetsuoController : MonoBehaviour
         Debug.Log("WallJumped: " + IsTouchingWall());
         if (context.performed && (_isWallSticking || _isWallSliding) && wallJumpingCounter > 0f)
         {
-            Debug.Log("Executed WallJump");
+            Debug.Log("Walljump direction: " + wallJumpDirection);
             _isWallJumping = true;
             rb.gravityScale = _gravityScale;
             rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
@@ -243,8 +250,27 @@ public class TetsuoController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        animator.SetBool("isJumping", false);
         _horizontal = context.ReadValue<Vector2>().x;
+    }
+
+    public void DashAttack(InputAction.CallbackContext context)
+    {
+        if (context.started && !_hasDashed)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        Debug.Log("Dash");
+        _hasDashed = true;
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
+        _isDashing = true;
+        yield return new WaitForSeconds(3f);
+        rb.gravityScale = _gravityScale;
+        _isDashing = false;
     }
 
     public void Walk(InputAction.CallbackContext context)
