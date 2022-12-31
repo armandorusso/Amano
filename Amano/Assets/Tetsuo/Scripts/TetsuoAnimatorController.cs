@@ -13,6 +13,7 @@ public class TetsuoAnimatorController : MonoBehaviour
     private bool _isGrounded;
     private bool _isWallSliding;
     private bool _isWallSticking;
+    private bool _isDashing;
 
     private TetsuoController _tetsuoController;
 
@@ -34,11 +35,18 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isGrounded = _tetsuoController._isGrounded;
             _isWallSticking = _tetsuoController._isWallSticking;
             _isWallSliding = _tetsuoController._isWallSliding;
+            _isDashing = _tetsuoController._isDashing;
         }
 
         SetJumpAnimation();
         SetFallingAnimation();
         SetWallHoldingAnimation();
+        SetDashingAnimation();
+    }
+
+    private void SetDashingAnimation()
+    {
+        _animationController.SetBool("isDashing", _isDashing);
     }
 
     private void SetJumpAnimation()

@@ -22,6 +22,7 @@ public class TetsuoController : MonoBehaviour
     private bool _isFacingRight { get; set; }
     private float _isFacingRightScale = 1f;
     private SpriteRenderer _sprite;
+    private Color _spriteOriginalColor;
         
     public class GroundFxEventArgs : EventArgs
     {
@@ -55,7 +56,9 @@ public class TetsuoController : MonoBehaviour
     private float wallJumpingTime;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
-    
+
+    [Header("Wall Sticking")]
+    private Color _outOfStaminaColor = Color.red;
     public bool _isWallSticking { get; private set; }
     private float _gravityScale;
     private float _WallStickingTimer = 2f;
@@ -73,6 +76,7 @@ public class TetsuoController : MonoBehaviour
     {
         _sprite = GetComponent<SpriteRenderer>();
         _dashTrail = GetComponent<TrailRenderer>();
+        _spriteOriginalColor = _sprite.color;
         wallJumpDirection = -1f;
         wallJumpingTime = 0.2f;
         _gravityScale = rb.gravityScale;
@@ -168,12 +172,15 @@ public class TetsuoController : MonoBehaviour
             _isWallSliding = false;
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
+            _sprite.color = Color.Lerp(_sprite.color, _outOfStaminaColor, Time.deltaTime / _WallStickingTimer);
             _WallStickingTimer -= Time.deltaTime;
         }
         else
         {
             _isWallSticking = false;
             rb.gravityScale = _gravityScale;
+            if(_isGrounded)
+                _sprite.color = _spriteOriginalColor;
         }
         
         _sprite.flipX = _isWallSticking;
@@ -240,7 +247,10 @@ public class TetsuoController : MonoBehaviour
     {
         if (context.performed && _isGrounded && !(_isWallSliding || _isWallSticking))
         {
-            _isJumping = true;
+            if (!_isFalling)
+                _isJumping = true;
+            else
+                _isJumping = false;
             jumpOrLandEventArgs.isDustActivated = true;
             jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
             rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
@@ -335,7 +345,7 @@ public class TetsuoController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), new Vector2(1, 1));
+        // Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), new Vector2(1, 1));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
