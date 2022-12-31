@@ -13,6 +13,7 @@ public class TetsuoController : MonoBehaviour
     
     [Header("Movement")]
     private float _horizontal;
+    private float _vertical;
     private float _speed = 6f;
     public bool _isGrounded { get; set; }
     public bool _isWalking { get; private set; }
@@ -33,7 +34,7 @@ public class TetsuoController : MonoBehaviour
     public bool _isJumping { get; private set; }
     public bool _isFalling { get; private set; }
 
-    [Header("Wallsliding")]
+    [Header("Wall Sliding")]
     [SerializeField] private float wallSlideSpeed = 0f;
     [SerializeField] public Transform wallCheckPoint;
     [SerializeField] public LayerMask wallLayer;
@@ -46,7 +47,7 @@ public class TetsuoController : MonoBehaviour
     public static event EventHandler<WallSlidingFxEventArgs> wallSlidingEvent;
     private WallSlidingFxEventArgs wallSlidingEventArgs;
 
-    [Header("Walljumping")]
+    [Header("Wall Jumping")]
     [SerializeField] private Vector2 wallJumpPower;
     private float wallJumpDirection;
     public bool _isWallJumping { get; private set; }
@@ -58,14 +59,18 @@ public class TetsuoController : MonoBehaviour
     private float _gravityScale;
     private float _WallStickingTimer = 2f;
 
+    [Header("Dash Attack")]
     [SerializeField] public float dashPower;
+    [SerializeField] public float dashTime;
+    [SerializeField] public float dashCooldown;
+    private TrailRenderer _dashTrail;
     public bool _hasDashed { get; private set; }
     public bool _isDashing { get; private set; }
-    [SerializeField] public float dashTime;
 
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
+        _dashTrail = GetComponent<TrailRenderer>();
         wallJumpDirection = -1f;
         wallJumpingTime = 0.2f;
         _gravityScale = rb.gravityScale;
@@ -99,6 +104,8 @@ public class TetsuoController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isDashing)
+            return;
         UpdateIsGrounded();
         UpdateIsFalling();
         StickToWall();
@@ -251,6 +258,7 @@ public class TetsuoController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         _horizontal = context.ReadValue<Vector2>().x;
+        _vertical = context.ReadValue<Vector2>().y;
     }
 
     public void DashAttack(InputAction.CallbackContext context)
@@ -266,11 +274,14 @@ public class TetsuoController : MonoBehaviour
         Debug.Log("Dash");
         _hasDashed = true;
         rb.gravityScale = 0f;
-        rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
+        _dashTrail.emitting = true;
+        rb.velocity = new Vector2(dashPower * _horizontal, dashPower * _vertical);
         _isDashing = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(dashTime);
+        _dashTrail.emitting = false;
         rb.gravityScale = _gravityScale;
         _isDashing = false;
+        yield return new WaitForSeconds(dashCooldown);
     }
 
     public void Walk(InputAction.CallbackContext context)
