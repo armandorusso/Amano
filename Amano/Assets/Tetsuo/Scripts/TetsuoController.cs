@@ -298,6 +298,7 @@ public class TetsuoController : MonoBehaviour
         _hasDashed = true;
         rb.gravityScale = 0f;
         _dashTrail.emitting = true;
+        _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150);
         rb.velocity = new Vector2(dashPower * _horizontal, dashPower * _vertical);
         _isDashing = true;
         yield return new WaitForSeconds(dashTime);
@@ -306,8 +307,11 @@ public class TetsuoController : MonoBehaviour
         _isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         _doneDashing = true;
+        _sprite.color = _spriteOriginalColor;
         if (_isGrounded)
+        {
             _hasDashed = false;
+        }
     }
 
     public void Walk(InputAction.CallbackContext context)
