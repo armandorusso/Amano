@@ -18,6 +18,7 @@ public class TetsuoController : MonoBehaviour
     public bool _isGrounded { get; set; }
     public bool _isWalking { get; private set; }
     public bool _isRunning { get; private set; }
+    public bool _hasLanded { get; private set; }
     private bool _isFacingRight { get; set; }
     private float _isFacingRightScale = 1f;
     private SpriteRenderer _sprite;
@@ -66,6 +67,7 @@ public class TetsuoController : MonoBehaviour
     private TrailRenderer _dashTrail;
     public bool _hasDashed { get; private set; }
     public bool _isDashing { get; private set; }
+    public bool _doneDashing { get; private set; }
 
     void Start()
     {
@@ -88,6 +90,7 @@ public class TetsuoController : MonoBehaviour
         _isWalking = false;
         _isRunning = true;
         _isFacingRight = true;
+        _doneDashing = true;
     }
 
     void Update()
@@ -125,15 +128,9 @@ public class TetsuoController : MonoBehaviour
         {
             _isWallSticking = false;
             _WallStickingTimer = 2f;
-            _hasDashed = false;
         }
         Debug.Log("Is Ground: " + _isGrounded);
         return _isGrounded;
-    }
-
-    private bool IsTouchingWall()
-    {
-        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.03956366f, 0.7018313f), 0, wallLayer, 0, 0);
     }
 
     private void UpdateIsFalling()
@@ -146,6 +143,21 @@ public class TetsuoController : MonoBehaviour
         {
             _isFalling = false;
         }
+    }
+
+    private void UpdateHasLanded(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Landed");
+            _hasLanded = true;
+            _hasDashed = false;
+        }
+    }
+
+    private bool IsTouchingWall()
+    {
+        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.03956366f, 0.7018313f), 0, wallLayer, 0, 0);
     }
 
     private void StickToWall()
@@ -272,6 +284,7 @@ public class TetsuoController : MonoBehaviour
     private IEnumerator Dash()
     {
         Debug.Log("Dash");
+        _doneDashing = false;
         _hasDashed = true;
         rb.gravityScale = 0f;
         _dashTrail.emitting = true;
@@ -282,6 +295,9 @@ public class TetsuoController : MonoBehaviour
         rb.gravityScale = _gravityScale;
         _isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
+        _doneDashing = true;
+        if (_isGrounded)
+            _hasDashed = false;
     }
 
     public void Walk(InputAction.CallbackContext context)
@@ -320,5 +336,10 @@ public class TetsuoController : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), new Vector2(1, 1));
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        UpdateHasLanded(collision);
     }
 }

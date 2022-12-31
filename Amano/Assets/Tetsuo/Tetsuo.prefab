@@ -265,6 +265,7 @@ MonoBehaviour:
   wallJumpPower: {x: 5.6, y: 9}
   dashPower: 10
   dashTime: 0.5
+  dashCooldown: 0.8
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0

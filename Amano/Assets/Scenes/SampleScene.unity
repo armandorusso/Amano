@@ -1355,7 +1355,7 @@ GameObject:
   - component: {fileID: 1105982699}
   m_Layer: 8
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6144,13 +6144,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 598430453}
     - target: {fileID: 4717451408186269014, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
+      propertyPath: m_Time
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717451408186269014, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4717451408186269014, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e696921ceb0df414d9702a490037e082, type: 2}
+      objectReference: {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4717451408186269014, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: m_Parameters.colorGradient.atime0
       value: 0
