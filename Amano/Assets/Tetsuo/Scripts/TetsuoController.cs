@@ -67,6 +67,7 @@ public class TetsuoController : MonoBehaviour
     [SerializeField] public float dashPower;
     [SerializeField] public float dashTime;
     [SerializeField] public float dashCooldown;
+    [SerializeField] public float dashCooldownOnGround;
     private TrailRenderer _dashTrail;
     public bool _hasDashed { get; private set; }
     public bool _isDashing { get; private set; }
@@ -133,6 +134,10 @@ public class TetsuoController : MonoBehaviour
             _isWallSticking = false;
             _WallStickingTimer = 2f;
         }
+        else
+        {
+            _hasLanded = false;
+        }
         Debug.Log("Is Ground: " + _isGrounded);
         return _isGrounded;
     }
@@ -142,6 +147,7 @@ public class TetsuoController : MonoBehaviour
         if ( (!_isWallSliding || !_isWallSticking) && !_isGrounded && rb.velocity.y < 0)
         {
             _isFalling = true;
+            _isJumping = false;
         }
         else
         {
@@ -245,22 +251,20 @@ public class TetsuoController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && _isGrounded && !(_isWallSliding || _isWallSticking))
+        if ((context.started || context.performed) && _isGrounded && !(_isWallSliding || _isWallSticking))
         {
-            if (!_isFalling)
-                _isJumping = true;
-            else
-                _isJumping = false;
             jumpOrLandEventArgs.isDustActivated = true;
             jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
+            _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
         }
 
         if (context.canceled && rb.velocity.y > 0)
         {
+            _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            _isJumping = false;
         }
+
         jumpOrLandEventArgs.isDustActivated = false;
     }
 
@@ -298,19 +302,20 @@ public class TetsuoController : MonoBehaviour
         _hasDashed = true;
         rb.gravityScale = 0f;
         _dashTrail.emitting = true;
-        _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150);
+        _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
         rb.velocity = new Vector2(dashPower * _horizontal, dashPower * _vertical);
         _isDashing = true;
         yield return new WaitForSeconds(dashTime);
         _dashTrail.emitting = false;
         rb.gravityScale = _gravityScale;
         _isDashing = false;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(_isGrounded? dashCooldownOnGround : dashCooldown);
         _doneDashing = true;
-        _sprite.color = _spriteOriginalColor;
-        if (_isGrounded)
+        Debug.Log("Has landed: "+ _hasLanded + " Is Grounded " + _isGrounded);
+        if (_hasLanded || _isGrounded)
         {
-            _hasDashed = false;
+            Debug.Log("Resetting dash");
+            _sprite.color = _spriteOriginalColor;
         }
     }
 
@@ -333,9 +338,8 @@ public class TetsuoController : MonoBehaviour
 
     private void SetAnimatorState()
     {
-        if (_horizontal is > 0f or < 0f && UpdateIsGrounded())
+        if (_horizontal is > 0f or < 0f && _isGrounded)
         {
-            animator.SetBool("isJumping", false);
             animator.SetBool("isWalking", _isWalking);
             animator.SetBool("isRunning", _isRunning);
         }

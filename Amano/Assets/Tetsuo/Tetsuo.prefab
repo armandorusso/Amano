@@ -267,6 +267,7 @@ MonoBehaviour:
   dashPower: 10
   dashTime: 0.2
   dashCooldown: 0.8
+  dashCooldownOnGround: 2
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0
