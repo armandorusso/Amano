@@ -138,6 +138,7 @@ public class TetsuoController : MonoBehaviour
         {
             _hasLanded = false;
         }
+
         Debug.Log("Is Ground: " + _isGrounded);
         return _isGrounded;
     }
@@ -157,6 +158,9 @@ public class TetsuoController : MonoBehaviour
 
     private void UpdateHasLanded(Collision2D collision)
     {
+        if (_hasLanded)
+            return;
+        
         if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Landed");
@@ -298,24 +302,28 @@ public class TetsuoController : MonoBehaviour
     private IEnumerator Dash()
     {
         Debug.Log("Dash");
+        var dashCoolDown = _isGrounded ? dashCooldownOnGround : dashCooldown;
         _doneDashing = false;
         _hasDashed = true;
         rb.gravityScale = 0f;
         _dashTrail.emitting = true;
         _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
-        rb.velocity = new Vector2(dashPower * _horizontal, dashPower * _vertical);
+        
+        rb.velocity = _horizontal != 0 || _vertical != 0? new Vector2(dashPower * _horizontal, dashPower * _vertical) : new Vector2(dashPower * transform.localScale.x, 0f);
+        
         _isDashing = true;
         yield return new WaitForSeconds(dashTime);
         _dashTrail.emitting = false;
         rb.gravityScale = _gravityScale;
         _isDashing = false;
-        yield return new WaitForSeconds(_isGrounded? dashCooldownOnGround : dashCooldown);
+        yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
         Debug.Log("Has landed: "+ _hasLanded + " Is Grounded " + _isGrounded);
-        if (_hasLanded || _isGrounded)
+        if (_isGrounded)
         {
             Debug.Log("Resetting dash");
             _sprite.color = _spriteOriginalColor;
+            _hasDashed = false;
         }
     }
 
