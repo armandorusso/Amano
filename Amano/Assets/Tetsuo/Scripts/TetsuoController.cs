@@ -330,6 +330,7 @@ public class TetsuoController : MonoBehaviour
     public void Walk(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+        
         if (_isRunning)
         {
             _isRunning = false;
