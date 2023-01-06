@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 8999089129893173837}
   - component: {fileID: 4774640018617696223}
   - component: {fileID: 4717451408186269014}
+  - component: {fileID: 9177174673294933467}
   m_Layer: 0
   m_Name: Tetsuo
   m_TagString: Untagged
@@ -634,6 +635,19 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!114 &9177174673294933467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de22afcb40ebc44c8fe0efb74703a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TetsuoHealthPoints: 100
 --- !u!1 &7574503943195773515
 GameObject:
   m_ObjectHideFlags: 0
