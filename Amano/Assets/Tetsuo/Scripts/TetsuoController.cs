@@ -68,7 +68,12 @@ public class TetsuoController : MonoBehaviour
     [SerializeField] public float dashTime;
     [SerializeField] public float dashCooldown;
     [SerializeField] public float dashCooldownOnGround;
-    private TrailRenderer _dashTrail;
+    public class DashAttackFxEventArgs : EventArgs
+    {
+        public bool isDashing { get; set; }
+    }
+    public static event EventHandler<DashAttackFxEventArgs> dashAttackEvent;
+    private DashAttackFxEventArgs dashAttackEventArgs;
     public bool _hasDashed { get; private set; }
     public bool _isDashing { get; private set; }
     public bool _doneDashing { get; private set; }
@@ -76,7 +81,6 @@ public class TetsuoController : MonoBehaviour
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
-        _dashTrail = GetComponent<TrailRenderer>();
         _spriteOriginalColor = _sprite.color;
         wallJumpDirection = -1f;
         wallJumpingTime = 0.2f;
@@ -90,6 +94,11 @@ public class TetsuoController : MonoBehaviour
         jumpOrLandEventArgs = new GroundFxEventArgs
         {
             isDustActivated = false
+        };
+
+        dashAttackEventArgs = new DashAttackFxEventArgs
+        {
+            isDashing = false
         };
         
         _isWalking = false;
@@ -306,14 +315,16 @@ public class TetsuoController : MonoBehaviour
         _doneDashing = false;
         _hasDashed = true;
         rb.gravityScale = 0f;
-        _dashTrail.emitting = true;
+        dashAttackEventArgs.isDashing = true;
+        dashAttackEvent.Invoke(this, dashAttackEventArgs);
         _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
         
         rb.velocity = _horizontal != 0 || _vertical != 0? new Vector2(dashPower * _horizontal, dashPower * _vertical) : new Vector2(dashPower * transform.localScale.x, 0f);
         
         _isDashing = true;
         yield return new WaitForSeconds(dashTime);
-        _dashTrail.emitting = false;
+        dashAttackEventArgs.isDashing = false;
+        dashAttackEvent.Invoke(this, dashAttackEventArgs);
         rb.gravityScale = _gravityScale;
         _isDashing = false;
         yield return new WaitForSeconds(dashCoolDown);

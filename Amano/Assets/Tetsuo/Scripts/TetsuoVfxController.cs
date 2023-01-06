@@ -7,13 +7,16 @@ public class TetsuoVfxController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem groundDustFx;
     [SerializeField] private ParticleSystem wallDustFx;
+    [SerializeField] private ParticleSystem leavesFx;
 
     private bool isWallDustPlaying;
+    private bool isLeavesFlyingPlaying;
 
     private void Start()
     {
         TetsuoController.wallSlidingEvent += OnWallSlidingEvent;
         TetsuoController.jumpOrLandEvent += OnPlayerJumpOrLanding;
+        TetsuoController.dashAttackEvent += OnDashAttackEvent;
     }
 
     private void OnWallSlidingEvent(object sender, TetsuoController.WallSlidingFxEventArgs e)
@@ -54,6 +57,18 @@ public class TetsuoVfxController : MonoBehaviour
         {
             groundDustFx.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.3f, gameObject.transform.position.z);
             groundDustFx.Play();
+        }
+    }
+
+    public void OnDashAttackEvent(object sender, TetsuoController.DashAttackFxEventArgs e)
+    {
+        if (e.isDashing)
+        {
+            leavesFx.Play();
+        }
+        else
+        {
+            leavesFx.Stop();
         }
     }
 }
