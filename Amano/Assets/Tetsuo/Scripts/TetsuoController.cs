@@ -23,18 +23,20 @@ public class TetsuoController : MonoBehaviour
     private float _isFacingRightScale = 1f;
     private SpriteRenderer _sprite;
     private Color _spriteOriginalColor;
-        
+
+    [Header("Jumping")]
+    private float _jumpingPower = 12f;
+
+    public bool _isJumping { get; private set; }
+
+    public bool _isFalling { get; private set; }
+
     public class GroundFxEventArgs : EventArgs
     {
         public bool isDustActivated { get; set; }
     }
     public static event EventHandler<GroundFxEventArgs> jumpOrLandEvent;
     private GroundFxEventArgs jumpOrLandEventArgs;
-
-    [Header("Jumping")]
-    private float _jumpingPower = 12f;
-    public bool _isJumping { get; private set; }
-    public bool _isFalling { get; private set; }
 
     [Header("Wall Sliding")]
     [SerializeField] private float wallSlideSpeed = 0f;
@@ -175,6 +177,10 @@ public class TetsuoController : MonoBehaviour
             Debug.Log("Landed");
             _hasLanded = true;
             _hasDashed = false;
+            
+            jumpOrLandEventArgs.isDustActivated = true;
+            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
+            jumpOrLandEventArgs.isDustActivated = false;
         }
     }
 
