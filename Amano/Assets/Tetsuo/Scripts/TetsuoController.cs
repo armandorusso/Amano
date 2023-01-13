@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TetsuoController : MonoBehaviour
+public class TetsuoController : MonoBehaviour, IMove
 {
     [SerializeField] public Rigidbody2D rb;
     [SerializeField] public Transform groundCheck;
     [SerializeField] public LayerMask groundLayer;
     [SerializeField] public Animator animator;
-    
+
     [Header("Movement")]
+    private float _speed = 6f;
+
     private float _horizontal;
     private float _vertical;
-    private float _speed = 6f;
     public bool _isGrounded { get; set; }
     public bool _isWalking { get; private set; }
     public bool _isRunning { get; private set; }
@@ -130,9 +131,9 @@ public class TetsuoController : MonoBehaviour
         StickToWall();
         WallSlide();
         CheckIfPlayerCanWallJump();
-        
-        if(!_isWallJumping)
-            rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
+
+        if (!_isWallJumping)
+            Move();
         
         SetAnimatorState();
     }
@@ -300,10 +301,20 @@ public class TetsuoController : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    public void Move(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         _horizontal = context.ReadValue<Vector2>().x;
         _vertical = context.ReadValue<Vector2>().y;
+    }
+
+    public void Move()
+    {
+        rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
+    }
+
+    public Vector2 GetMovementVector()
+    {
+        return new Vector2(_horizontal, _vertical);
     }
 
     public void DashAttack(InputAction.CallbackContext context)
