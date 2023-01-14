@@ -28,6 +28,10 @@ public class TetsuoController : MonoBehaviour, IMove
     [Header("Jumping")]
     private float _jumpingPower = 12f;
 
+    private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+    private float jumpBufferTime = 0.2f;
+    private float jumpBufferCounter;
     public bool _isJumping { get; private set; }
 
     public bool _isFalling { get; private set; }
@@ -145,10 +149,12 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             _isWallSticking = false;
             _WallStickingTimer = 2f;
+            coyoteTimeCounter = coyoteTime;
         }
         else
         {
             _hasLanded = false;
+            coyoteTimeCounter-= Time.deltaTime;
         }
 
         Debug.Log("Is Ground: " + _isGrounded);
@@ -271,18 +277,29 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if ((context.started || context.performed) && _isGrounded && !(_isWallSliding || _isWallSticking))
+        if ((context.started || context.performed))
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+        
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !(_isWallSliding || _isWallSticking))
         {
             jumpOrLandEventArgs.isDustActivated = true;
             jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+            jumpBufferCounter = 0f;
         }
 
         if (context.canceled && rb.velocity.y > 0)
         {
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            coyoteTimeCounter = 0f;
         }
 
         jumpOrLandEventArgs.isDustActivated = false;
