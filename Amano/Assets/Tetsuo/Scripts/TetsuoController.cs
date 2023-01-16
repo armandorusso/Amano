@@ -10,6 +10,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public Transform groundCheck;
     [SerializeField] public LayerMask groundLayer;
     [SerializeField] public Animator animator;
+    private PlayerInput _inputAction;
 
     [Header("Movement")]
     private float _speed = 6f;
@@ -75,6 +76,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public float dashTime;
     [SerializeField] public float dashCooldown;
     [SerializeField] public float dashCooldownOnGround;
+    private bool _isPerformingGroundedDash { get; set; }
     public class DashAttackFxEventArgs : EventArgs
     {
         public bool isDashing { get; set; }
@@ -88,6 +90,7 @@ public class TetsuoController : MonoBehaviour, IMove
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
+        _inputAction = GetComponent<PlayerInput>();
         _spriteOriginalColor = _sprite.color;
         wallJumpDirection = -1f;
         wallJumpingTime = 0.2f;
@@ -277,11 +280,11 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if ((context.started || context.performed))
+        if (context.started || context.performed)
         {
             jumpBufferCounter = jumpBufferTime;
         }
-        else
+        else if(!_isJumping)
         {
             jumpBufferCounter -= Time.deltaTime;
         }
@@ -338,23 +341,23 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         if (context.started && !_hasDashed)
         {
-            StartCoroutine(Dash());
+            if (!_isGrounded)
+                StartCoroutine(Dash());
+            else
+                StartCoroutine(GroundedDashAttack());
         }
     }
 
     private IEnumerator Dash()
     {
         Debug.Log("Dash");
-        var dashCoolDown = _isGrounded ? dashCooldownOnGround : dashCooldown;
-        _doneDashing = false;
-        _hasDashed = true;
-        rb.gravityScale = 0f;
-        dashAttackEventArgs.isDashing = true;
-        dashAttackEvent.Invoke(this, dashAttackEventArgs);
-        _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
+        var dashCoolDown = dashCooldown;
+        SetDashParameters();
         
-        rb.velocity = _horizontal != 0 || _vertical != 0? new Vector2(dashPower * _horizontal, dashPower * _vertical) : new Vector2(dashPower * transform.localScale.x, 0f);
-        
+        rb.velocity = _horizontal != 0 || _vertical != 0
+                ? new Vector2(dashPower * _horizontal, dashPower * _vertical)
+                : new Vector2(dashPower * transform.localScale.x, 0f);
+
         _isDashing = true;
         yield return new WaitForSeconds(dashTime);
         dashAttackEventArgs.isDashing = false;
@@ -370,6 +373,39 @@ public class TetsuoController : MonoBehaviour, IMove
             _sprite.color = _spriteOriginalColor;
             _hasDashed = false;
         }
+    }
+
+    private IEnumerator GroundedDashAttack()
+    {
+        Debug.Log("Grounded Dash");
+        var dashCoolDown = dashCooldownOnGround;
+        SetDashParameters();
+
+        _isPerformingGroundedDash = true;
+        _inputAction.enabled = false;
+        yield return new WaitForSeconds(dashTime);
+        rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
+        _isDashing = true;
+        yield return new WaitForSeconds(dashTime);
+        _inputAction.enabled = true;
+        _isPerformingGroundedDash = false;
+        dashAttackEventArgs.isDashing = false;
+        dashAttackEvent.Invoke(this, dashAttackEventArgs);
+        rb.gravityScale = _gravityScale;
+        _isDashing = false;
+        yield return new WaitForSeconds(dashCoolDown);
+        _doneDashing = true;
+        _hasDashed = false;
+    }
+
+    private void SetDashParameters()
+    {
+        _doneDashing = false;
+        _hasDashed = true;
+        rb.gravityScale = 0f;
+        dashAttackEventArgs.isDashing = true;
+        dashAttackEvent.Invoke(this, dashAttackEventArgs);
+        _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
     }
 
     public void Walk(InputAction.CallbackContext context)
