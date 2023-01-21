@@ -35,7 +35,7 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isGrounded = _tetsuoController._isGrounded;
             _isWallSticking = _tetsuoController._isWallSticking;
             _isWallSliding = _tetsuoController._isWallSliding;
-            _isDashing = _tetsuoController._isDashing;
+            _isDashing = _tetsuoController._isGroundDashing;
         }
 
         SetJumpAnimation();

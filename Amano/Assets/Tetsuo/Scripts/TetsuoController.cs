@@ -84,7 +84,8 @@ public class TetsuoController : MonoBehaviour, IMove
     public static event EventHandler<DashAttackFxEventArgs> dashAttackEvent;
     private DashAttackFxEventArgs dashAttackEventArgs;
     public bool _hasDashed { get; private set; }
-    public bool _isDashing { get; private set; }
+    public bool _isAirDashing { get; private set; }
+    public bool _isGroundDashing { get; private set; }
     public bool _doneDashing { get; private set; }
 
     void Start()
@@ -131,7 +132,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void FixedUpdate()
     {
-        if (_isDashing)
+        if (_isAirDashing || _isGroundDashing)
             return;
         UpdateIsGrounded();
         UpdateIsFalling();
@@ -358,12 +359,12 @@ public class TetsuoController : MonoBehaviour, IMove
                 ? new Vector2(dashPower * _horizontal, dashPower * _vertical)
                 : new Vector2(dashPower * transform.localScale.x, 0f);
 
-        _isDashing = true;
+        _isAirDashing = true;
         yield return new WaitForSeconds(dashTime);
         dashAttackEventArgs.isDashing = false;
         dashAttackEvent.Invoke(this, dashAttackEventArgs);
         rb.gravityScale = _gravityScale;
-        _isDashing = false;
+        _isAirDashing = false;
         yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
         Debug.Log("Has landed: "+ _hasLanded + " Is Grounded " + _isGrounded);
@@ -385,14 +386,14 @@ public class TetsuoController : MonoBehaviour, IMove
         _inputAction.enabled = false;
         yield return new WaitForSeconds(dashTime);
         rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
-        _isDashing = true;
+        _isGroundDashing = true;
         yield return new WaitForSeconds(dashTime);
         _inputAction.enabled = true;
         _isPerformingGroundedDash = false;
         dashAttackEventArgs.isDashing = false;
         dashAttackEvent.Invoke(this, dashAttackEventArgs);
         rb.gravityScale = _gravityScale;
-        _isDashing = false;
+        _isGroundDashing = false;
         yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
         _hasDashed = false;
