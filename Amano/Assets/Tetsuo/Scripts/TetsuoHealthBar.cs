@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class TetsuoHealthBar : MonoBehaviour
 {
-    private Health TetsuoHealthPoints;
+    // Implement Depencency Inversion properly here
+    // The Health class doesnt need to be here. This class should implement the IHealth Interface and the decrease and increase health functions should invoke the events
+    // Instead, have the Health class be attached to Tetsuo?
+    // To be honest, not sure if we can really apply it here
+    private IHealth TetsuoHealthPoints;
     public class HealthUIEventArgs : EventArgs
     {
         public float currentHealth { get; set; }

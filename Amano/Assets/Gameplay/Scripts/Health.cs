@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Health : IHealth
 {
-    public float HitPoints { get; set; }
+    private float _currentHealth;
+    public float HitPoints => _currentHealth;
     public float MaxHealth { get; set; }
 
     public Health(float health)
     {
-        HitPoints = health;
+        _currentHealth = health;
         MaxHealth = health;
     }
     
     public void IncreaseHealth(float additionalHealthValue)
     {
-        HitPoints+= additionalHealthValue;
+        _currentHealth += additionalHealthValue;
     }
 
     public void DecreaseHealth(float damage)
     {
-        HitPoints-= damage;
+        _currentHealth -= damage;
     }
 }
