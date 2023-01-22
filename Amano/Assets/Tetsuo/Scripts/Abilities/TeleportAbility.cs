@@ -11,11 +11,25 @@ public class TeleportAbility : MonoBehaviour
     private Queue<ShurikenProjectile> _teleportShurikens;
     private Queue<Transform> _teleportableObjects;
     private bool canTeleport;
+    
+    public class VanishingFxEventArgs : EventArgs
+    {
+        public GameObject objectBeingTeleported1 { get; set; }
+        public GameObject objectBeingTeleported2 { get; set; }
+    }
+    public static event EventHandler<VanishingFxEventArgs> VanishingEvent;
+    private VanishingFxEventArgs vanishingEventArgs;
 
     void Awake()
     {
         ShurikenProjectile.ShurikenSpawnedEvent += OnShurikenSpawnedEvent;
         ShurikenProjectile.ShurikenAttachedEvent += OnShurikenAttachedEvent;
+
+        vanishingEventArgs = new VanishingFxEventArgs()
+        {
+            objectBeingTeleported1 = null,
+            objectBeingTeleported2 = null
+        };
     }
 
     private void Start()
@@ -61,6 +75,9 @@ public class TeleportAbility : MonoBehaviour
             var shuriken = _teleportShurikens.Dequeue();
             var objectToTeleport = _teleportableObjects.Dequeue();
             Assert.IsNotNull(shuriken);
+            vanishingEventArgs.objectBeingTeleported1 = gameObject;
+            vanishingEventArgs.objectBeingTeleported2 = objectToTeleport.gameObject;
+            VanishingEvent.Invoke(this, vanishingEventArgs);
             var playerPosition = gameObject.transform.position;
             gameObject.transform.position = objectToTeleport.position;
             objectToTeleport.transform.position = playerPosition;
