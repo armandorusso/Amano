@@ -36,6 +36,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 9172b279b672b864094b91ced2ac7689, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,9 +65,10 @@ Material:
     - _EnableExternalAlpha: 0
     - _MoveSpeed: 0
     - _NoiseScaleModifier: 122.1
-    - _VanishingMoveSpeed: 0.29
+    - _VanishingMoveSpeed: 0.1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TilingScale: {r: 1, g: 8, b: 0, a: 0}
   m_BuildTextureStacks: []
