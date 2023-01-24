@@ -10,7 +10,9 @@ public class ShurikenProjectile : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rb;
     private Collider2D _collider;
+    private TrailRenderer _trailRenderer;
     private bool hitTeleportableObj;
+    
     public static event EventHandler<ShurikenSpawnedEventArgs> ShurikenSpawnedEvent;
 
     public class ShurikenSpawnedEventArgs : EventArgs
@@ -33,6 +35,7 @@ public class ShurikenProjectile : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
+        _trailRenderer = GetComponent<TrailRenderer>();
         ShurikenSpawnedEventArgs args = new ShurikenSpawnedEventArgs
         {
             shuriken = gameObject
@@ -51,6 +54,7 @@ public class ShurikenProjectile : MonoBehaviour
             Assert.IsNotNull(_collider);
             
             _animator.enabled = false;
+            _trailRenderer.emitting = false;
             Destroy(_rb);
             _collider.enabled = false;
 
