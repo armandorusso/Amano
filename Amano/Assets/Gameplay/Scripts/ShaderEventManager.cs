@@ -6,10 +6,12 @@ using UnityEngine;
 public class ShaderEventManager : MonoBehaviour
 {
     [SerializeField] public Material vanishingMaterial;
+    private bool isShaderPlaying;
 
     private void Awake()
     {
         TeleportAbility.VanishingEvent += OnTeleportEvent;
+        isShaderPlaying = false;
     }
 
     private void OnTeleportEvent(object sender, TeleportAbility.VanishingFxEventArgs e)
@@ -22,13 +24,22 @@ public class ShaderEventManager : MonoBehaviour
 
     private IEnumerator PlayVanishingVFX(GameObject subject, GameObject teleportedObject)
     {
-        var originalMaterialSubject = subject.GetComponent<SpriteRenderer>().material;
-        var originalMaterialBeingTeleported = teleportedObject.GetComponent<SpriteRenderer>().material;
-        
-        subject.GetComponent<SpriteRenderer>().material = vanishingMaterial;
-        teleportedObject.GetComponent<SpriteRenderer>().material = vanishingMaterial;
-        yield return new WaitForSeconds(0.2f);
-        subject.GetComponent<SpriteRenderer>().material = originalMaterialSubject;
-        teleportedObject.GetComponent<SpriteRenderer>().material = originalMaterialBeingTeleported;
+        if (!isShaderPlaying)
+        {
+            isShaderPlaying = true;
+            var spriteSubject = subject.GetComponent<SpriteRenderer>();
+            var spriteObjectBeingTeleported = teleportedObject.GetComponent<SpriteRenderer>();
+
+            var originalSubjectMat = spriteSubject.material;
+            var originalObjectBeingTeleportedMat = spriteObjectBeingTeleported.material;
+
+            spriteSubject.material = vanishingMaterial;
+            spriteObjectBeingTeleported.material = vanishingMaterial;
+            yield return new WaitForSeconds(0.2f);
+            spriteSubject.material = originalSubjectMat;
+            spriteObjectBeingTeleported.material = originalObjectBeingTeleportedMat;
+        }
+
+        isShaderPlaying = false;
     }
 }
