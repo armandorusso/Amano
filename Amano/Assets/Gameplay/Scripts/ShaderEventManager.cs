@@ -11,6 +11,7 @@ public class ShaderEventManager : MonoBehaviour
     private void Awake()
     {
         TeleportAbility.VanishingEvent += OnTeleportEvent;
+        TetsuoController.groundedDashAttackEvent += OnDashEvent;
         isShaderPlaying = false;
     }
 
@@ -20,6 +21,11 @@ public class ShaderEventManager : MonoBehaviour
         var teleportedObject = e.objectBeingTeleported2;
 
         StartCoroutine(PlayVanishingVFX(teleportSubject, teleportedObject));
+    }
+
+    private void OnDashEvent(object sender, TetsuoController.GroundedDashAttackFxEventArgs e)
+    {
+        StartCoroutine(PlaySpeedFx(e.Tetsuo));
     }
 
     private IEnumerator PlayVanishingVFX(GameObject subject, GameObject teleportedObject)
@@ -41,5 +47,14 @@ public class ShaderEventManager : MonoBehaviour
         }
 
         isShaderPlaying = false;
+    }
+
+    private IEnumerator PlaySpeedFx(GameObject tetsuo)
+    {
+        var spriteSubject = tetsuo.GetComponent<SpriteRenderer>();
+        var material = spriteSubject.material;
+        spriteSubject.material = vanishingMaterial;
+        yield return new WaitForSeconds(0.4f);
+        spriteSubject.material = material;
     }
 }

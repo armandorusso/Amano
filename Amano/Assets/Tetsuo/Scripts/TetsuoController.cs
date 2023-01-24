@@ -83,6 +83,12 @@ public class TetsuoController : MonoBehaviour, IMove
     }
     public static event EventHandler<DashAttackFxEventArgs> dashAttackEvent;
     private DashAttackFxEventArgs dashAttackEventArgs;
+    public class GroundedDashAttackFxEventArgs : EventArgs
+    {
+        public GameObject Tetsuo { get; set; }
+    }
+    public static event EventHandler<GroundedDashAttackFxEventArgs> groundedDashAttackEvent;
+    private GroundedDashAttackFxEventArgs groundedDashAttackEventArgs;
     public bool _hasDashed { get; private set; }
     public bool _isAirDashing { get; private set; }
     public bool _isGroundDashing { get; private set; }
@@ -110,6 +116,11 @@ public class TetsuoController : MonoBehaviour, IMove
         dashAttackEventArgs = new DashAttackFxEventArgs
         {
             isDashing = false
+        };
+
+        groundedDashAttackEventArgs = new GroundedDashAttackFxEventArgs
+        {
+            Tetsuo = gameObject
         };
         
         _isWalking = false;
@@ -386,6 +397,7 @@ public class TetsuoController : MonoBehaviour, IMove
         _inputAction.enabled = false;
         yield return new WaitForSeconds(dashTime);
         rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
+        groundedDashAttackEvent.Invoke(this, groundedDashAttackEventArgs);
         _isGroundDashing = true;
         yield return new WaitForSeconds(dashTime);
         _inputAction.enabled = true;
