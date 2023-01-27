@@ -7,18 +7,11 @@ using UnityEngine.Events;
 
 public class ShurikenProjectile : MonoBehaviour
 {
-    private Animator _animator;
-    private Rigidbody2D _rb;
-    private Collider2D _collider;
-    private TrailRenderer _trailRenderer;
+    public Animator _animator;
+    public Rigidbody2D _rb;
+    public Collider2D _collider;
+    public TrailRenderer _trailRenderer;
     private bool hitTeleportableObj;
-    
-    public static event EventHandler<ShurikenSpawnedEventArgs> ShurikenSpawnedEvent;
-
-    public class ShurikenSpawnedEventArgs : EventArgs
-    {
-        public GameObject shuriken { get; set; }
-    }
     public static event EventHandler<ShurikenAttachedEventArgs> ShurikenAttachedEvent;
 
     public class ShurikenAttachedEventArgs : EventArgs
@@ -27,6 +20,13 @@ public class ShurikenProjectile : MonoBehaviour
         public Transform teleportableObject { get; set; }
     }
     public static event EventHandler ShurikenDestroyedEvent;
+    
+    public static event EventHandler<ShurikenHitEventArgs> ShurikenHitEvent;
+
+    public class ShurikenHitEventArgs : EventArgs
+    {
+        public ShurikenProjectile shuriken { get; set; }
+    }
  
     
     private void Start()
@@ -36,11 +36,14 @@ public class ShurikenProjectile : MonoBehaviour
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
         _trailRenderer = GetComponent<TrailRenderer>();
-        ShurikenSpawnedEventArgs args = new ShurikenSpawnedEventArgs
-        {
-            shuriken = gameObject
-        };
-        ShurikenSpawnedEvent.Invoke(this, args);
+    }
+    
+    public void SwitchShurikenProperties(bool isPropertyActive)
+    {
+        _animator.enabled = isPropertyActive;
+        _collider.enabled = isPropertyActive;
+        _rb.simulated = isPropertyActive;
+        _trailRenderer.enabled = isPropertyActive;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -55,8 +58,14 @@ public class ShurikenProjectile : MonoBehaviour
             
             _animator.enabled = false;
             _trailRenderer.emitting = false;
-            Destroy(_rb);
+            _rb.simulated = false;
             _collider.enabled = false;
+            ShurikenHitEventArgs arg = new ShurikenHitEventArgs
+            {
+                shuriken = this
+            };
+            
+            ShurikenHitEvent.Invoke(this, arg);
 
             if (otherObject.CompareTag("Teleport"))
             {
@@ -66,7 +75,7 @@ public class ShurikenProjectile : MonoBehaviour
                 ShurikenAttachedEventArgs args = new ShurikenAttachedEventArgs
                 {
                     objectCanTeleport = hitTeleportableObj,
-                    teleportableObject = otherObject.transform
+                    teleportableObject = otherObject.transform,
                 };
                 ShurikenAttachedEvent.Invoke(this, args);
                 hitTeleportableObj = false;

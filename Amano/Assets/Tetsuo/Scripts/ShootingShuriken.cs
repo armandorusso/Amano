@@ -12,6 +12,15 @@ public class ShootingShuriken : MonoBehaviour
     [SerializeField] public MousePosTracker mouseTracker;
     [SerializeField] public float shurikenForce;
     [SerializeField] public float shurikenShootCooldown;
+    
+    public static event EventHandler<ShurikenSpawnedEventArgs> ShurikenSpawnedEvent;
+
+    public class ShurikenSpawnedEventArgs : EventArgs
+    {
+        public GameObject shuriken { get; set; }
+    }
+
+    private ShurikenSpawnedEventArgs args;
 
     private bool canShoot;
 
@@ -42,7 +51,11 @@ public class ShootingShuriken : MonoBehaviour
     {
         if (context.started && canShoot)
         {
-            var shurikenObj = Instantiate(shuriken.gameObject, shurikenTransform.position, Quaternion.identity);
+            var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject(); // Instantiate(shuriken.gameObject, shurikenTransform.position, Quaternion.identity);
+            shurikenObj.SetActive(true);
+            shurikenObj.GetComponent<Rigidbody2D>().simulated = true;
+            shurikenObj.transform.position = shurikenTransform.position;
+            shurikenObj.transform.rotation = Quaternion.identity;
             ShootShuriken(shurikenObj);
             canShoot = false;
             StartCoroutine(ShurikenCooldown());

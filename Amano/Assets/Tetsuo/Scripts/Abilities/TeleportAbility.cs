@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class TeleportAbility : MonoBehaviour
 {
-    private List<ShurikenProjectile> _shurikens;
+    private Queue<ShurikenProjectile> _shurikens;
     private Queue<ShurikenProjectile> _teleportShurikens;
     private Queue<Transform> _teleportableObjects;
     private bool canTeleport;
@@ -22,7 +22,7 @@ public class TeleportAbility : MonoBehaviour
 
     void Awake()
     {
-        ShurikenProjectile.ShurikenSpawnedEvent += OnShurikenSpawnedEvent;
+        ShurikenProjectile.ShurikenHitEvent += OnShurikenHitEvent;
         ShurikenProjectile.ShurikenAttachedEvent += OnShurikenAttachedEvent;
 
         vanishingEventArgs = new VanishingFxEventArgs()
@@ -34,19 +34,35 @@ public class TeleportAbility : MonoBehaviour
 
     private void Start()
     {
-        _shurikens = new List<ShurikenProjectile>(10);
+        _shurikens = new Queue<ShurikenProjectile>(10);
         _teleportShurikens = new Queue<ShurikenProjectile>(10);
         _teleportableObjects = new Queue<Transform>(10);
         canTeleport = false;
     }
 
     // Not used right now
-    private void OnShurikenSpawnedEvent(object sender, ShurikenProjectile.ShurikenSpawnedEventArgs e)
+    private void OnShurikenHitEvent(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
     {
         Debug.Log("Event invoked");
-        
-        if(sender is ShurikenProjectile shurikenProjectile) 
-            _shurikens.Add(shurikenProjectile);
+
+        if (sender is ShurikenProjectile shurikenProjectile)
+        {
+            _shurikens.Enqueue(shurikenProjectile);
+            
+            if (_shurikens.Count > 5)
+            {
+                var shurikenToRemove = _shurikens.Dequeue();
+
+                if (_teleportShurikens.Count > 0 && shurikenToRemove.GetInstanceID() == _teleportShurikens.Peek().GetInstanceID())
+                {
+                    _teleportShurikens.Dequeue();
+                    _teleportableObjects.Dequeue();
+                }
+
+                ObjectPool.ObjectPoolInstance.ReturnPooledObject(shurikenToRemove.gameObject);
+                shurikenToRemove.SwitchShurikenProperties(true);
+            }
+        }
     }
     
     private void OnShurikenAttachedEvent(object sender, ShurikenProjectile.ShurikenAttachedEventArgs e)
@@ -57,12 +73,18 @@ public class TeleportAbility : MonoBehaviour
         {
             _teleportShurikens.Enqueue(shurikenProjectile);
             _teleportableObjects.Enqueue(e.teleportableObject);
+            shurikenProjectile.SwitchShurikenProperties(false);
 
             if (_teleportShurikens.Count > 5)
             {
                 var shuriken = _teleportShurikens.Dequeue();
                 _teleportableObjects.Dequeue();
-                Destroy(shuriken.gameObject);
+                if (_shurikens.Count > 0 && _shurikens.Peek().GetInstanceID() == shuriken.GetInstanceID())
+                {
+                    _shurikens.Dequeue();
+                }
+                ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
+                shuriken.SwitchShurikenProperties(true);
             }
         }
     }
@@ -81,7 +103,19 @@ public class TeleportAbility : MonoBehaviour
             var playerPosition = gameObject.transform.position;
             gameObject.transform.position = objectToTeleport.position;
             objectToTeleport.transform.position = playerPosition;
-            shuriken.gameObject.SetActive(false);
+            if (_shurikens.Count > 0)
+            {
+                while (_shurikens.Peek().GetInstanceID() != shuriken.GetInstanceID())
+                {
+                    var obj = _shurikens.Dequeue();
+                    _shurikens.Enqueue(obj);
+                }
+
+                _shurikens.Dequeue();
+            }
+            
+            ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
+            shuriken.SwitchShurikenProperties(true);
         }
 
         if (_teleportShurikens.Count < 1)

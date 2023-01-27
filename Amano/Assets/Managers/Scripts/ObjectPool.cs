@@ -6,18 +6,21 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool ObjectPoolInstance;
-    private List<GameObject> pooledObjects;
+    public List<GameObject> pooledObjects;
     public GameObject objectToPool;
     public int amountToPool;
     private int currentActiveObjs;
 
     private void Awake()
     {
-        ObjectPoolInstance = this;
+        if (ObjectPoolInstance == null)
+        {
+            ObjectPoolInstance = this;
+        }
+
         currentActiveObjs = 0;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         pooledObjects = new List<GameObject>();
@@ -36,9 +39,7 @@ public class ObjectPool : MonoBehaviour
         {
             if (!pooledObjects[i].activeInHierarchy)
             {
-                pooledObjects[i].SetActive(true);
                 currentActiveObjs++;
-                pooledObjects.RemoveAt(i);
                 return pooledObjects[i];
             }
         }
@@ -47,9 +48,14 @@ public class ObjectPool : MonoBehaviour
 
     public void ReturnPooledObject(GameObject pooledObj)
     {
-        pooledObjects.Add(pooledObj);
         pooledObj.SetActive(false);
+        pooledObj.transform.parent = transform;
         currentActiveObjs--;
+    }
+
+    public bool IsObjectAvailable()
+    {
+        return !pooledObjects[0].activeInHierarchy;
     }
 
     private void Update()
