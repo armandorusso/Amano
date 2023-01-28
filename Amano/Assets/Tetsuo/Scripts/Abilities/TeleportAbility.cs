@@ -52,9 +52,9 @@ public class TeleportAbility : MonoBehaviour
             if (_normalShurikens.Count > 5)
             {
                 var shurikenToRemove = _normalShurikens.Dequeue();
-
-                ObjectPool.ObjectPoolInstance.ReturnPooledObject(shurikenToRemove.gameObject);
+                
                 shurikenToRemove.SwitchShurikenProperties(true);
+                ObjectPool.ObjectPoolInstance.ReturnPooledObject(shurikenToRemove.gameObject);
             }
         }
     }
@@ -67,15 +67,14 @@ public class TeleportAbility : MonoBehaviour
         {
             _teleportShurikens.Enqueue(shurikenProjectile);
             _teleportableObjects.Enqueue(e.teleportableObject);
-            shurikenProjectile.SwitchShurikenProperties(false);
 
             if (_teleportShurikens.Count > 5)
             {
                 var shuriken = _teleportShurikens.Dequeue();
                 _teleportableObjects.Dequeue();
-
-                ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
+                
                 shuriken.SwitchShurikenProperties(true);
+                ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
             }
         }
     }
@@ -95,8 +94,8 @@ public class TeleportAbility : MonoBehaviour
             gameObject.transform.position = objectToTeleport.position;
             objectToTeleport.transform.position = playerPosition;
 
-            ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
             shuriken.SwitchShurikenProperties(true);
+            ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
         }
 
         if (_teleportShurikens.Count < 1)

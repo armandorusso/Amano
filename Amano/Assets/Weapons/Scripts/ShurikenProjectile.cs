@@ -56,10 +56,7 @@ public class ShurikenProjectile : MonoBehaviour
             Assert.IsNotNull(_animator);
             Assert.IsNotNull(_collider);
             
-            _animator.enabled = false;
-            _trailRenderer.emitting = false;
-            _rb.simulated = false;
-            _collider.enabled = false;
+            SwitchShurikenProperties(false);
 
             if (otherObject.CompareTag("Teleport"))
             {
