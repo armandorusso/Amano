@@ -8981,7 +8981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: []
   objectToPool: {fileID: 334207595340738681, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
-  amountToPool: 10
+  amountToPool: 20
 --- !u!1 &1775519678
 GameObject:
   m_ObjectHideFlags: 0
@@ -11008,7 +11008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1760116551091478575, guid: d0e1dbf60942a45409e8a654ffd8268b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.94
+      value: 6.72
       objectReference: {fileID: 0}
     - target: {fileID: 1760116551091478575, guid: d0e1dbf60942a45409e8a654ffd8268b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -60,12 +60,6 @@ public class ShurikenProjectile : MonoBehaviour
             _trailRenderer.emitting = false;
             _rb.simulated = false;
             _collider.enabled = false;
-            ShurikenHitEventArgs arg = new ShurikenHitEventArgs
-            {
-                shuriken = this
-            };
-            
-            ShurikenHitEvent.Invoke(this, arg);
 
             if (otherObject.CompareTag("Teleport"))
             {
@@ -79,6 +73,15 @@ public class ShurikenProjectile : MonoBehaviour
                 };
                 ShurikenAttachedEvent.Invoke(this, args);
                 hitTeleportableObj = false;
+            }
+            else
+            {
+                ShurikenHitEventArgs args = new ShurikenHitEventArgs
+                {
+                    shuriken = this
+                };
+            
+                ShurikenHitEvent.Invoke(this, args);
             }
         }
     }
