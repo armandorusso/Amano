@@ -157,7 +157,7 @@ public class TetsuoController : MonoBehaviour, IMove
         SetAnimatorState();
     }
 
-    private bool UpdateIsGrounded()
+    private void UpdateIsGrounded()
     {
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (_isGrounded)
@@ -173,7 +173,6 @@ public class TetsuoController : MonoBehaviour, IMove
         }
 
         Debug.Log("Is Ground: " + _isGrounded);
-        return _isGrounded;
     }
 
     private void UpdateIsFalling()
