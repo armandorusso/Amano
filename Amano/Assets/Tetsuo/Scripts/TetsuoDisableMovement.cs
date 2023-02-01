@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +6,19 @@ using UnityEngine.InputSystem;
 
 public class TetsuoDisableMovement : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _tetsuoMovement;
+    [SerializeField] public PlayerInput _tetsuoMovement;
 
     [SerializeField] private PlayerInput _tetsuoAbilities;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        RoomCameraManager.cameraTransitionEvent += OnCameraTransitionEvent;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCameraTransitionEvent(object sender, RoomCameraManager.CameraTransitionArgs e)
     {
-        
+        _tetsuoMovement.enabled = e.isMovementDisabled;
+        _tetsuoAbilities.enabled = e.isMovementDisabled;
     }
-    
+
 }
