@@ -39,6 +39,8 @@ public class ObjectPool : MonoBehaviour
         {
             if (!pooledObjects[i].activeInHierarchy)
             {
+                /*var obj = pooledObjects[i];
+                pooledObjects.RemoveAt(i);*/
                 currentActiveObjs++;
                 return pooledObjects[i];
             }
@@ -50,6 +52,7 @@ public class ObjectPool : MonoBehaviour
     {
         pooledObj.SetActive(false);
         pooledObj.transform.parent = transform;
+        // pooledObjects.Add(pooledObj);
         currentActiveObjs--;
     }
 

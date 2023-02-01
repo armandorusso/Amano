@@ -12,6 +12,8 @@ public class ShurikenProjectile : MonoBehaviour
     public Collider2D _collider;
     public TrailRenderer _trailRenderer;
     private bool hitTeleportableObj;
+    private bool hitGroundOrWall;
+    private bool _instantiatedShurikenProperties = false;
     public static event EventHandler<ShurikenAttachedEventArgs> ShurikenAttachedEvent;
 
     public class ShurikenAttachedEventArgs : EventArgs
@@ -32,26 +34,44 @@ public class ShurikenProjectile : MonoBehaviour
     private void Start()
     {
         hitTeleportableObj = false;
+        hitGroundOrWall = false;
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
         _trailRenderer = GetComponent<TrailRenderer>();
+        _instantiatedShurikenProperties = true;
     }
-    
-    public void SwitchShurikenProperties(bool isPropertyActive)
+
+    public void OnEnable()
     {
-        _animator.enabled = isPropertyActive;
-        _collider.enabled = isPropertyActive;
-        _rb.simulated = isPropertyActive;
-        _trailRenderer.enabled = isPropertyActive;
+        if(_instantiatedShurikenProperties)
+            SwitchShurikenProperties(true);
+    }
+
+    public void OnDisable()
+    {
+        if (_instantiatedShurikenProperties)
+        {
+            SwitchShurikenProperties(false);
+            hitGroundOrWall = false;
+        }
+    }
+
+    private void SwitchShurikenProperties(bool b)
+    {
+        _animator.enabled = b;
+        _collider.enabled = b;
+        _rb.simulated = b;
+        _trailRenderer.enabled = b;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         GameObject otherObject = col.gameObject;
 
-        if (otherObject.layer == 8 || otherObject.layer == 9 || otherObject.layer == 10)
+        if (!hitGroundOrWall && (otherObject.layer == 8 || otherObject.layer == 9 || otherObject.layer == 10))
         {
+            hitGroundOrWall = true;
             Assert.IsNotNull(_rb);
             Assert.IsNotNull(_animator);
             Assert.IsNotNull(_collider);

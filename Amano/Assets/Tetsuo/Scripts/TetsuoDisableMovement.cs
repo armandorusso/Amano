@@ -17,8 +17,11 @@ public class TetsuoDisableMovement : MonoBehaviour
 
     private void OnCameraTransitionEvent(object sender, RoomCameraManager.CameraTransitionArgs e)
     {
-        _tetsuoMovement.enabled = e.isMovementDisabled;
-        _tetsuoAbilities.enabled = e.isMovementDisabled;
+        if (sender is RoomCameraManager)
+        {
+            _tetsuoMovement.enabled = e.isMovementDisabled;
+            _tetsuoAbilities.enabled = e.isMovementDisabled;
+        }
     }
 
 }
