@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 public class AmanoStateMachine : MonoBehaviour
 {
     protected IAmanoState _currentState;
+    protected IAmanoState _defaultState;
     protected HashSet<IAmanoState> _states;
 
     public static event EventHandler<OnStateChangedArgs> onStateChangedEvent;
@@ -19,6 +20,7 @@ public class AmanoStateMachine : MonoBehaviour
 
     protected virtual void Start()
     {
+        _currentState = _defaultState;
         _currentState.EnterState(this);
     }
 

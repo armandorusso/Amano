@@ -1,59 +1,79 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class EnemyPatrolState : EnemyBaseState
+public class EnemyPatrolState : IAmanoState
 {
-    private Rigidbody2D _rb;
-    private Collider2D _collider;
+    private NormalSamuraiData _enemyData;
+    private int _direction;
+    public bool _isFacingRight = true;
+    private AmanoTimer _timer;
 
-    private float _timer;
-    
-
-    public override void EnterState(EnemyStateManager enemy)
+    public void EnterState(AmanoStateMachine stateMachine)
     {
-        _rb = enemy.GetComponent<Rigidbody2D>();
-        _collider = enemy.GetComponent<Collider2D>();
-        _timer = 0f;
+        _enemyData = stateMachine.GetComponent<NormalSamuraiData>();
+        _timer = _enemyData.Timer;
+        _timer.StartTimer(2f);
     }
 
-    public override void UpdateState(EnemyStateManager enemy)
+    public void UpdateState(AmanoStateMachine stateMachine)
     {
-        Move(enemy);
-        LineOfSight(enemy);
-    }
-
-    public override void OnCollisionEnter(EnemyStateManager enemy, Collision2D collider)
-    {
-    }
-
-    private void Move(EnemyStateManager enemy)
-    {
-        if (_timer >= 2f)
+        if (_timer.IsTimerInProgress())
         {
-            var direction = Random.Range(-1, 2);
-            _rb.velocity = new Vector2(direction * enemy.EnemyStats.Speed, _rb.velocity.y);
-            _timer = 0f;
+            _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.NormalSamuraiParameters.Speed, _enemyData.Rb.velocity.y);
+            
+            // If its facing right && its moving in the negative direction, flip the sprite. Same thing for the opposite condition
+            switch (_isFacingRight)
+            {
+                case true when _direction < 0f:
+                case false when _direction > 0f:
+                    Flip();
+                    break;
+            }
+            
+            if(CheckIfAtEdge())
+                _direction *= -1;
+        }
+        else if (_timer.IsTimerDone())
+        {
+            _direction = Random.Range(-1, 2);
+            _timer.StartTimer(2f);
         }
 
-        _timer += Time.deltaTime;
+        LineOfSight(stateMachine);
     }
-    
 
-    private void LineOfSight(EnemyStateManager enemy)
+    public void ExitState(AmanoStateMachine stateMachine)
     {
-        Debug.DrawRay(enemy.transform.position, enemy.transform.forward, Color.red);
-        var hit = Physics2D.Raycast(enemy.transform.position, enemy.transform.forward);
+        throw new NotImplementedException();
+    }
 
-        if (hit != null && hit.collider.CompareTag("Player"))
+    private void LineOfSight(AmanoStateMachine stateMachine)
+    {
+        var enemyObject = _enemyData.gameObject;
+
+        var seesPlayer = Physics2D.OverlapCircle(enemyObject.transform.position, 4f);
+
+        if (seesPlayer.CompareTag("Player"))
         {
-            enemy.SwitchState(enemy.ShootState);
+            Debug.Log("Sees player!");
+            stateMachine.SwitchState("EnemyShootState");
         }
     }
 
-    private void CheckIfGrounded()
+    private bool CheckIfAtEdge()
     {
-        Physics2D.OverlapBox(groundCheck.position, 0.1f, groundLayer);
+        Debug.DrawRay(_enemyData.GroundCheck.transform.position, Vector2.down * 1f, Color.green);
+        return !Physics2D.Raycast(_enemyData.GroundCheck.transform.position, Vector2.down,1f,_enemyData.GroundLayer);
+    }
+
+    private void Flip()
+    {
+        _isFacingRight = !_isFacingRight;
+        Vector3 localScale = _enemyData.transform.localScale;
+        localScale.x *= -1;
+        _enemyData.transform.localScale = localScale;
     }
 }

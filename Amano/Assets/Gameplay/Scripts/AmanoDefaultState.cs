@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShootState : IAmanoState
+public class AmanoDefaultState : IAmanoState
 {
     public void EnterState(AmanoStateMachine stateMachine)
     {

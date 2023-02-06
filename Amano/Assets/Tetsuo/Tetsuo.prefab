@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5428644879463700709}
   m_Layer: 0
   m_Name: RotationPoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7750300403286753087}
   m_Layer: 0
   m_Name: Ground Check
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 1435060126783123044}
   m_Layer: 0
   m_Name: Dust Particles
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5642,7 +5642,7 @@ GameObject:
   - component: {fileID: 263263850758630252}
   m_Layer: 0
   m_Name: Wall Check
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5672,6 +5672,10 @@ PrefabInstance:
     - target: {fileID: 401738870998364737, guid: 617e55ae99e74a947a6b27ec2ce5b8ee, type: 3}
       propertyPath: m_Name
       value: Leave Dash Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 401738870998364737, guid: 617e55ae99e74a947a6b27ec2ce5b8ee, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4478869167317505481, guid: 617e55ae99e74a947a6b27ec2ce5b8ee, type: 3}
       propertyPath: m_RootOrder
