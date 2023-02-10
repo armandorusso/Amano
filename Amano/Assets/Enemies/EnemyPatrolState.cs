@@ -52,11 +52,16 @@ public class EnemyPatrolState : IAmanoState
 
     private void LineOfSight(AmanoStateMachine stateMachine)
     {
-        var enemyObject = _enemyData.gameObject;
+        var enemyPosition = _enemyData.gameObject.transform.position;
+        var tetsuoPosition = _enemyData.TetsuoPosition.position;
 
-        var seesPlayer = Physics2D.OverlapCircle(enemyObject.transform.position, 4f);
+        var direction = tetsuoPosition - enemyPosition; // first variable of the equation is your destination of the raycast. where do you want it hit?
+        var normalizedDirection = direction.normalized;
 
-        if (seesPlayer.CompareTag("Player"))
+        var hit = Physics2D.Raycast(enemyPosition, normalizedDirection, _enemyData.LineOfSightDistance, _enemyData.RayCastLayers);
+        Debug.DrawRay(enemyPosition, normalizedDirection, Color.white);
+
+        if (hit && hit.collider.CompareTag("Player"))
         {
             Debug.Log("Sees player!");
             stateMachine.SwitchState("EnemyShootState");

@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4751308941784329154}
   - component: {fileID: 3365187791886019243}
   - component: {fileID: 7674069901513495694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Normal Samurai
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,11 +138,15 @@ MonoBehaviour:
   GroundCheck: {fileID: 1508394702720032208}
   TetsuoPosition: {fileID: 0}
   Sprite: {fileID: 0}
-  Rb: {fileID: 4751308941784329157}
-  Collider: {fileID: 4751308941784329154}
+  LineOfSightDistance: 2
+  RayCastLayers:
+    serializedVersion: 2
+    m_Bits: 65
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
+  Rb: {fileID: 4751308941784329157}
+  Collider: {fileID: 4751308941784329154}
 --- !u!50 &4751308941784329157
 Rigidbody2D:
   serializedVersion: 4
