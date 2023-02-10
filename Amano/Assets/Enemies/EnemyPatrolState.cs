@@ -20,6 +20,7 @@ public class EnemyPatrolState : IAmanoState
 
     public void UpdateState(AmanoStateMachine stateMachine)
     {
+        Debug.Log("Patrol");
         if (_timer.IsTimerInProgress())
         {
             _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.NormalSamuraiParameters.Speed, _enemyData.Rb.velocity.y);
@@ -47,7 +48,7 @@ public class EnemyPatrolState : IAmanoState
 
     public void ExitState(AmanoStateMachine stateMachine)
     {
-        throw new NotImplementedException();
+        
     }
 
     private void LineOfSight(AmanoStateMachine stateMachine)
