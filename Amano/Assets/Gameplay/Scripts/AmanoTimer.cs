@@ -41,6 +41,13 @@ public class AmanoTimer : MonoBehaviour
         _duration = 0f;
     }
 
+    public void ResetTimer()
+    {
+        _duration = 0f;
+        _isInProgress = false;
+        _isTimerDone = true;
+    }
+
     public bool IsTimerInProgress()
     {
         return _isInProgress;

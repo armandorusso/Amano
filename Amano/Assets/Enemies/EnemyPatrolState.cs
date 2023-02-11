@@ -8,7 +8,7 @@ public class EnemyPatrolState : IAmanoState
 {
     private NormalSamuraiData _enemyData;
     private int _direction;
-    public bool _isFacingRight = true;
+    public bool _isFacingRight;
     private AmanoTimer _timer;
 
     public void EnterState(AmanoStateMachine stateMachine)
@@ -16,6 +16,7 @@ public class EnemyPatrolState : IAmanoState
         _enemyData = stateMachine.GetComponent<NormalSamuraiData>();
         _timer = _enemyData.Timer;
         _timer.StartTimer(2f);
+        _isFacingRight = _enemyData.transform.localScale.x == 1;
     }
 
     public void UpdateState(AmanoStateMachine stateMachine)
@@ -48,7 +49,7 @@ public class EnemyPatrolState : IAmanoState
 
     public void ExitState(AmanoStateMachine stateMachine)
     {
-        
+        _timer.ResetTimer();
     }
 
     private void LineOfSight(AmanoStateMachine stateMachine)

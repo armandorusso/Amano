@@ -8,6 +8,7 @@ public class NormalSamuraiData : MonoBehaviour
     [SerializeField] public AmanoTimer Timer;
     [SerializeField] public GameObject GroundCheck;
     [SerializeField] public Transform TetsuoPosition;
+    [SerializeField] public Transform ThrowPosition;
     [SerializeField] public SpriteRenderer Sprite;
     [SerializeField] public int LineOfSightDistance;
     [SerializeField] public LayerMask RayCastLayers;

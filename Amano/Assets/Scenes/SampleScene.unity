@@ -11094,6 +11094,14 @@ PrefabInstance:
       propertyPath: RayCastLayers.m_Bits
       value: 832
       objectReference: {fileID: 0}
+    - target: {fileID: 7262230595521616340, guid: ddd8bcf2c3ae9bc4aac5d77b834ca748, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262230595521616340, guid: ddd8bcf2c3ae9bc4aac5d77b834ca748, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddd8bcf2c3ae9bc4aac5d77b834ca748, type: 3}
 --- !u!1001 &5240209181004055166

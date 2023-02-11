@@ -15,4 +15,4 @@ MonoBehaviour:
   Health: 100
   Damage: 10
   Speed: 1
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 334207595340738681, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}

@@ -16,16 +16,20 @@ public class EnemyShootState : IAmanoState
     public void UpdateState(AmanoStateMachine stateMachine)
     {
         var enemyPosition = stateMachine.transform.position;
-        if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) < 2f)
+        if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) < 2f && _timer.IsTimerDone())
         {
-            var projectileInScene = ObjectPool.ObjectPoolInstance.GetFirstPooledObject();
+            var directionToShootProjectile = FaceInDirectionOfTetsuo(enemyPosition, out _);
+            Debug.Log(directionToShootProjectile);
+            Vector3 rotation = directionToShootProjectile - _enemyData.ThrowPosition.position;
+            float zRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            _enemyData.ThrowPosition.rotation = Quaternion.Euler(0, 0, zRotation);
+            var projectileInScene = GameObject.Instantiate(_enemyData.NormalSamuraiParameters.Projectile, _enemyData.ThrowPosition.position, Quaternion.identity);
             var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
-            var directionToShootProjectile = (_enemyData.TetsuoPosition.position - enemyPosition).normalized;
 
-            rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 2f;
-            _timer.StartTimer(1f);
+            rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 20f;
+            _timer.StartTimer(4f);
         }
-        else
+        else if(Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) > 2f)
         {
             stateMachine.SwitchState("EnemyPatrolState");
         }
@@ -34,5 +38,14 @@ public class EnemyShootState : IAmanoState
     public void ExitState(AmanoStateMachine stateMachine)
     {
         
+    }
+
+    private Vector3 FaceInDirectionOfTetsuo(Vector3 enemyPosition, out Vector3 enemyFaceDirection)
+    {
+        var directionToShootProjectile = (_enemyData.TetsuoPosition.position - enemyPosition).normalized;
+        enemyFaceDirection = _enemyData.gameObject.transform.localScale;
+        enemyFaceDirection.x = directionToShootProjectile.x < 0 ? -1 : 1;
+        _enemyData.gameObject.transform.localScale = enemyFaceDirection;
+        return directionToShootProjectile;
     }
 }
