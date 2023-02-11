@@ -7,6 +7,7 @@ public class TreasureChestStateMachine : AmanoStateMachine
     protected override void Start()
     {
         var closedChestInstance = new ClosedTreasureChestState();
+        _defaultState = closedChestInstance;
         _states = new HashSet<IAmanoState>(10);
         _states.Add(new OpenedTreasureChestState());
         _states.Add(closedChestInstance);

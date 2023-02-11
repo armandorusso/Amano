@@ -11,6 +11,7 @@ public class EnemyShootState : IAmanoState
         Debug.Log("Entered Shoot State");
         _enemyData = stateMachine.GetComponent<NormalSamuraiData>();
         _timer = _enemyData.Timer;
+        _timer.StartTimer(1f);
     }
 
     public void UpdateState(AmanoStateMachine stateMachine)
@@ -20,14 +21,11 @@ public class EnemyShootState : IAmanoState
         {
             var directionToShootProjectile = FaceInDirectionOfTetsuo(enemyPosition, out _);
             Debug.Log(directionToShootProjectile);
-            Vector3 rotation = directionToShootProjectile - _enemyData.ThrowPosition.position;
-            float zRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-            _enemyData.ThrowPosition.rotation = Quaternion.Euler(0, 0, zRotation);
             var projectileInScene = GameObject.Instantiate(_enemyData.NormalSamuraiParameters.Projectile, _enemyData.ThrowPosition.position, Quaternion.identity);
             var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
 
             rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 20f;
-            _timer.StartTimer(4f);
+            _timer.StartTimer(2f);
         }
         else if(Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) > 2f)
         {
@@ -45,6 +43,7 @@ public class EnemyShootState : IAmanoState
         var directionToShootProjectile = (_enemyData.TetsuoPosition.position - enemyPosition).normalized;
         enemyFaceDirection = _enemyData.gameObject.transform.localScale;
         enemyFaceDirection.x = directionToShootProjectile.x < 0 ? -1 : 1;
+        
         _enemyData.gameObject.transform.localScale = enemyFaceDirection;
         return directionToShootProjectile;
     }
