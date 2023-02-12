@@ -38,9 +38,10 @@ public class TeleportAbility : MonoBehaviour
         _teleportShurikens = new Queue<ShurikenProjectile>(10);
         _teleportableObjects = new Queue<Transform>(10);
         canTeleport = false;
+
+        GameManager.EnemyDeathEvent += OnEnemyDefeated;
     }
 
-    // Not used right now
     private void OnShurikenHitEvent(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
     {
         Debug.Log("Event invoked");
@@ -74,6 +75,15 @@ public class TeleportAbility : MonoBehaviour
                 
                 ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
             }
+        }
+    }
+
+    private void OnEnemyDefeated(object sender, GameManager.EnemyDeathEventArgs e)
+    {
+        for (int i = 0; i < e.numberOfShuriken; i++)
+        {
+            _teleportShurikens.Dequeue();
+            _teleportableObjects.Dequeue();
         }
     }
 

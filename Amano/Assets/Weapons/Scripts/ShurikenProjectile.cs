@@ -100,18 +100,6 @@ public class ShurikenProjectile : MonoBehaviour
             Assert.IsNotNull(_animator);
             Assert.IsNotNull(_collider);
 
-            if (otherObject.layer == 7) // Enemy
-            {
-                ShurikenHitEventArgs args = new ShurikenHitEventArgs
-                {
-                    shuriken = this,
-                    damage = Damage,
-                    objectLayer = otherObject.gameObject.layer
-                };
-                
-                ShurikenHitCharacterEvent.Invoke(this, args);
-            }
-
             if (otherObject.CompareTag("Teleport"))
             {
                 transform.parent = otherObject.transform;
@@ -133,6 +121,18 @@ public class ShurikenProjectile : MonoBehaviour
                 };
 
                 ShurikenHitEvent.Invoke(this, args);
+            }
+            
+            if (otherObject.layer == 7) // Enemy
+            {
+                ShurikenHitEventArgs args = new ShurikenHitEventArgs
+                {
+                    shuriken = this,
+                    damage = Damage,
+                    objectLayer = otherObject.gameObject.layer
+                };
+                
+                ShurikenHitCharacterEvent.Invoke(this, args);
             }
         }
     }

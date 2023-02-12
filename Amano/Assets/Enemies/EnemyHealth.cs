@@ -7,6 +7,14 @@ public class EnemyHealth : MonoBehaviour
 {
     private float MaxHealthPoints;
     private float CurrentHitPoints;
+    
+    public class EnemyDeathEventArgs : EventArgs
+    {
+        public GameObject enemy { get; set; }
+    }
+
+    public EnemyDeathEventArgs enemyDeathEventArgs;
+    public static event EventHandler<EnemyDeathEventArgs> EnemyDeathEvent;
 
     private void Start()
     {
@@ -28,9 +36,14 @@ public class EnemyHealth : MonoBehaviour
         {
             DecreaseHealth(e.damage);
 
-            if (CurrentHitPoints < 0)
+            if (CurrentHitPoints <= 0)
             {
-                gameObject.SetActive(false);
+                enemyDeathEventArgs = new EnemyDeathEventArgs
+                {
+                    enemy = gameObject
+                };
+        
+                EnemyDeathEvent.Invoke(this, enemyDeathEventArgs);
             }
         }
     }
