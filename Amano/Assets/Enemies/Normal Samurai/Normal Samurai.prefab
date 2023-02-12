@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 7674069901513495694}
   m_Layer: 7
   m_Name: Normal Samurai
-  m_TagString: Untagged
+  m_TagString: Teleport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53f8d04a8041ce4cad91838861dfec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalSamuraiParameters: {fileID: 11400000, guid: 29b48eb00b9f1664aae7a33245d23e11, type: 2}
+  EnemyParameters: {fileID: 11400000, guid: dc1fa5c106771ba489046c4af159a8f6, type: 2}
   Timer: {fileID: 7674069901513495694}
   GroundCheck: {fileID: 1508394702720032208}
   TetsuoPosition: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   LineOfSightDistance: 2
   RayCastLayers:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 832
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256

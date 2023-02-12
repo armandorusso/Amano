@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4717451408186269014}
   - component: {fileID: 4934561817379121432}
   - component: {fileID: 8052953009867585148}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tetsuo
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5511,7 +5511,7 @@ GameObject:
   - component: {fileID: 27268491680541667}
   - component: {fileID: 1806114060952872610}
   - component: {fileID: 5772332075484504297}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Dash Attack Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

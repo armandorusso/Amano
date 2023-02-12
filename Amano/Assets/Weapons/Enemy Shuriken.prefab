@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 4891919026755469987}
   - component: {fileID: 444927675554488832}
   - component: {fileID: -2979029706652991420}
-  m_Layer: 12
-  m_Name: Shuriken
+  m_Layer: 11
+  m_Name: Enemy Shuriken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 243013295, guid: 895cd917be90c6649b40876d41ec0032, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.10097957, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

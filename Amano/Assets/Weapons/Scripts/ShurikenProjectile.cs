@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 public class ShurikenProjectile : MonoBehaviour
 {
+    [SerializeField] public float Damage;
     public Animator _animator;
     public Rigidbody2D _rb;
     public Collider2D _collider;
@@ -24,9 +26,11 @@ public class ShurikenProjectile : MonoBehaviour
     public static event EventHandler ShurikenDestroyedEvent;
     
     public static event EventHandler<ShurikenHitEventArgs> ShurikenHitEvent;
+    public static event EventHandler<ShurikenHitEventArgs> ShurikenHitCharacterEvent;
 
     public class ShurikenHitEventArgs : EventArgs
     {
+        public float damage { get; set; }
         public ShurikenProjectile shuriken { get; set; }
     }
  
@@ -68,21 +72,48 @@ public class ShurikenProjectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         GameObject otherObject = col.gameObject;
-
-        if (!hitGroundOrWall && (otherObject.layer == 8 || otherObject.layer == 9 || otherObject.layer == 10))
+        SwitchShurikenProperties(false);
+        
+        if (otherObject.layer == 11) return; // Weapons layer
+        
+        if (otherObject.gameObject.layer is 6) // Player
         {
+            ShurikenHitEventArgs args = new ShurikenHitEventArgs
+            {
+                shuriken = this,
+                damage = Damage
+            };
+
+            ShurikenHitCharacterEvent.Invoke(this, args);
+            ObjectPool.ObjectPoolInstance.ReturnPooledObject(gameObject);
+
+            return;
+        }
+        
+        if (!hitGroundOrWall && otherObject.layer is 7 or 8 or 9 or 10) // Enemy, Ground, Wall, or Item
+        {
+
             hitGroundOrWall = true;
             Assert.IsNotNull(_rb);
             Assert.IsNotNull(_animator);
             Assert.IsNotNull(_collider);
-            
-            SwitchShurikenProperties(false);
+
+            if (otherObject.layer == 7) // Enemy
+            {
+                ShurikenHitEventArgs args = new ShurikenHitEventArgs
+                {
+                    shuriken = this,
+                    damage = Damage
+                };
+                
+                ShurikenHitCharacterEvent.Invoke(this, args);
+            }
 
             if (otherObject.CompareTag("Teleport"))
             {
                 transform.parent = otherObject.transform;
                 hitTeleportableObj = true;
-                
+
                 ShurikenAttachedEventArgs args = new ShurikenAttachedEventArgs
                 {
                     objectCanTeleport = hitTeleportableObj,
@@ -97,7 +128,7 @@ public class ShurikenProjectile : MonoBehaviour
                 {
                     shuriken = this
                 };
-            
+
                 ShurikenHitEvent.Invoke(this, args);
             }
         }

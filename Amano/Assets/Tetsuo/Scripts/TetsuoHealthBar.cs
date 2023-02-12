@@ -26,15 +26,13 @@ public class TetsuoHealthBar : MonoBehaviour
         };
         TetsuoHealthPoints = new Health(100f);
         healthUIEvent.Invoke(this, healthUIEventArgs);
+        ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTetsuoDamaged(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
     {
-        if (col.CompareTag("Teleport"))
-        {
-            TetsuoHealthPoints.DecreaseHealth(20f);
-            healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
-            healthUIEvent.Invoke(this, healthUIEventArgs);
-        }
+        TetsuoHealthPoints.DecreaseHealth(e.damage);
+        healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
+        healthUIEvent.Invoke(this, healthUIEventArgs);
     }
 }

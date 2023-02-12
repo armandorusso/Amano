@@ -19,18 +19,24 @@ public class EnemyShootState : IAmanoState
         var enemyPosition = stateMachine.transform.position;
         if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) < 2f && _timer.IsTimerDone())
         {
-            var directionToShootProjectile = FaceInDirectionOfTetsuo(enemyPosition, out _);
-            Debug.Log(directionToShootProjectile);
-            var projectileInScene = GameObject.Instantiate(_enemyData.NormalSamuraiParameters.Projectile, _enemyData.ThrowPosition.position, Quaternion.identity);
-            var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
-
-            rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 20f;
-            _timer.StartTimer(2f);
+            ShootWeapon(enemyPosition);
         }
         else if(Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) > 2f)
         {
             stateMachine.SwitchState("EnemyPatrolState");
         }
+    }
+
+    private void ShootWeapon(Vector3 enemyPosition)
+    {
+        var directionToShootProjectile = FaceInDirectionOfTetsuo(enemyPosition, out _);
+        Debug.Log(directionToShootProjectile);
+        var projectileInScene = GameObject.Instantiate(_enemyData.EnemyParameters.Projectile,
+            _enemyData.ThrowPosition.position, Quaternion.identity);
+        var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
+
+        rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 20f;
+        _timer.StartTimer(2f);
     }
 
     public void ExitState(AmanoStateMachine stateMachine)

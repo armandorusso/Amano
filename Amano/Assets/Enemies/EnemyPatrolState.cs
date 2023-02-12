@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class EnemyPatrolState : IAmanoState
 {
-    private NormalSamuraiData _enemyData;
+    private EnemyData _enemyData;
     private int _direction;
     public bool _isFacingRight;
     private AmanoTimer _timer;
@@ -24,7 +24,7 @@ public class EnemyPatrolState : IAmanoState
         Debug.Log("Patrol");
         if (_timer.IsTimerInProgress())
         {
-            _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.NormalSamuraiParameters.Speed, _enemyData.Rb.velocity.y);
+            _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.EnemyParameters.Speed, _enemyData.Rb.velocity.y);
             
             // If its facing right && its moving in the negative direction, flip the sprite. Same thing for the opposite condition
             switch (_isFacingRight)
