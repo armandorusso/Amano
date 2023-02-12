@@ -31,8 +31,11 @@ public class TetsuoHealthBar : MonoBehaviour
 
     private void OnTetsuoDamaged(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
     {
-        TetsuoHealthPoints.DecreaseHealth(e.damage);
-        healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
-        healthUIEvent.Invoke(this, healthUIEventArgs);
+        if (e.objectLayer == 6)
+        {
+            TetsuoHealthPoints.DecreaseHealth(e.damage);
+            healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
+            healthUIEvent.Invoke(this, healthUIEventArgs);
+        }
     }
 }

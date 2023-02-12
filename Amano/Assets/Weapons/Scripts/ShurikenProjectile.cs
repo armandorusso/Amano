@@ -31,6 +31,7 @@ public class ShurikenProjectile : MonoBehaviour
     public class ShurikenHitEventArgs : EventArgs
     {
         public float damage { get; set; }
+        public LayerMask objectLayer { get; set; }
         public ShurikenProjectile shuriken { get; set; }
     }
  
@@ -81,7 +82,8 @@ public class ShurikenProjectile : MonoBehaviour
             ShurikenHitEventArgs args = new ShurikenHitEventArgs
             {
                 shuriken = this,
-                damage = Damage
+                damage = Damage,
+                objectLayer = otherObject.gameObject.layer
             };
 
             ShurikenHitCharacterEvent.Invoke(this, args);
@@ -103,7 +105,8 @@ public class ShurikenProjectile : MonoBehaviour
                 ShurikenHitEventArgs args = new ShurikenHitEventArgs
                 {
                     shuriken = this,
-                    damage = Damage
+                    damage = Damage,
+                    objectLayer = otherObject.gameObject.layer
                 };
                 
                 ShurikenHitCharacterEvent.Invoke(this, args);

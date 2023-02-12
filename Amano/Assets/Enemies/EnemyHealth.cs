@@ -1,18 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private float MaxHealthPoints;
+    private float CurrentHitPoints;
+
+    private void Start()
     {
-        
+        var enemySO = GetComponent<EnemyData>().EnemyParameters;
+        MaxHealthPoints = enemySO.Health;
+        CurrentHitPoints = MaxHealthPoints;
+
+        ShurikenProjectile.ShurikenHitCharacterEvent += OnEnemyHit;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        CurrentHitPoints = MaxHealthPoints;
+    }
+
+    private void OnEnemyHit(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
+    {
+        if (e.objectLayer == 7)
+        {
+            DecreaseHealth(e.damage);
+
+            if (CurrentHitPoints < 0)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void DecreaseHealth(float damage)
+    {
+        CurrentHitPoints -= damage;
     }
 }

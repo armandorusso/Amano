@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 4751308941784329154}
   - component: {fileID: 3365187791886019243}
   - component: {fileID: 7674069901513495694}
+  - component: {fileID: 5953132167242192615}
   m_Layer: 7
   m_Name: Normal Samurai
   m_TagString: Teleport
@@ -249,5 +250,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8d15f94a393646428afffacedc55349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5953132167242192615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751308941784329155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0589758ffd96a40b006ddd9d670bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
