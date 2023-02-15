@@ -31,7 +31,7 @@ public class EnemyShootState : IAmanoState
     {
         var directionToShootProjectile = FaceInDirectionOfTetsuo(enemyPosition, out _);
         Debug.Log(directionToShootProjectile);
-        var projectileInScene = GameObject.Instantiate(_enemyData.EnemyParameters.Projectile,
+        var projectileInScene = GameObject.Instantiate(_enemyData.EnemyParameters.ItemUsing,
             _enemyData.ThrowPosition.position, Quaternion.identity);
         var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
 

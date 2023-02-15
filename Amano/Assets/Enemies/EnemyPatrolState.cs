@@ -66,6 +66,7 @@ public class EnemyPatrolState : IAmanoState
         if (hit && hit.collider.CompareTag("Player"))
         {
             Debug.Log("Sees player!");
+            
             stateMachine.SwitchState("EnemyShootState");
         }
     }

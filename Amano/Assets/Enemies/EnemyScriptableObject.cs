@@ -7,5 +7,5 @@ public class EnemyScriptableObject : ScriptableObject
 {
     public int Health;
     public float Speed;
-    public GameObject Projectile;
+    public GameObject ItemUsing;
 }
