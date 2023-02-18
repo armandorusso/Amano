@@ -55,6 +55,9 @@ public class EnemyPatrolShieldState : IAmanoState
         if (_timer.IsTimerInProgress())
         {
             _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.EnemyParameters.Speed, _enemyData.Rb.velocity.y);
+
+            var localScale = _direction < 0 ? -1 : 1;
+            FlipGroundCheck(localScale);
             
             // If its facing right && its moving in the negative direction, flip the sprite. Same thing for the opposite condition
             switch (_isFacingRight)
@@ -66,7 +69,9 @@ public class EnemyPatrolShieldState : IAmanoState
             }
 
             if (CheckIfAtEdge())
+            {
                 _direction *= -1;
+            }
         }
         else if (_timer.IsTimerDone())
         {
@@ -74,21 +79,28 @@ public class EnemyPatrolShieldState : IAmanoState
             _timer.StartTimer(2f);
         }
     }
-    
+
+    private void FlipGroundCheck(int position)
+    {
+        var transformLocalScale = _enemyData.GroundCheckDirectionModifier.transform.localScale;
+        transformLocalScale.x = position;
+        _enemyData.GroundCheckDirectionModifier.transform.localScale = transformLocalScale;
+    }
+
     private bool CheckIfAtEdge()
     {
         Debug.DrawRay(_enemyData.GroundCheck.transform.position, Vector2.down * 1f, Color.green);
-        Debug.DrawRay(_enemyData.BackGroundCheck.position, Vector2.down * 1f, Color.green);
-        return !Physics2D.Raycast(_enemyData.GroundCheck.transform.position, Vector2.down,1f,_enemyData.GroundLayer)
-            || !Physics2D.Raycast(_enemyData.BackGroundCheck.transform.position, Vector2.down,1f,_enemyData.GroundLayer);
+        // Debug.DrawRay(_enemyData.BackGroundCheck.position, Vector2.down * 1f, Color.blue);
+        return !Physics2D.Raycast(_enemyData.GroundCheck.transform.position, Vector2.down, 1f, _enemyData.GroundLayer);
     }
 
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        var transformLocalScale = _enemyData.transform.localScale;
+        /*var transformLocalScale = _enemyData.transform.localScale;
         Vector3 localScale = transformLocalScale;
         localScale.x *= -1;
-        _enemyData.transform.localScale = localScale;
+        _enemyData.transform.localScale = localScale;*/
+        _enemyData.Sprite.flipX = !_isFacingRight;
     }
 }

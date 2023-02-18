@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ShieldSamuraiData : EnemyData
 {
-    [SerializeField] public Transform BackGroundCheck;
+    [SerializeField] public Transform GroundCheckDirectionModifier;
     [SerializeField] public AmanoTimer CooldownTimer;
 }
