@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -36,17 +37,16 @@ public class EnemyPatrolShieldState : IAmanoState
     private void LineOfSight(AmanoStateMachine stateMachine)
     {
         var enemyPosition = _enemyData.transform.position;
-        _playerDirection = _tetsuoPosition.position - enemyPosition;
-        Debug.Log(_playerDirection.x);
+        var tetsuoPosition = _tetsuoPosition.position;
+        _playerDirection = tetsuoPosition - enemyPosition;
+        Debug.Log(_playerDirection);
         var hit = Physics2D.Raycast(enemyPosition, _playerDirection, _enemyData.LineOfSightDistance,
             _enemyData.RayCastLayers);
         Debug.DrawRay(enemyPosition, _playerDirection.normalized, Color.magenta);
         
-        if (hit.distance <=
-            _enemyData.LineOfSightDistance
-            && hit.distance >= 1f)
+        if (Vector2.Distance(enemyPosition, tetsuoPosition) <= 1f)
         {
-            // stateMachine.SwitchState("EnemySlashState");
+            stateMachine.SwitchState("EnemySlashState");
         }
     }
 
@@ -86,7 +86,8 @@ public class EnemyPatrolShieldState : IAmanoState
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        Vector3 localScale = _enemyData.transform.localScale;
+        var transformLocalScale = _enemyData.transform.localScale;
+        Vector3 localScale = transformLocalScale;
         localScale.x *= -1;
         _enemyData.transform.localScale = localScale;
     }

@@ -79,6 +79,8 @@ GameObject:
   - component: {fileID: 2019243143657552824}
   - component: {fileID: 7674069901513495694}
   - component: {fileID: 5953132167242192615}
+  - component: {fileID: 909278848818127654}
+  - component: {fileID: 4487505153341367011}
   m_Layer: 7
   m_Name: Shield Samurai
   m_TagString: Teleport
@@ -173,7 +175,7 @@ MonoBehaviour:
   GroundCheck: {fileID: 1508394702720032208}
   TetsuoPosition: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   ThrowPosition: {fileID: 0}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 4751308941784329156}
   LineOfSightDistance: 4
   RayCastLayers:
     serializedVersion: 2
@@ -184,6 +186,7 @@ MonoBehaviour:
   Rb: {fileID: 4751308941784329157}
   Collider: {fileID: 4751308941784329154}
   BackGroundCheck: {fileID: 7715245742309756839}
+  CooldownTimer: {fileID: 4487505153341367011}
 --- !u!50 &4751308941784329157
 Rigidbody2D:
   serializedVersion: 4
@@ -267,6 +270,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0589758ffd96a40b006ddd9d670bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &909278848818127654
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751308941784329155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a21128f0090fb164f9da2393cadaa3c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4487505153341367011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751308941784329155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d15f94a393646428afffacedc55349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8840688150987903493
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +340,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 936575491447383763}
     m_Modifications:
+    - target: {fileID: -8573444738611395414, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
+      propertyPath: EnemySprite
+      value: 
+      objectReference: {fileID: 4751308941784329156}
     - target: {fileID: -8573444738611395414, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
       propertyPath: RotationPoint
       value: 
