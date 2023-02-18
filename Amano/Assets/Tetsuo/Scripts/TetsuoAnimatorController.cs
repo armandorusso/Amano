@@ -25,9 +25,6 @@ public class TetsuoAnimatorController : MonoBehaviour
 
     private void Update()
     {
-        _isJumping = false;
-        _isFalling = false;
-
         if (_tetsuoController)
         {
             _isJumping = _tetsuoController._isJumping;

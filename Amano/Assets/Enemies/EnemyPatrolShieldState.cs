@@ -90,17 +90,15 @@ public class EnemyPatrolShieldState : IAmanoState
     private bool CheckIfAtEdge()
     {
         Debug.DrawRay(_enemyData.GroundCheck.transform.position, Vector2.down * 1f, Color.green);
-        // Debug.DrawRay(_enemyData.BackGroundCheck.position, Vector2.down * 1f, Color.blue);
         return !Physics2D.Raycast(_enemyData.GroundCheck.transform.position, Vector2.down, 1f, _enemyData.GroundLayer);
     }
 
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        /*var transformLocalScale = _enemyData.transform.localScale;
-        Vector3 localScale = transformLocalScale;
-        localScale.x *= -1;
-        _enemyData.transform.localScale = localScale;*/
         _enemyData.Sprite.flipX = !_isFacingRight;
+        var transformLocalScale = _enemyData.AttackingHitbox.transform.localScale;
+        transformLocalScale.x *= -1f;
+        _enemyData.AttackingHitbox.transform.localScale = transformLocalScale;
     }
 }

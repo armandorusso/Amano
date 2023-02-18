@@ -6,4 +6,6 @@ public class ShieldSamuraiData : EnemyData
 {
     [SerializeField] public Transform GroundCheckDirectionModifier;
     [SerializeField] public AmanoTimer CooldownTimer;
+    [SerializeField] public GameObject AttackingHitbox;
+    public bool IsSlashing;
 }
