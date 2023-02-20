@@ -17,9 +17,22 @@ public class QuickTimeTeleport : MonoBehaviour
     public EnemyDamagedEventArgs enemyDamagedEventArgs;
     public static event EventHandler<EnemyDamagedEventArgs> EnemyDamagedEvent;
     
+    public class ZoomInEventArgs : EventArgs
+    {
+        public float zoomInAmount;
+    }
+
+    public ZoomInEventArgs zoomInEventArgs;
+    public static event EventHandler<ZoomInEventArgs> ZoomInEvent;
+    
     void Start()
     {
         TeleportAbility.QuickTimeTeleportEvent += OnQuickTimeTeleportInvokeEvent;
+
+        zoomInEventArgs = new ZoomInEventArgs
+        {
+            zoomInAmount = 3.4f
+        };
     }
 
     private void OnQuickTimeTeleportInvokeEvent(object sender, TeleportAbility.QuickTimeTeleportEventArgs e)
@@ -36,19 +49,22 @@ public class QuickTimeTeleport : MonoBehaviour
             damage = 100f,
             enemyLayer = LayerMask.NameToLayer("Enemy")
         };
-        
-        // Invoke Camera Zoom
-        
+
         StartCoroutine(SlowDownTime());
     }
 
     private IEnumerator SlowDownTime()
     {
+        // Invoke Camera Zoom
+        ZoomInEvent.Invoke(this, zoomInEventArgs);
         Time.timeScale = 0.25f;
         isTimeSlowed = true;
         yield return new WaitForSeconds(2f);
         Time.timeScale = 1f;
         isTimeSlowed = false;
+        zoomInEventArgs.zoomInAmount = 5f;
+        ZoomInEvent.Invoke(this, zoomInEventArgs);
+        zoomInEventArgs.zoomInAmount = 3.4f;
     }
 
     public void QuickTimeInput(InputAction.CallbackContext context)
@@ -59,6 +75,9 @@ public class QuickTimeTeleport : MonoBehaviour
             StopCoroutine(SlowDownTime());
             Time.timeScale = 1f;
             isTimeSlowed = false;
+            zoomInEventArgs.zoomInAmount = 5f;
+            ZoomInEvent.Invoke(this, zoomInEventArgs);
+            zoomInEventArgs.zoomInAmount = 3.4f;
         }
     }
 }
