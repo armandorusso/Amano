@@ -28,10 +28,13 @@ public class QuickTimeTeleport : MonoBehaviour
         var rb = teleportedGameObject.GetComponent<Rigidbody2D>();
         rb.simulated = true;
 
+        teleportedGameObject.transform.parent = null;
+        teleportedGameObject.layer = LayerMask.NameToLayer("Item");
+        
         enemyDamagedEventArgs = new EnemyDamagedEventArgs
         {
             damage = 100f,
-            enemyLayer = LayerMask.GetMask("Enemy")
+            enemyLayer = LayerMask.NameToLayer("Enemy")
         };
         
         // Invoke Camera Zoom

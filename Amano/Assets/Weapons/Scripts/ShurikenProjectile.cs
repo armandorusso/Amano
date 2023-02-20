@@ -116,8 +116,8 @@ public class ShurikenProjectile : MonoBehaviour
                 {
                     teleportObject = quickTimeComponent.gameObject.transform.GetChild(0).GetChild(0).gameObject;
                     teleportObjectLayer = teleportObject.gameObject.layer;
+                    transform.parent = teleportObject.transform.parent;
                 }
-
 
                 ShurikenAttachedEventArgs args = new ShurikenAttachedEventArgs
                 {
