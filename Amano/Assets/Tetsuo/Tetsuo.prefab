@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 4717451408186269014}
   - component: {fileID: 4934561817379121432}
   - component: {fileID: 8052953009867585148}
+  - component: {fileID: 4556327319113309449}
   m_Layer: 6
   m_Name: Tetsuo
   m_TagString: Player
@@ -449,6 +450,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bdd27743-4d8f-4178-9620-50b03bbf9698
     m_ActionName: Player/Dash Attack[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4556327319113309449}
+        m_TargetAssemblyTypeName: QuickTimeTeleport, Assembly-CSharp
+        m_MethodName: QuickTimeInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 882074e9-0b03-473a-9746-7ef3c1489c66
+    m_ActionName: Player/Quick Time Event[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -678,6 +695,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tetsuoMovement: {fileID: 1773835547415062491}
   _tetsuoAbilities: {fileID: 0}
+--- !u!114 &4556327319113309449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f289059f7ae1a45963999b2c5f4877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7574503943195773515
 GameObject:
   m_ObjectHideFlags: 0

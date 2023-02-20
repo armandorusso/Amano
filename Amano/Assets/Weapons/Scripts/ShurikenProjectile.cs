@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -22,6 +23,8 @@ public class ShurikenProjectile : MonoBehaviour
     {
         public bool objectCanTeleport { get; set; }
         public Transform teleportableObject { get; set; }
+        public bool quickTimeTeleport { get; set; }
+        public GameObject enemy { get; set; }
     }
     public static event EventHandler ShurikenDestroyedEvent;
     
@@ -34,8 +37,8 @@ public class ShurikenProjectile : MonoBehaviour
         public LayerMask objectLayer { get; set; }
         public ShurikenProjectile shuriken { get; set; }
     }
- 
     
+
     private void Start()
     {
         hitTeleportableObj = false;
@@ -105,13 +108,30 @@ public class ShurikenProjectile : MonoBehaviour
                 transform.parent = otherObject.transform;
                 hitTeleportableObj = true;
 
+                var success = otherObject.TryGetComponent(out EnemyData quickTimeComponent);
+                GameObject teleportObject = null;
+                int? teleportObjectLayer = null;
+
+                if (success)
+                {
+                    teleportObject = quickTimeComponent.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+                    teleportObjectLayer = teleportObject.gameObject.layer;
+                }
+
+
                 ShurikenAttachedEventArgs args = new ShurikenAttachedEventArgs
                 {
                     objectCanTeleport = hitTeleportableObj,
-                    teleportableObject = otherObject.transform,
+                    teleportableObject = teleportObjectLayer == 13 ? teleportObject.transform : otherObject.transform,
+                    quickTimeTeleport = teleportObjectLayer == 13 ? teleportObject.transform : null, // if doesn't exist, false
+                    enemy = otherObject
                 };
+                
                 ShurikenAttachedEvent.Invoke(this, args);
                 hitTeleportableObj = false;
+
+                if (teleportObject)
+                    return;
             }
             else
             {

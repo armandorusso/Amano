@@ -11,6 +11,8 @@ public class TeleportAbility : MonoBehaviour
     private Queue<ShurikenProjectile> _teleportShurikens;
     private Queue<Transform> _teleportableObjects;
     private bool canTeleport;
+    private GameObject _quickTimeObject;
+    private GameObject _enemy;
     
     public class VanishingFxEventArgs : EventArgs
     {
@@ -19,6 +21,14 @@ public class TeleportAbility : MonoBehaviour
     }
     public static event EventHandler<VanishingFxEventArgs> VanishingEvent;
     private VanishingFxEventArgs vanishingEventArgs;
+    
+    public class QuickTimeTeleportEventArgs : EventArgs
+    {
+        public GameObject objectBeingTeleported { get; set; }
+        public GameObject enemy { get; set; }
+    }
+    public static event EventHandler<QuickTimeTeleportEventArgs> QuickTimeTeleportEvent;
+    private QuickTimeTeleportEventArgs quickTimeTeleportEventArgs;
 
     void Awake()
     {
@@ -58,10 +68,12 @@ public class TeleportAbility : MonoBehaviour
             }
         }
     }
-    
+
     private void OnShurikenAttachedEvent(object sender, ShurikenProjectile.ShurikenAttachedEventArgs e)
     {
         canTeleport = e.objectCanTeleport;
+        _enemy = e.enemy;
+        _quickTimeObject = e.quickTimeTeleport ? e.teleportableObject.gameObject : null;
 
         if (sender is ShurikenProjectile shurikenProjectile)
         {
@@ -108,6 +120,18 @@ public class TeleportAbility : MonoBehaviour
         if (_teleportShurikens.Count < 1)
         {
             canTeleport = false;
+        }
+
+        if (_quickTimeObject)
+        {
+            quickTimeTeleportEventArgs = new QuickTimeTeleportEventArgs
+            {
+                objectBeingTeleported = _quickTimeObject,
+                enemy = _enemy
+            };
+            
+            QuickTimeTeleportEvent.Invoke(this, quickTimeTeleportEventArgs);
+            _quickTimeObject = null;
         }
     }
 }

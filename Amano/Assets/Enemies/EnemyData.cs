@@ -12,6 +12,7 @@ public abstract class EnemyData : MonoBehaviour
     [SerializeField] public SpriteRenderer Sprite;
     [SerializeField] public int LineOfSightDistance;
     [SerializeField] public LayerMask RayCastLayers;
+    [SerializeField] public bool canInvokeQuickTimeEvent;
     public LayerMask GroundLayer;
     public Rigidbody2D Rb;
     public Collider2D Collider;

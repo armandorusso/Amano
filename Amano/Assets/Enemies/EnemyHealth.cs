@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
         CurrentHitPoints = MaxHealthPoints;
 
         ShurikenProjectile.ShurikenHitCharacterEvent += OnEnemyHit;
+        QuickTimeTeleport.EnemyDamagedEvent += OnEnemyQuickTimeHit;
     }
 
     private void OnDisable()
@@ -34,17 +35,30 @@ public class EnemyHealth : MonoBehaviour
     {
         if (e.objectLayer == 7)
         {
-            DecreaseHealth(e.damage);
+            DamageEnemy(e.damage);
+        }
+    }
 
-            if (CurrentHitPoints <= 0)
+    private void OnEnemyQuickTimeHit(object sender, QuickTimeTeleport.EnemyDamagedEventArgs e)
+    {
+        if (e.enemyLayer == 7)
+        {
+            DamageEnemy(e.damage);
+        }
+    }
+
+    private void DamageEnemy(float damage)
+    {
+        DecreaseHealth(damage);
+
+        if (CurrentHitPoints <= 0)
+        {
+            enemyDeathEventArgs = new EnemyDeathEventArgs
             {
-                enemyDeathEventArgs = new EnemyDeathEventArgs
-                {
-                    enemy = gameObject
-                };
-        
-                EnemyDeathEvent.Invoke(this, enemyDeathEventArgs);
-            }
+                enemy = gameObject
+            };
+
+            EnemyDeathEvent.Invoke(this, enemyDeathEventArgs);
         }
     }
 
