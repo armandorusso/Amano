@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnEnemyHit(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
     {
-        if (e.objectLayer == 7)
+        if (e.enemy == gameObject)
         {
             DamageEnemy(e.damage);
         }
@@ -41,7 +41,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnEnemyQuickTimeHit(object sender, QuickTimeTeleport.EnemyDamagedEventArgs e)
     {
-        if (e.enemyLayer == 7)
+        if (e.enemy == gameObject)
         {
             DamageEnemy(e.damage);
         }

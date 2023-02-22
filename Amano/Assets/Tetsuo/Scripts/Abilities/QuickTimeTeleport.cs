@@ -11,6 +11,7 @@ public class QuickTimeTeleport : MonoBehaviour
     public class EnemyDamagedEventArgs : EventArgs
     {
         public float damage { get; set; }
+        public GameObject enemy { get; set; }
         public LayerMask enemyLayer { get; set; }
     }
 
@@ -47,7 +48,8 @@ public class QuickTimeTeleport : MonoBehaviour
         enemyDamagedEventArgs = new EnemyDamagedEventArgs
         {
             damage = 100f,
-            enemyLayer = LayerMask.NameToLayer("Enemy")
+            enemyLayer = LayerMask.NameToLayer("Enemy"),
+            enemy = e.enemy
         };
 
         StartCoroutine(SlowDownTime());
@@ -63,20 +65,20 @@ public class QuickTimeTeleport : MonoBehaviour
         Time.timeScale = 1f;
         isTimeSlowed = false;
         zoomInEventArgs.zoomInAmount = 5f;
-        ZoomInEvent.Invoke(this, zoomInEventArgs);
+        ZoomInEvent?.Invoke(this, zoomInEventArgs);
         zoomInEventArgs.zoomInAmount = 3.4f;
     }
 
     public void QuickTimeInput(InputAction.CallbackContext context)
     {
-        if (isTimeSlowed && (context.started || context.performed))
+        if (isTimeSlowed && context.performed)
         {
-            EnemyDamagedEvent.Invoke(this, enemyDamagedEventArgs);
+            EnemyDamagedEvent?.Invoke(this, enemyDamagedEventArgs);
             StopCoroutine(SlowDownTime());
             Time.timeScale = 1f;
             isTimeSlowed = false;
             zoomInEventArgs.zoomInAmount = 5f;
-            ZoomInEvent.Invoke(this, zoomInEventArgs);
+            ZoomInEvent?.Invoke(this, zoomInEventArgs);
             zoomInEventArgs.zoomInAmount = 3.4f;
         }
     }

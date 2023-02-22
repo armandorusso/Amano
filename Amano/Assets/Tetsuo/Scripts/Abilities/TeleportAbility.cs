@@ -11,8 +11,6 @@ public class TeleportAbility : MonoBehaviour
     private Queue<ShurikenProjectile> _teleportShurikens;
     private Queue<Transform> _teleportableObjects;
     private bool canTeleport;
-    private GameObject _quickTimeObject;
-    private GameObject _enemy;
     
     public class VanishingFxEventArgs : EventArgs
     {
@@ -35,7 +33,7 @@ public class TeleportAbility : MonoBehaviour
         ShurikenProjectile.ShurikenHitEvent += OnShurikenHitEvent;
         ShurikenProjectile.ShurikenAttachedEvent += OnShurikenAttachedEvent;
 
-        vanishingEventArgs = new VanishingFxEventArgs()
+        vanishingEventArgs = new VanishingFxEventArgs
         {
             objectBeingTeleported1 = null,
             objectBeingTeleported2 = null
@@ -72,8 +70,6 @@ public class TeleportAbility : MonoBehaviour
     private void OnShurikenAttachedEvent(object sender, ShurikenProjectile.ShurikenAttachedEventArgs e)
     {
         canTeleport = e.objectCanTeleport;
-        _enemy = e.enemy;
-        _quickTimeObject = e.quickTimeTeleport ? e.teleportableObject.gameObject : null;
 
         if (sender is ShurikenProjectile shurikenProjectile)
         {
@@ -101,10 +97,11 @@ public class TeleportAbility : MonoBehaviour
 
     public void TeleportToObject(InputAction.CallbackContext context)
     {
-        Debug.Log("Swapping positions");
         if (context.performed && canTeleport && _teleportShurikens.Count > 0)
         {
-            var shuriken = _teleportShurikens.Dequeue();
+            var shuriken = _teleportShurikens.Peek();
+            Debug.Log("Swapping positions");
+            _teleportShurikens.Dequeue();
             var objectToTeleport = _teleportableObjects.Dequeue();
             Assert.IsNotNull(shuriken);
             vanishingEventArgs.objectBeingTeleported1 = gameObject;
@@ -115,23 +112,22 @@ public class TeleportAbility : MonoBehaviour
             objectToTeleport.transform.position = playerPosition;
 
             ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
-        }
 
-        if (_teleportShurikens.Count < 1)
-        {
-            canTeleport = false;
-        }
-
-        if (_quickTimeObject)
-        {
-            quickTimeTeleportEventArgs = new QuickTimeTeleportEventArgs
+            if (objectToTeleport.gameObject.layer == 13)
             {
-                objectBeingTeleported = _quickTimeObject,
-                enemy = _enemy
-            };
-            
-            QuickTimeTeleportEvent.Invoke(this, quickTimeTeleportEventArgs);
-            _quickTimeObject = null;
+                quickTimeTeleportEventArgs = new QuickTimeTeleportEventArgs
+                {
+                    objectBeingTeleported = objectToTeleport.gameObject,
+                    enemy = objectToTeleport.transform.parent.parent.gameObject
+                };
+
+                QuickTimeTeleportEvent?.Invoke(this, quickTimeTeleportEventArgs);
+            }
+
+            if (_teleportShurikens.Count < 1)
+            {
+                canTeleport = false;
+            }
         }
     }
 }

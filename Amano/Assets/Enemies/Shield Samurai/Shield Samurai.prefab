@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 5953132167242192615}
   - component: {fileID: 909278848818127654}
   - component: {fileID: 5966730442935504146}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Shield Samurai
   m_TagString: Teleport
   m_Icon: {fileID: 0}

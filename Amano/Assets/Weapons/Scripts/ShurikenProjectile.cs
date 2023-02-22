@@ -36,6 +36,7 @@ public class ShurikenProjectile : MonoBehaviour
         public float damage { get; set; }
         public LayerMask objectLayer { get; set; }
         public ShurikenProjectile shuriken { get; set; }
+        public GameObject enemy { get; set; }
     }
     
 
@@ -89,15 +90,14 @@ public class ShurikenProjectile : MonoBehaviour
                 objectLayer = otherObject.gameObject.layer
             };
 
-            ShurikenHitCharacterEvent.Invoke(this, args);
+            ShurikenHitCharacterEvent?.Invoke(this, args);
             ObjectPool.ObjectPoolInstance.ReturnPooledObject(gameObject);
 
             return;
         }
         
-        if (!hitGroundOrWall && otherObject.layer is 7 or 8 or 9 or 10) // Enemy, Ground, Wall, or Item
+        if (!hitGroundOrWall && otherObject.layer is 7 or 8 or 9 or 10 or 13) // Enemy, Ground, Wall, Item or QuickTimeEvent
         {
-
             hitGroundOrWall = true;
             Assert.IsNotNull(_rb);
             Assert.IsNotNull(_animator);
@@ -108,22 +108,21 @@ public class ShurikenProjectile : MonoBehaviour
                 transform.parent = otherObject.transform;
                 hitTeleportableObj = true;
 
-                var success = otherObject.TryGetComponent(out EnemyData quickTimeComponent);
                 GameObject teleportObject = null;
                 int? teleportObjectLayer = null;
 
-                if (success)
+                if (otherObject.layer == 13 && otherObject.TryGetComponent(out EnemyData quickTimeComponent))
                 {
                     teleportObject = quickTimeComponent.gameObject.transform.GetChild(0).GetChild(0).gameObject;
                     teleportObjectLayer = teleportObject.gameObject.layer;
-                    transform.parent = teleportObject.transform.parent;
+                    transform.parent = teleportObject.transform;
                 }
 
                 ShurikenAttachedEventArgs args = new ShurikenAttachedEventArgs
                 {
                     objectCanTeleport = hitTeleportableObj,
                     teleportableObject = teleportObjectLayer == 13 ? teleportObject.transform : otherObject.transform,
-                    quickTimeTeleport = teleportObjectLayer == 13 ? teleportObject.transform : null, // if doesn't exist, false
+                    quickTimeTeleport = teleportObjectLayer == 13 ? teleportObject.transform : false, // if doesn't exist, false
                     enemy = otherObject
                 };
                 
@@ -145,14 +144,16 @@ public class ShurikenProjectile : MonoBehaviour
             
             if (otherObject.layer == 7) // Enemy
             {
+                otherObject.TryGetComponent(out EnemyHealth enemy);
                 ShurikenHitEventArgs args = new ShurikenHitEventArgs
                 {
                     shuriken = this,
                     damage = Damage,
-                    objectLayer = otherObject.gameObject.layer
+                    objectLayer = otherObject.gameObject.layer,
+                    enemy = enemy.gameObject
                 };
                 
-                ShurikenHitCharacterEvent.Invoke(this, args);
+                ShurikenHitCharacterEvent?.Invoke(this, args);
             }
         }
     }
