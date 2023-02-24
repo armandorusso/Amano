@@ -33,22 +33,27 @@ public class ShieldRotation : QuickTimeComponent
 
         var playerDirection = tetsuoTransformPosition - rotationPointPosition; // Get the direction between the rotation point and the player
 
-        var angleBetweenPlayerDirectionAndXAxis = Mathf.Atan2(playerDirection.y,
-            playerDirection.x) * Mathf.Rad2Deg; // Get the angle between the x axis and the direction of where the player is
-        
-        angleBetweenPlayerDirectionAndXAxis = Mathf.Clamp(angleBetweenPlayerDirectionAndXAxis, 0, 180f);
-
-        // This way, we can rotate the rotation point towards the direction of the player using that angle
-        // Since the shield object is a child of the rotation point, the rotation point becomes the local axis and in turn, the shield rotates around it
-        if (_enemyTransform.localScale.x < 0)
+        if (playerDirection.y > 0)
         {
-            angleBetweenPlayerDirectionAndXAxis = Mathf.Clamp(angleBetweenPlayerDirectionAndXAxis, 90f, 180f);
+            var angleBetweenPlayerDirectionAndXAxis = Mathf.Atan2(playerDirection.y,
+                                                          playerDirection.x) *
+                                                      Mathf
+                                                          .Rad2Deg; // Get the angle between the x axis and the direction of where the player is
+
+            angleBetweenPlayerDirectionAndXAxis = Mathf.Clamp(angleBetweenPlayerDirectionAndXAxis, 0, 180f);
+
+            // This way, we can rotate the rotation point towards the direction of the player using that angle
+            // Since the shield object is a child of the rotation point, the rotation point becomes the local axis and in turn, the shield rotates around it
+            if (_enemyTransform.localScale.x < 0)
+            {
+                angleBetweenPlayerDirectionAndXAxis = Mathf.Clamp(angleBetweenPlayerDirectionAndXAxis, 90f, 180f);
+            }
+
+            RotationPoint.rotation = Quaternion.Euler(0f, 0f, angleBetweenPlayerDirectionAndXAxis);
+            // If the enemy is facing in the opposite direction, what ends up happening is the shield ends up in the opposite direction of where it should be
+            // This if statement prevents that from happening
         }
-        
-        RotationPoint.rotation = Quaternion.Euler(0f, 0f, angleBetweenPlayerDirectionAndXAxis);
-        // If the enemy is facing in the opposite direction, what ends up happening is the shield ends up in the opposite direction of where it should be
-        // This if statement prevents that from happening
-        
+
     }
 
     public override void ApplyQuickTimeProperty()

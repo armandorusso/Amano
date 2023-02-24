@@ -448,6 +448,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 936575491447383763}
     m_Modifications:
     - target: {fileID: -8573444738611395414, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
+      propertyPath: EnemySprite
+      value: 
+      objectReference: {fileID: 4751308941784329156}
+    - target: {fileID: -8573444738611395414, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
       propertyPath: RotationPoint
       value: 
       objectReference: {fileID: 936575491447383763}
@@ -461,7 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6448684369923646482, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0907
+      value: 0.047
       objectReference: {fileID: 0}
     - target: {fileID: 6448684369923646482, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
       propertyPath: m_LocalPosition.z
