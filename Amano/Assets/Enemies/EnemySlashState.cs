@@ -15,6 +15,7 @@ public class EnemySlashState : IAmanoState
     public class SlashingEventAnimationArgs : EventArgs
     {
         public bool isSlashing { get; set; }
+        public GameObject currentActor { get; set; }
     }
     public static event EventHandler<SlashingEventAnimationArgs> slashingEvent;
     private SlashingEventAnimationArgs slashingEventArgs;
@@ -27,7 +28,8 @@ public class EnemySlashState : IAmanoState
         _cooldownTimer = _enemyData.CooldownTimer;
         slashingEventArgs = new SlashingEventAnimationArgs
         {
-            isSlashing = false
+            isSlashing = false,
+            currentActor = stateMachine.gameObject
         };
         
         ActivateSlash();
@@ -84,7 +86,7 @@ public class EnemySlashState : IAmanoState
     {
         _timer.ResetTimer();
         slashingEventArgs.isSlashing = false;
-        slashingEvent.Invoke(this, slashingEventArgs);
+        slashingEvent?.Invoke(this, slashingEventArgs);
         _cooldownTimer.ResetTimer();
     }
 }

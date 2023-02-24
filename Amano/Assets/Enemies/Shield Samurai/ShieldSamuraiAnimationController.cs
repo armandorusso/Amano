@@ -20,6 +20,9 @@ public class ShieldSamuraiAnimationController : MonoBehaviour
 
     private void OnSlashEvent(object sender, EnemySlashState.SlashingEventAnimationArgs e)
     {
-        _animator.SetBool("isSlashing", e.isSlashing);
+        if (e.currentActor == gameObject)
+        {
+            _animator.SetBool("isSlashing", e.isSlashing);
+        }
     }
 }
