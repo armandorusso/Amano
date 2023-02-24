@@ -39,11 +39,12 @@ public class QuickTimeTeleport : MonoBehaviour
     private void OnQuickTimeTeleportInvokeEvent(object sender, TeleportAbility.QuickTimeTeleportEventArgs e)
     {
         var teleportedGameObject = e.objectBeingTeleported;
-        var rb = teleportedGameObject.GetComponent<Rigidbody2D>();
-        rb.simulated = true;
+        var quickTimeComponent = teleportedGameObject.GetComponent<QuickTimeComponent>();
+        quickTimeComponent.enabled = false;
 
         teleportedGameObject.transform.parent = null;
         teleportedGameObject.layer = LayerMask.NameToLayer("Item");
+        e.enemy.layer = LayerMask.NameToLayer("Enemy");
         
         enemyDamagedEventArgs = new EnemyDamagedEventArgs
         {
@@ -64,7 +65,7 @@ public class QuickTimeTeleport : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Time.timeScale = 1f;
         isTimeSlowed = false;
-        zoomInEventArgs.zoomInAmount = 5f;
+        zoomInEventArgs.zoomInAmount = 5.4f;
         ZoomInEvent?.Invoke(this, zoomInEventArgs);
         zoomInEventArgs.zoomInAmount = 3.4f;
     }
@@ -77,7 +78,7 @@ public class QuickTimeTeleport : MonoBehaviour
             StopCoroutine(SlowDownTime());
             Time.timeScale = 1f;
             isTimeSlowed = false;
-            zoomInEventArgs.zoomInAmount = 5f;
+            zoomInEventArgs.zoomInAmount = 5.4f;
             ZoomInEvent?.Invoke(this, zoomInEventArgs);
             zoomInEventArgs.zoomInAmount = 3.4f;
         }

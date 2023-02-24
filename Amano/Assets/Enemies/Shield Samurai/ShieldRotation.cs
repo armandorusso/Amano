@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldRotation : MonoBehaviour
+public class ShieldRotation : QuickTimeComponent
 {
     [SerializeField] public Transform RotationPoint;
     [SerializeField] public SpriteRenderer EnemySprite;
@@ -17,7 +18,12 @@ public class ShieldRotation : MonoBehaviour
 
     void Update()
     {
-        AdjustShieldRotation();
+        ApplyQuickTimeProperty();
+    }
+
+    private void OnDisable()
+    {
+        gameObject.AddComponent<Rigidbody2D>();
     }
 
     private void AdjustShieldRotation()
@@ -43,5 +49,10 @@ public class ShieldRotation : MonoBehaviour
         // If the enemy is facing in the opposite direction, what ends up happening is the shield ends up in the opposite direction of where it should be
         // This if statement prevents that from happening
         
+    }
+
+    public override void ApplyQuickTimeProperty()
+    {
+        AdjustShieldRotation();
     }
 }

@@ -126,7 +126,7 @@ public class ShurikenProjectile : MonoBehaviour
                     enemy = otherObject
                 };
                 
-                ShurikenAttachedEvent.Invoke(this, args);
+                ShurikenAttachedEvent?.Invoke(this, args);
                 hitTeleportableObj = false;
 
                 if (teleportObject)
@@ -139,7 +139,7 @@ public class ShurikenProjectile : MonoBehaviour
                     shuriken = this
                 };
 
-                ShurikenHitEvent.Invoke(this, args);
+                ShurikenHitEvent?.Invoke(this, args);
             }
             
             if (otherObject.layer == 7) // Enemy
