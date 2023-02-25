@@ -24,6 +24,15 @@ public class EnemyHealth : MonoBehaviour
 
         ShurikenProjectile.ShurikenHitCharacterEvent += OnEnemyHit;
         QuickTimeTeleport.EnemyDamagedEvent += OnEnemyQuickTimeHit;
+        SlashingHitbox.SlashHitEvent += OnEnemySlashed;
+    }
+
+    private void OnEnemySlashed(object sender, SlashingHitbox.SlashHitEventArgs e)
+    {
+        if (e.hitGameObject == gameObject)
+        {
+            DamageEnemy(e.damage);
+        }
     }
 
     private void OnDisable()

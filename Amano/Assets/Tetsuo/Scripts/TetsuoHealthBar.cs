@@ -27,6 +27,17 @@ public class TetsuoHealthBar : MonoBehaviour
         TetsuoHealthPoints = new Health(100f);
         healthUIEvent.Invoke(this, healthUIEventArgs);
         ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
+        SlashingHitbox.SlashHitEvent += OnMeleeSlashHit;
+    }
+
+    private void OnMeleeSlashHit(object sender, SlashingHitbox.SlashHitEventArgs e)
+    {
+        if (e.hitGameObject == gameObject)
+        {
+            TetsuoHealthPoints.DecreaseHealth(e.damage);
+            healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
+            healthUIEvent?.Invoke(this, healthUIEventArgs);
+        }
     }
 
     private void OnTetsuoDamaged(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
@@ -35,7 +46,7 @@ public class TetsuoHealthBar : MonoBehaviour
         {
             TetsuoHealthPoints.DecreaseHealth(e.damage);
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
-            healthUIEvent.Invoke(this, healthUIEventArgs);
+            healthUIEvent?.Invoke(this, healthUIEventArgs);
         }
     }
 }
