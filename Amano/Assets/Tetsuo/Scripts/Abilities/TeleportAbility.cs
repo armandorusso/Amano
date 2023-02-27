@@ -130,4 +130,11 @@ public class TeleportAbility : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        ShurikenProjectile.ShurikenHitEvent -= OnShurikenHitEvent;
+        ShurikenProjectile.ShurikenAttachedEvent -= OnShurikenAttachedEvent;
+        GameManager.EnemyDeathEvent -= OnEnemyDefeated;
+    }
 }

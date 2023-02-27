@@ -42,10 +42,10 @@ public class RoomCameraManager : MonoBehaviour
     {
         Debug.Log("Entered Coroutine");
         Time.timeScale = 0f;
-        cameraTransitionEvent.Invoke(this, cameraTransitionArgs);
+        cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         yield return new WaitForSecondsRealtime(2f);
         cameraTransitionArgs.isMovementDisabled = true;
-        cameraTransitionEvent.Invoke(this, cameraTransitionArgs);
+        cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         Time.timeScale = 1f;
     }
 
@@ -63,5 +63,10 @@ public class RoomCameraManager : MonoBehaviour
     {
         if(other.CompareTag("Player"))
             VirtualCamera.SetActive(false);
+    }
+
+    public void OnDestroy()
+    {
+        QuickTimeTeleport.ZoomInEvent -= OnQuickTimeEvent;
     }
 }

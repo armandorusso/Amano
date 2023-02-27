@@ -75,4 +75,11 @@ public class EnemyHealth : MonoBehaviour
     {
         CurrentHitPoints -= damage;
     }
+
+    private void OnDestroy()
+    {
+        ShurikenProjectile.ShurikenHitCharacterEvent -= OnEnemyHit;
+        QuickTimeTeleport.EnemyDamagedEvent -= OnEnemyQuickTimeHit;
+        SlashingHitbox.SlashHitEvent -= OnEnemySlashed;
+    }
 }

@@ -18,4 +18,9 @@ public class HealthUI : MonoBehaviour
     {
         HealthBar.value = Mathf.Lerp(HealthBar.value, e.currentHealth, HealthBar.value / Time.deltaTime);
     }
+
+    private void OnDestroy()
+    {
+        TetsuoHealthBar.healthUIEvent -= OnHealthUiEvent;
+    }
 }

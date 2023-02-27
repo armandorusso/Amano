@@ -57,4 +57,10 @@ public class ShaderEventManager : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         spriteSubject.material = material;
     }
+
+    private void OnDestroy()
+    {
+        TeleportAbility.VanishingEvent -= OnTeleportEvent;
+        TetsuoController.groundedDashAttackEvent -= OnDashEvent;
+    }
 }

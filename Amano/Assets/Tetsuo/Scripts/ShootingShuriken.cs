@@ -25,13 +25,10 @@ public class ShootingShuriken : MonoBehaviour
     private bool canShoot;
 
     private Vector3 mousePos;
-    // private ObjectPool _objectShurikenPool;
 
     private void Start()
     {
         canShoot = true;
-        // Will be implemented later
-        // _objectShurikenPool = ObjectPool.ObjectPoolInstance;
     }
 
     void Update()

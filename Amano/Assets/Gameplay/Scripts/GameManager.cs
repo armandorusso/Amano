@@ -14,10 +14,20 @@ public class GameManager : MonoBehaviour
 
     public EnemyDeathEventArgs enemyDeathEventArgs;
     public static event EventHandler<EnemyDeathEventArgs> EnemyDeathEvent;
+
+    [SerializeField] public GameObject GameCanvas;
+    [SerializeField] public GameObject GameOverCanvas;
     
     void Start()
     {
         EnemyHealth.EnemyDeathEvent += OnEnemyDeath;
+        TetsuoHealthBar.tetsuoDeathEvent += OnTetsuoDeath;
+    }
+
+    private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
+    {
+        GameCanvas.SetActive(false);
+        GameOverCanvas.SetActive(true);
     }
 
     private void OnEnemyDeath(object sender, EnemyHealth.EnemyDeathEventArgs e)
@@ -41,5 +51,11 @@ public class GameManager : MonoBehaviour
         };
         
         EnemyDeathEvent.Invoke(this, enemyDeathEventArgs);
+    }
+
+    private void OnDestroy()
+    {
+        EnemyHealth.EnemyDeathEvent -= OnEnemyDeath;
+        TetsuoHealthBar.tetsuoDeathEvent -= OnTetsuoDeath;
     }
 }

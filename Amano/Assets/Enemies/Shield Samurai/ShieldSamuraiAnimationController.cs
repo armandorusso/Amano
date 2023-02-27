@@ -25,4 +25,9 @@ public class ShieldSamuraiAnimationController : MonoBehaviour
             _animator.SetBool("isSlashing", e.isSlashing);
         }
     }
+
+    public void OnDestroy()
+    {
+        EnemySlashState.slashingEvent -= OnSlashEvent;
+    }
 }

@@ -17,6 +17,14 @@ public class TetsuoHealthBar : MonoBehaviour
 
     public HealthUIEventArgs healthUIEventArgs;
     public static event EventHandler<HealthUIEventArgs> healthUIEvent;
+    
+    public class TetsuoDeathEventArgs : EventArgs
+    {
+        public bool isMovementEnabled { get; set; }
+    }
+
+    public TetsuoDeathEventArgs tetsuoDeathEventArgs;
+    public static event EventHandler<TetsuoDeathEventArgs> tetsuoDeathEvent;
 
     void Start()
     {
@@ -25,7 +33,7 @@ public class TetsuoHealthBar : MonoBehaviour
             currentHealth = 100f
         };
         TetsuoHealthPoints = new Health(100f);
-        healthUIEvent.Invoke(this, healthUIEventArgs);
+        healthUIEvent?.Invoke(this, healthUIEventArgs);
         ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent += OnMeleeSlashHit;
     }
@@ -47,6 +55,14 @@ public class TetsuoHealthBar : MonoBehaviour
             TetsuoHealthPoints.DecreaseHealth(e.damage);
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
+
+            if (TetsuoHealthPoints.HitPoints <= 0)
+            {
+                tetsuoDeathEvent.Invoke(this, new TetsuoDeathEventArgs
+                {
+                    isMovementEnabled = false
+                });
+            }
         }
     }
 }

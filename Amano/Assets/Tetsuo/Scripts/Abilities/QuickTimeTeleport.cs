@@ -83,4 +83,9 @@ public class QuickTimeTeleport : MonoBehaviour
             zoomInEventArgs.zoomInAmount = 3.4f;
         }
     }
+
+    private void OnDestroy()
+    {
+        TeleportAbility.QuickTimeTeleportEvent -= OnQuickTimeTeleportInvokeEvent;
+    }
 }

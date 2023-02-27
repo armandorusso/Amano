@@ -71,4 +71,11 @@ public class TetsuoVfxController : MonoBehaviour
             leavesFx.Stop();
         }
     }
+
+    private void OnDestroy()
+    {
+        TetsuoController.wallSlidingEvent -= OnWallSlidingEvent;
+        TetsuoController.jumpOrLandEvent -= OnPlayerJumpOrLanding;
+        TetsuoController.dashAttackEvent -= OnDashAttackEvent;
+    }
 }
