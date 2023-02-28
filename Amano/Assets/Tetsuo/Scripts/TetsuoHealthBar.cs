@@ -36,6 +36,17 @@ public class TetsuoHealthBar : MonoBehaviour
         healthUIEvent?.Invoke(this, healthUIEventArgs);
         ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent += OnMeleeSlashHit;
+        DeathZone.tetsuoFallDeathEvent += OnDeathFall;
+    }
+
+    private void OnDisable()
+    {
+        healthUIEventArgs = new HealthUIEventArgs
+        {
+            currentHealth = 100f
+        };
+        TetsuoHealthPoints = new Health(100f);
+        healthUIEvent?.Invoke(this, healthUIEventArgs);
     }
 
     private void OnMeleeSlashHit(object sender, SlashingHitbox.SlashHitEventArgs e)
@@ -45,6 +56,8 @@ public class TetsuoHealthBar : MonoBehaviour
             TetsuoHealthPoints.DecreaseHealth(e.damage);
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
+            
+            CheckIfTetsuoIsDead();
         }
     }
 
@@ -56,13 +69,33 @@ public class TetsuoHealthBar : MonoBehaviour
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
 
-            if (TetsuoHealthPoints.HitPoints <= 0)
+            CheckIfTetsuoIsDead();
+        }
+    }
+
+    private void OnDeathFall(object sender, DeathZone.TetsuoFallDeathEventArgs e)
+    {
+
+        TetsuoHealthPoints.DecreaseHealth(100f);
+        healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
+        healthUIEvent?.Invoke(this, healthUIEventArgs);
+        
+        CheckIfTetsuoIsDead();
+    }
+
+    private void CheckIfTetsuoIsDead()
+    {
+        if (TetsuoHealthPoints.HitPoints <= 0)
+        {
+            ShurikenProjectile.ShurikenHitCharacterEvent -= OnTetsuoDamaged;
+            SlashingHitbox.SlashHitEvent -= OnMeleeSlashHit;
+            DeathZone.tetsuoFallDeathEvent -= OnDeathFall;
+            
+            gameObject.SetActive(false);
+            tetsuoDeathEvent.Invoke(this, new TetsuoDeathEventArgs
             {
-                tetsuoDeathEvent.Invoke(this, new TetsuoDeathEventArgs
-                {
-                    isMovementEnabled = false
-                });
-            }
+                isMovementEnabled = false
+            });
         }
     }
 }
