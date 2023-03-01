@@ -25,7 +25,7 @@ public class RoomCameraManager : MonoBehaviour
         {
             isMovementDisabled = false
         };
-
+        DontDestroyOnLoad(VirtualCamera);
         QuickTimeTeleport.ZoomInEvent += OnQuickTimeEvent;
     }
 

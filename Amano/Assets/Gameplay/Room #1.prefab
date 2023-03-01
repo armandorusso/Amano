@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 422877686889023949, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.83
+      objectReference: {fileID: 0}
     - target: {fileID: 727689925405334426, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 24

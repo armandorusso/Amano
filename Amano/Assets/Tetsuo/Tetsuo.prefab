@@ -507,7 +507,7 @@ MonoBehaviour:
   shurikenTransform: {fileID: 1699846089903928653}
   rotationPosition: {fileID: 5428644879463700709}
   mouseTracker: {fileID: 0}
-  shurikenForce: 12
+  shurikenForce: 16.5
   shurikenShootCooldown: 0.3
 --- !u!114 &8634714177944014448
 MonoBehaviour:

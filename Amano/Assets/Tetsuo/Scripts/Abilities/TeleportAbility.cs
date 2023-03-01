@@ -11,6 +11,7 @@ public class TeleportAbility : MonoBehaviour
     private Queue<ShurikenProjectile> _teleportShurikens;
     private Queue<Transform> _teleportableObjects;
     private bool canTeleport;
+    private Rigidbody2D _rb;
     
     public class VanishingFxEventArgs : EventArgs
     {
@@ -46,6 +47,7 @@ public class TeleportAbility : MonoBehaviour
         _teleportShurikens = new Queue<ShurikenProjectile>(10);
         _teleportableObjects = new Queue<Transform>(10);
         canTeleport = false;
+        _rb = GetComponent<Rigidbody2D>();
 
         GameManager.EnemyDeathEvent += OnEnemyDefeated;
     }
@@ -99,6 +101,7 @@ public class TeleportAbility : MonoBehaviour
     {
         if (context.performed && canTeleport && _teleportShurikens.Count > 0)
         {
+            _rb.velocity = Vector2.zero;
             var shuriken = _teleportShurikens.Peek();
             Debug.Log("Swapping positions");
             _teleportShurikens.Dequeue();
