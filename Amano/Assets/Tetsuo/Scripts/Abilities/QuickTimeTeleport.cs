@@ -26,6 +26,14 @@ public class QuickTimeTeleport : MonoBehaviour
     public ZoomInEventArgs zoomInEventArgs;
     public static event EventHandler<ZoomInEventArgs> ZoomInEvent;
     
+    public class ShowUIArgs : EventArgs
+    {
+        public bool isActive;
+    }
+
+    public ShowUIArgs ShowUIArgsArgs;
+    public static event EventHandler<ShowUIArgs> ShowUIArgsEvent;
+    
     void Start()
     {
         TeleportAbility.QuickTimeTeleportEvent += OnQuickTimeTeleportInvokeEvent;
@@ -60,13 +68,21 @@ public class QuickTimeTeleport : MonoBehaviour
     {
         // Invoke Camera Zoom
         ZoomInEvent.Invoke(this, zoomInEventArgs);
+        ShowUIArgsArgs = new ShowUIArgs
+        {
+            isActive = true
+        };
+        
+        ShowUIArgsEvent?.Invoke(this, ShowUIArgsArgs);
         Time.timeScale = 0.25f;
         isTimeSlowed = true;
         yield return new WaitForSeconds(2f);
         Time.timeScale = 1f;
         isTimeSlowed = false;
+        ShowUIArgsArgs.isActive = false;
         zoomInEventArgs.zoomInAmount = 5.4f;
         ZoomInEvent?.Invoke(this, zoomInEventArgs);
+        ShowUIArgsEvent?.Invoke(this, ShowUIArgsArgs);
         zoomInEventArgs.zoomInAmount = 3.4f;
     }
 
@@ -80,6 +96,8 @@ public class QuickTimeTeleport : MonoBehaviour
             isTimeSlowed = false;
             zoomInEventArgs.zoomInAmount = 5.4f;
             ZoomInEvent?.Invoke(this, zoomInEventArgs);
+            ShowUIArgsArgs.isActive = false;
+            ShowUIArgsEvent?.Invoke(this, ShowUIArgsArgs);
             zoomInEventArgs.zoomInAmount = 3.4f;
         }
     }

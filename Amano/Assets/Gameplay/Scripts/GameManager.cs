@@ -17,11 +17,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public GameObject GameCanvas;
     [SerializeField] public GameObject GameOverCanvas;
+    [SerializeField] private GameObject FKeyUI;
     
     void Start()
     {
         EnemyHealth.EnemyDeathEvent += OnEnemyDeath;
         TetsuoHealthBar.tetsuoDeathEvent += OnTetsuoDeath;
+        QuickTimeTeleport.ShowUIArgsEvent += OnQuickTimeEvent;
+    }
+
+    private void OnQuickTimeEvent(object sender, QuickTimeTeleport.ShowUIArgs e)
+    {
+        FKeyUI.SetActive(e.isActive);
     }
 
     private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
@@ -57,5 +64,6 @@ public class GameManager : MonoBehaviour
     {
         EnemyHealth.EnemyDeathEvent -= OnEnemyDeath;
         TetsuoHealthBar.tetsuoDeathEvent -= OnTetsuoDeath;
+        QuickTimeTeleport.ShowUIArgsEvent -= OnQuickTimeEvent;
     }
 }

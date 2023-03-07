@@ -261,7 +261,7 @@ MonoBehaviour:
   groundCheck: {fileID: 7750300403286753087}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1280
   animator: {fileID: 5587403623764837078}
   wallSlideSpeed: 0.01
   wallCheckPoint: {fileID: 263263850758630252}
