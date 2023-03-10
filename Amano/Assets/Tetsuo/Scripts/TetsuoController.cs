@@ -272,7 +272,7 @@ public class TetsuoController : MonoBehaviour, IMove
     public void WallJump(InputAction.CallbackContext context)
     {
         Debug.Log("WallJumped: " + IsTouchingWall());
-        if (context.performed && (_isWallSticking || _isWallSliding) && wallJumpingCounter > 0f)
+        if (context.performed && IsTouchingWall() && (_isWallSticking || _isWallSliding) && wallJumpingCounter > 0f)
         {
             Debug.Log("Walljump direction: " + wallJumpDirection);
             _isWallJumping = true;
