@@ -66,11 +66,12 @@ public class TetsuoController : MonoBehaviour, IMove
     private float wallJumpingDuration = 0.4f;
 
     [Header("Wall Sticking")]
-    private Color _outOfStaminaColor = Color.red;
-    public bool _isWallSticking { get; private set; }
-    private float _gravityScale;
-    private float _WallStickingTimer = 2f;
+    public float _WallStickingTimer = 2f;
 
+    public bool _isWallSticking { get; private set; }
+    private Color _outOfStaminaColor = Color.red;
+    private float _gravityScale;
+    
     [Header("Dash Attack")]
     [SerializeField] public float dashPower;
     [SerializeField] public float dashTime;
@@ -212,7 +213,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void StickToWall()
     {
-        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && _WallStickingTimer > 0f)
+        if (IsTouchingWall() && !_isGrounded && _WallStickingTimer > 0f)
         {
             _isWallSticking = true;
             _isWallSliding = false;
@@ -234,8 +235,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void WallSlide()
     {
-        if (IsTouchingWall() && !_isGrounded && !_isWallSticking
-            && _horizontal != 0) // if you are falling and are running towards the wall
+        if (IsTouchingWall() && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
         {
             _sprite.flipX = _isWallSliding;
             rb.gravityScale = _gravityScale;
