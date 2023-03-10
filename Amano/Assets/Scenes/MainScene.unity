@@ -394,7 +394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.4291024, y: -0.02317, z: -10}
+  m_LocalPosition: {x: -7.441691, y: -0.025249999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34228,6 +34228,10 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[5].Array.data[10].Y
       value: -130000000
       objectReference: {fileID: 0}
+    - target: {fileID: 6080319044225914139, guid: 49eecefc2fb123d4eb96d87c073de0af, type: 3}
+      propertyPath: TetsuoPosition
+      value: 
+      objectReference: {fileID: 3365518847721839515}
     - target: {fileID: 6717555164814919422, guid: 49eecefc2fb123d4eb96d87c073de0af, type: 3}
       propertyPath: TetsuoPosition
       value: 
