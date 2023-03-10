@@ -269,6 +269,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   wallJumpPower: {x: 5.6, y: 9}
+  wallJumpingTime: 0.2
   _WallStickingTimer: 1.2
   dashPower: 8
   dashTime: 0.18

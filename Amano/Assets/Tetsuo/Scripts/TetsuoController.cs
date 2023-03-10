@@ -61,7 +61,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] private Vector2 wallJumpPower;
     private float wallJumpDirection;
     public bool _isWallJumping { get; private set; }
-    private float wallJumpingTime;
+    public float wallJumpingTime;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
 
@@ -101,7 +101,6 @@ public class TetsuoController : MonoBehaviour, IMove
         _inputAction = GetComponent<PlayerInput>();
         _spriteOriginalColor = _sprite.color;
         wallJumpDirection = -1f;
-        wallJumpingTime = 0.2f;
         _gravityScale = rb.gravityScale;
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
