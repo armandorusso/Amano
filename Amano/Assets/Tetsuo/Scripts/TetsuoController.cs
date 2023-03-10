@@ -257,10 +257,9 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         if (_isWallSliding || _isWallSticking)
         {
-            _isWallJumping = false;
+            // _isWallJumping = false;
             wallJumpDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
-            CancelInvoke(nameof(StopWallJumping));
         }
         else
         {
@@ -308,7 +307,7 @@ public class TetsuoController : MonoBehaviour, IMove
             jumpBufferCounter = 0f;
         }
 
-        if (context.canceled && rb.velocity.y > 0)
+        if (context.canceled && rb.velocity.y > 0 && !(_isWallSliding || _isWallSticking))
         {
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
@@ -321,6 +320,7 @@ public class TetsuoController : MonoBehaviour, IMove
     private void StopWallJumping()
     {
         _isWallJumping = false;
+        CancelInvoke(nameof(StopWallJumping));
     }
 
     private void Flip()
