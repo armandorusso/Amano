@@ -178,7 +178,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void UpdateIsFalling()
     {
-        if ( (!_isWallSliding || !_isWallSticking) && !_isGrounded && rb.velocity.y < 0)
+        if (!_isWallSliding && !_isWallSticking && !_isGrounded && rb.velocity.y < 0)
         {
             _isFalling = true;
             _isJumping = false;
