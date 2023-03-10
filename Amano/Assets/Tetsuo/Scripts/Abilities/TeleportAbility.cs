@@ -101,7 +101,6 @@ public class TeleportAbility : MonoBehaviour
     {
         if (context.performed && canTeleport && _teleportShurikens.Count > 0)
         {
-            _rb.velocity = Vector2.zero;
             var shuriken = _teleportShurikens.Peek();
             Debug.Log("Swapping positions");
             _teleportShurikens.Dequeue();
