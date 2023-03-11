@@ -212,7 +212,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void StickToWall()
     {
-        if (IsTouchingWall() && !_isGrounded && _WallStickingTimer > 0f)
+        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && _WallStickingTimer > 0f)
         {
             _isWallSticking = true;
             _isWallSliding = false;
@@ -289,6 +289,9 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if (_isWallJumping)
+            return;
+        
         if (context.started || context.performed)
         {
             jumpBufferCounter = jumpBufferTime;
