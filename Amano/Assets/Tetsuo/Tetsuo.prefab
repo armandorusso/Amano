@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 4934561817379121432}
   - component: {fileID: 8052953009867585148}
   - component: {fileID: 4556327319113309449}
+  - component: {fileID: 7893756533738633826}
   m_Layer: 6
   m_Name: Tetsuo
   m_TagString: Player
@@ -318,9 +319,9 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4857226855842975782}
-        m_TargetAssemblyTypeName: ShootingShuriken, Assembly-CSharp
-        m_MethodName: SpawnShuriken
+      - m_Target: {fileID: 7893756533738633826}
+        m_TargetAssemblyTypeName: MousePosTracker, Assembly-CSharp
+        m_MethodName: OnShootWeapon
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -390,9 +391,9 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4415898484591573548}
-        m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
-        m_MethodName: Walk
+      - m_Target: {fileID: 8634714177944014448}
+        m_TargetAssemblyTypeName: TeleportAbility, Assembly-CSharp
+        m_MethodName: TeleportToObject
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -406,9 +407,9 @@ MonoBehaviour:
     m_ActionName: Player/Running[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8634714177944014448}
-        m_TargetAssemblyTypeName: TeleportAbility, Assembly-CSharp
-        m_MethodName: TeleportToObject
+      - m_Target: {fileID: 4415898484591573548}
+        m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
+        m_MethodName: WallJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -424,7 +425,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4415898484591573548}
         m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
-        m_MethodName: WallJump
+        m_MethodName: DashAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -438,9 +439,9 @@ MonoBehaviour:
     m_ActionName: Player/WallJump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4415898484591573548}
-        m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
-        m_MethodName: DashAttack
+      - m_Target: {fileID: 4556327319113309449}
+        m_TargetAssemblyTypeName: QuickTimeTeleport, Assembly-CSharp
+        m_MethodName: QuickTimeInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -454,9 +455,9 @@ MonoBehaviour:
     m_ActionName: Player/Dash Attack[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4556327319113309449}
-        m_TargetAssemblyTypeName: QuickTimeTeleport, Assembly-CSharp
-        m_MethodName: QuickTimeInput
+      - m_Target: {fileID: 7893756533738633826}
+        m_TargetAssemblyTypeName: MousePosTracker, Assembly-CSharp
+        m_MethodName: OnShootWeapon
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -709,6 +710,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f289059f7ae1a45963999b2c5f4877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7893756533738633826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f0e469a3b50e643a9d55c95a1c3a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
 --- !u!1 &7574503943195773515
 GameObject:
   m_ObjectHideFlags: 0
