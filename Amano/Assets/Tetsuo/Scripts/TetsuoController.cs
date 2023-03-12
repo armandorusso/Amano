@@ -12,7 +12,9 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public Animator animator;
     private PlayerInput _inputAction;
 
-    [Header("Movement")]
+    [Header("Movement")] 
+    [SerializeField] public float MaxFallSpeed;
+    [SerializeField] public float FallGravityMultiplier;
     private float _speed = 6f;
 
     private float _horizontal;
@@ -211,11 +213,18 @@ public class TetsuoController : MonoBehaviour, IMove
         if (!_isWallSliding && !_isWallSticking && !_isGrounded && rb.velocity.y < 0)
         {
             _isFalling = true;
+            ClampGravity();
         }
         else
         {
             _isFalling = false;
         }
+    }
+
+    private void ClampGravity()
+    {
+        SetGravityScale(_originalGravityScale * FallGravityMultiplier);
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -MaxFallSpeed));
     }
 
     private void UpdateHasLanded(Collision2D collision)

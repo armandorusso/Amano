@@ -264,6 +264,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   animator: {fileID: 5587403623764837078}
+  MaxFallSpeed: 15
+  FallGravityMultiplier: 2
   wallSlideSpeed: 0.01
   wallCheckPoint: {fileID: 263263850758630252}
   wallLayer:
