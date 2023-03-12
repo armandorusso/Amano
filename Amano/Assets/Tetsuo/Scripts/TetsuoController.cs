@@ -34,6 +34,8 @@ public class TetsuoController : MonoBehaviour, IMove
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     public bool _isJumping { get; private set; }
+    
+    public bool _isJumpFalling { get; private set; }
 
     public bool _isFalling { get; private set; }
 
@@ -70,7 +72,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public bool _isWallSticking { get; private set; }
     private Color _outOfStaminaColor = Color.red;
-    private float _gravityScale;
+    private float _originalGravityScale;
     
     [Header("Dash Attack")]
     [SerializeField] public float dashPower;
@@ -101,7 +103,7 @@ public class TetsuoController : MonoBehaviour, IMove
         _inputAction = GetComponent<PlayerInput>();
         _spriteOriginalColor = _sprite.color;
         wallJumpDirection = -1f;
-        _gravityScale = rb.gravityScale;
+        _originalGravityScale = rb.gravityScale;
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
             isSliding = _isWallSliding,
@@ -139,6 +141,9 @@ public class TetsuoController : MonoBehaviour, IMove
                     Flip();
                 break;
         }
+        UpdateIsFalling();
+        UpdateJumpFalling();
+        ModifyJumpPeakGravity();
     }
 
     private void FixedUpdate()
@@ -146,7 +151,6 @@ public class TetsuoController : MonoBehaviour, IMove
         if (_isAirDashing || _isGroundDashing)
             return;
         UpdateIsGrounded();
-        UpdateIsFalling();
         StickToWall();
         WallSlide();
         CheckIfPlayerCanWallJump();
@@ -157,12 +161,39 @@ public class TetsuoController : MonoBehaviour, IMove
         SetAnimatorState();
     }
 
+    private void UpdateJumpFalling()
+    {
+        if (_isJumping && !_isWallJumping && rb.velocity.y < 0f)
+        {
+            _isJumping = false;
+            _isJumpFalling = true;
+        }
+    }
+
+    private void ModifyJumpPeakGravity()
+    {
+        if (_doneDashing && (_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.4f)
+        {
+            SetGravityScale(rb.gravityScale * 0.5f);
+        }
+        else if(!_hasDashed)
+        {
+            SetGravityScale(_originalGravityScale);
+        }
+    }
+
+    private void SetGravityScale(float newGravityScale)
+    {
+        rb.gravityScale = newGravityScale;
+    }
+
     private void UpdateIsGrounded()
     {
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (_isGrounded)
         {
             _isWallSticking = false;
+            _isJumpFalling = false;
             _WallStickingTimer = 2f;
             coyoteTimeCounter = coyoteTime;
         }
@@ -180,7 +211,6 @@ public class TetsuoController : MonoBehaviour, IMove
         if (!_isWallSliding && !_isWallSticking && !_isGrounded && rb.velocity.y < 0)
         {
             _isFalling = true;
-            _isJumping = false;
         }
         else
         {
@@ -224,7 +254,7 @@ public class TetsuoController : MonoBehaviour, IMove
         else
         {
             _isWallSticking = false;
-            rb.gravityScale = _gravityScale;
+            rb.gravityScale = _originalGravityScale;
             if(_isGrounded)
                 _sprite.color = _spriteOriginalColor;
         }
@@ -237,7 +267,7 @@ public class TetsuoController : MonoBehaviour, IMove
         if (IsTouchingWall() && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
         {
             _sprite.flipX = _isWallSliding;
-            rb.gravityScale = _gravityScale;
+            rb.gravityScale = _originalGravityScale;
             _isWallSliding = true;
             wallSlidingEventArgs.isSliding = _isWallSliding;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
@@ -274,8 +304,9 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             Debug.Log("Walljump direction: " + wallJumpDirection);
             _isWallJumping = true;
-            rb.gravityScale = _gravityScale;
-            rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
+            rb.gravityScale = _originalGravityScale;
+            var wallJumpVector = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
+            rb.AddForce(wallJumpVector, ForceMode2D.Impulse);
             wallJumpingCounter = 0f;
 
             if (transform.localScale.x != wallJumpDirection)
@@ -366,16 +397,18 @@ public class TetsuoController : MonoBehaviour, IMove
         Debug.Log("Dash");
         var dashCoolDown = dashCooldown;
         SetDashParameters();
+        SetGravityScale(0f);
         
         rb.velocity = _horizontal != 0 || _vertical != 0
                 ? new Vector2(dashPower * _horizontal, dashPower * _vertical)
                 : new Vector2(dashPower * transform.localScale.x, 0f);
 
         _isAirDashing = true;
+        yield return null;
         yield return new WaitForSeconds(dashTime);
         dashAttackEventArgs.isDashing = false;
         dashAttackEvent.Invoke(this, dashAttackEventArgs);
-        rb.gravityScale = _gravityScale;
+        SetGravityScale(_originalGravityScale);
         _isAirDashing = false;
         yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
@@ -405,7 +438,7 @@ public class TetsuoController : MonoBehaviour, IMove
         _isPerformingGroundedDash = false;
         dashAttackEventArgs.isDashing = false;
         dashAttackEvent.Invoke(this, dashAttackEventArgs);
-        rb.gravityScale = _gravityScale;
+        SetGravityScale(_originalGravityScale);
         _isGroundDashing = false;
         yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
@@ -416,7 +449,6 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         _doneDashing = false;
         _hasDashed = true;
-        rb.gravityScale = 0f;
         dashAttackEventArgs.isDashing = true;
         dashAttackEvent.Invoke(this, dashAttackEventArgs);
         _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
