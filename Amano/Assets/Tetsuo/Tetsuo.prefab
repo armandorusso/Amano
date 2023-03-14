@@ -264,8 +264,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   animator: {fileID: 5587403623764837078}
+  MaxRunSpeed: 6.7
+  MaxAccelSpeed: 6.7
+  MaxAirAccelSpeed: 1
+  MaxDeAccelSpeed: 20
+  MaxDeAccelAirSpeed: 2
+  RunLerpAmount: 1
+  ConserveMomentum: 1
   MaxFallSpeed: 15
   FallGravityMultiplier: 2
+  JumpHangTime: 0
+  _jumpingPower: 12
+  coyoteTime: 0.2
+  coyoteTimeCounter: 0
+  jumpBufferTime: 0.2
   wallSlideSpeed: 0.01
   wallCheckPoint: {fileID: 263263850758630252}
   wallLayer:

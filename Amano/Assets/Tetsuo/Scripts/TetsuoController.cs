@@ -13,6 +13,13 @@ public class TetsuoController : MonoBehaviour, IMove
     private PlayerInput _inputAction;
 
     [Header("Movement")] 
+    [SerializeField] public float MaxRunSpeed;
+    [SerializeField] public float MaxAccelSpeed;
+    [SerializeField] public float MaxAirAccelSpeed;
+    [SerializeField] public float MaxDeAccelSpeed;
+    [SerializeField] public float MaxDeAccelAirSpeed;
+    [SerializeField] public float RunLerpAmount;
+    [SerializeField] public bool ConserveMomentum;
     [SerializeField] public float MaxFallSpeed;
     [SerializeField] public float FallGravityMultiplier;
     private float _speed = 6f;
@@ -28,12 +35,12 @@ public class TetsuoController : MonoBehaviour, IMove
     private SpriteRenderer _sprite;
     private Color _spriteOriginalColor;
 
-    [Header("Jumping")]
-    private float _jumpingPower = 12f;
-
-    private float coyoteTime = 0.2f;
-    private float coyoteTimeCounter;
-    private float jumpBufferTime = 0.2f;
+    [Header("Jumping")] 
+    public float JumpHangTime;
+    public float _jumpingPower = 12f;
+    public float coyoteTime = 0.2f;
+    public float coyoteTimeCounter;
+    public float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     public bool _isJumping { get; private set; }
     
@@ -144,6 +151,7 @@ public class TetsuoController : MonoBehaviour, IMove
                 break;
         }
         UpdateIsFalling();
+        UpdateIsRunning();
         UpdateJumpFalling();
         ModifyJumpPeakGravity();
     }
@@ -159,8 +167,6 @@ public class TetsuoController : MonoBehaviour, IMove
 
         if (!_isWallJumping)
             Move();
-        
-        SetAnimatorState();
     }
 
     private void UpdateJumpFalling()
@@ -218,6 +224,18 @@ public class TetsuoController : MonoBehaviour, IMove
         else
         {
             _isFalling = false;
+        }
+    }
+    
+    private void UpdateIsRunning()
+    {
+        if (_horizontal is > 0f or < 0f && _isGrounded)
+        {
+            _isRunning = true;
+        }
+        else
+        {
+            _isRunning = false;
         }
     }
 
@@ -382,7 +400,38 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Move()
     {
-        rb.velocity = new Vector2(_horizontal * _speed, rb.velocity.y);
+        // Force based movement with accel and deaccel, courtesy of https://github.com/Dawnosaur/platformer-movement/blob/main/Scripts/PlayerMovement.cs#L255
+        var targetSpeed = _horizontal * MaxRunSpeed;
+        
+        // Makes reaching max speed a lot smoother (and not instant)
+        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1f);
+
+        float acceleration;
+
+        if (_isGrounded)
+        {
+            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed : MaxDeAccelSpeed;
+        }
+        else
+        {
+            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
+        }
+        
+        // Conserving Momentum
+        if (ConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) &&
+            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Sign(targetSpeed) > 0.01f && !_isGrounded)
+        {
+            acceleration = 0f;
+        }
+        
+        // Calculate difference between current velocity and desired velocity
+        float speedDif = targetSpeed - rb.velocity.x;
+        
+        // Calculate force along x-axis to apply to thr player
+        float movement = speedDif * acceleration;
+
+        // Convert this to a vector and apply to rigidbody
+        rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
     }
 
     public Vector2 GetMovementVector()
@@ -478,20 +527,6 @@ public class TetsuoController : MonoBehaviour, IMove
             _isRunning = true;
             _isWalking = false;
             _speed = 6f;
-        }
-    }
-
-    private void SetAnimatorState()
-    {
-        if (_horizontal is > 0f or < 0f && _isGrounded)
-        {
-            animator.SetBool("isWalking", _isWalking);
-            animator.SetBool("isRunning", _isRunning);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isRunning", false);
         }
     }
 

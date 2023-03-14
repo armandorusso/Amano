@@ -14,6 +14,8 @@ public class TetsuoAnimatorController : MonoBehaviour
     private bool _isWallSliding;
     private bool _isWallSticking;
     private bool _isDashing;
+    private bool _isWalking;
+    private bool _isRunning;
 
     private TetsuoController _tetsuoController;
 
@@ -33,12 +35,26 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isWallSticking = _tetsuoController._isWallSticking;
             _isWallSliding = _tetsuoController._isWallSliding;
             _isDashing = _tetsuoController._isGroundDashing;
+            _isWalking = _tetsuoController._isWalking;
+            _isRunning = _tetsuoController._isRunning;
         }
 
+        SetRunningAnimation();
+        SetWalkingAnimation();
         SetJumpAnimation();
         SetFallingAnimation();
         SetWallHoldingAnimation();
         SetDashingAnimation();
+    }
+
+    private void SetWalkingAnimation()
+    {
+        _animationController.SetBool("isWalking", _isWalking);
+    }
+
+    private void SetRunningAnimation()
+    {
+        _animationController.SetBool("isRunning", _isRunning);
     }
 
     private void SetDashingAnimation()
