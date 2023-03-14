@@ -347,7 +347,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (_isWallJumping)
+        if (_isWallJumping || _isWallSliding || _isWallSticking)
             return;
         
         if (context.started || context.performed)
@@ -410,16 +410,16 @@ public class TetsuoController : MonoBehaviour, IMove
 
         if (_isGrounded)
         {
-            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed : MaxDeAccelSpeed;
+            acceleration = Mathf.Abs(targetSpeed) > 0.04 ? MaxAccelSpeed : MaxDeAccelSpeed;
         }
         else
         {
-            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
+            acceleration = Mathf.Abs(targetSpeed) > 0.04 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
         }
         
         // Conserving Momentum
         if (ConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) &&
-            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Sign(targetSpeed) > 0.01f && !_isGrounded)
+            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Sign(targetSpeed) > 0.04f && !_isGrounded)
         {
             acceleration = 0f;
         }
@@ -458,7 +458,7 @@ public class TetsuoController : MonoBehaviour, IMove
         SetGravityScale(0f);
         
         rb.velocity = _horizontal != 0 || _vertical != 0
-                ? new Vector2(dashPower * _horizontal, dashPower * _vertical)
+                ? new Vector2( _horizontal, _vertical).normalized * dashPower
                 : new Vector2(dashPower * transform.localScale.x, 0f);
 
         _isAirDashing = true;

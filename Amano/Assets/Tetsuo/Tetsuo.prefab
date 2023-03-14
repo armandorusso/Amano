@@ -272,7 +272,7 @@ MonoBehaviour:
   RunLerpAmount: 1
   ConserveMomentum: 1
   MaxFallSpeed: 15
-  FallGravityMultiplier: 2
+  FallGravityMultiplier: 0.5
   JumpHangTime: 0
   _jumpingPower: 12
   coyoteTime: 0.2
@@ -286,7 +286,7 @@ MonoBehaviour:
   wallJumpPower: {x: 5.6, y: 9}
   wallJumpingTime: 0.2
   _WallStickingTimer: 1.2
-  dashPower: 8
+  dashPower: 8.1
   dashTime: 0.18
   dashCooldown: 0.8
   dashCooldownOnGround: 2
