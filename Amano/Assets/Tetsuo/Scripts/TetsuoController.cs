@@ -180,7 +180,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void ModifyJumpPeakGravity()
     {
-        if (_doneDashing && (_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.4f)
+        if ((_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.4f)
         {
             SetGravityScale(rb.gravityScale * 0.5f);
         }
