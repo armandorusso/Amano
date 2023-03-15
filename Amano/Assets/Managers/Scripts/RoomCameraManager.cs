@@ -41,7 +41,8 @@ public class RoomCameraManager : MonoBehaviour
     private IEnumerator WaitUntilBlendEnds()
     {
         Debug.Log("Entered Coroutine");
-        Time.timeScale = 0f;
+        Time.timeScale = 0.05f;
+        cameraTransitionArgs.isMovementDisabled = false;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         yield return new WaitForSecondsRealtime(2f);
         cameraTransitionArgs.isMovementDisabled = true;
