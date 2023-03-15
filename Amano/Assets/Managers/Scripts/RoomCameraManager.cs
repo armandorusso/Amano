@@ -31,7 +31,7 @@ public class RoomCameraManager : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player") && !VirtualCamera.activeSelf)
         {
             VirtualCamera.SetActive(true);
             StartCoroutine(WaitUntilBlendEnds());

@@ -46,6 +46,8 @@ public class TetsuoDisableMovement : MonoBehaviour
     {
         if (sender is RoomCameraManager)
         {
+            if(!e.isMovementDisabled)
+                gameObject.transform.position = new Vector2( gameObject.transform.transform.position.x + (gameObject.transform.transform.localScale.x * 0.4f), gameObject.transform.transform.position.y);
             DisableInputActions(e.isMovementDisabled);
         }
     }
