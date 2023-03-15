@@ -180,11 +180,11 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void ModifyJumpPeakGravity()
     {
-        if ((_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.4f)
+        if (_doneDashing && (_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.4f)
         {
             SetGravityScale(rb.gravityScale * 0.5f);
         }
-        else if(!_hasDashed)
+        else if(_doneDashing && !_isAirDashing)
         {
             SetGravityScale(_originalGravityScale);
         }
@@ -347,7 +347,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (_isWallJumping || _isWallSliding || _isWallSticking)
+        if (_isAirDashing || _isWallJumping || _isWallSliding || _isWallSticking)
             return;
         
         if (context.started || context.performed)
@@ -394,8 +394,9 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _horizontal = context.ReadValue<Vector2>().x;
-        _vertical = context.ReadValue<Vector2>().y;
+        var movementVector = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y).normalized;
+        _horizontal = movementVector.x;
+        _vertical = movementVector.y;
     }
 
     public void Move()
@@ -427,7 +428,7 @@ public class TetsuoController : MonoBehaviour, IMove
         // Calculate difference between current velocity and desired velocity
         float speedDif = targetSpeed - rb.velocity.x;
         
-        // Calculate force along x-axis to apply to thr player
+        // Calculate force along x-axis to apply to the player
         float movement = speedDif * acceleration;
 
         // Convert this to a vector and apply to rigidbody
@@ -455,14 +456,14 @@ public class TetsuoController : MonoBehaviour, IMove
         Debug.Log("Dash");
         var dashCoolDown = dashCooldown;
         SetDashParameters();
-        SetGravityScale(0f);
-        
-        rb.velocity = _horizontal != 0 || _vertical != 0
+
+        var dashDirection = _horizontal != 0 || _vertical != 0
                 ? new Vector2( _horizontal, _vertical).normalized * dashPower
                 : new Vector2(dashPower * transform.localScale.x, 0f);
-
+        
+        rb.velocity = dashDirection;
         _isAirDashing = true;
-        yield return null;
+        SetGravityScale(0f);
         yield return new WaitForSeconds(dashTime);
         dashAttackEventArgs.isDashing = false;
         dashAttackEvent.Invoke(this, dashAttackEventArgs);
