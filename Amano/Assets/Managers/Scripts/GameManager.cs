@@ -14,11 +14,27 @@ public class GameManager : MonoBehaviour
 
     public EnemyDeathEventArgs enemyDeathEventArgs;
     public static event EventHandler<EnemyDeathEventArgs> EnemyDeathEvent;
-
+    public static GameManager Instance { get; private set; }
     [SerializeField] public GameObject GameCanvas;
     [SerializeField] public GameObject GameOverCanvas;
     [SerializeField] private GameObject FKeyUI;
+    [SerializeField] private GameObject _tetsuo;
     
+    public GameObject CurrentSpawnPoint { get; set; }
+
+    private void Awake()
+    {
+        // If there is already an instance that exists AND the current instance that is set is not equal to this instance
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else // Set the instance
+        {
+            Instance = this;
+        }
+    }
+
     void Start()
     {
         EnemyHealth.EnemyDeathEvent += OnEnemyDeath;
@@ -33,8 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
     {
-        GameCanvas.SetActive(false);
-        GameOverCanvas.SetActive(true);
+        _tetsuo.transform.position = CurrentSpawnPoint.transform.position;
     }
 
     private void OnEnemyDeath(object sender, EnemyHealth.EnemyDeathEventArgs e)

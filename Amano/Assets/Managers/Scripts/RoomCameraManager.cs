@@ -25,13 +25,12 @@ public class RoomCameraManager : MonoBehaviour
         {
             isMovementDisabled = false
         };
-        DontDestroyOnLoad(VirtualCamera);
         QuickTimeTeleport.ZoomInEvent += OnQuickTimeEvent;
     }
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player") && !VirtualCamera.activeSelf)
+        if (col.CompareTag("Player") && _cmBrain.ActiveVirtualCamera.VirtualCameraGameObject != VirtualCamera)
         {
             VirtualCamera.SetActive(true);
             StartCoroutine(WaitUntilBlendEnds());
@@ -62,7 +61,7 @@ public class RoomCameraManager : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") && _cmBrain.ActiveVirtualCamera.VirtualCameraGameObject != VirtualCamera)
             VirtualCamera.SetActive(false);
     }
 
