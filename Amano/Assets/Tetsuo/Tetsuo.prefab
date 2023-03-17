@@ -523,7 +523,7 @@ MonoBehaviour:
   shuriken: {fileID: 334207595340738682, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
   shurikenTransform: {fileID: 1699846089903928653}
   rotationPosition: {fileID: 5428644879463700709}
-  mouseTracker: {fileID: 0}
+  mouseTracker: {fileID: 7893756533738633826}
   shurikenForce: 16.5
   shurikenShootCooldown: 0.3
 --- !u!114 &8634714177944014448

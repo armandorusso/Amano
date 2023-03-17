@@ -70,12 +70,12 @@
                 },
                 {
                     "name": "Mouse",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6bdc2764-a8b2-4740-aca7-dd6d2e75288f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
