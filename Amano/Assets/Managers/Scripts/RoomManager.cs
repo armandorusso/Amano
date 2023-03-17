@@ -6,6 +6,6 @@ public class RoomManager : MonoBehaviour
 {
     public void OnRoomExit()
     {
-        GameManager.Instance.GetTeleportAbility().ReturnAllShuriken();
+        GameManager.Instance.ReturnAllShuriken();
     }
 }

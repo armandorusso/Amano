@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
         QuickTimeTeleport.ShowUIArgsEvent -= OnQuickTimeEvent;
     }
 
-    public TeleportAbility GetTeleportAbility()
+    public void ReturnAllShuriken()
     {
-        return _tetsuo.GetComponent<TeleportAbility>();
+        _tetsuo.GetComponent<TeleportAbility>().ReturnAllShuriken();
     }
 }
