@@ -11,11 +11,6 @@ public class CheckpointSetter : MonoBehaviour
         GameManager.Instance.CurrentSpawnPoint = gameObject;
     }
 
-    public void OnRoomExit()
-    {
-        // Remove shuriken that are in the room
-    }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(m_layerMask == (m_layerMask | (1 << col.gameObject.layer)))

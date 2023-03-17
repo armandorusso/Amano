@@ -1127,6 +1127,8 @@ GameObject:
   - component: {fileID: 8776994330225482767}
   - component: {fileID: 8776994330225482764}
   - component: {fileID: 1366285176965974435}
+  - component: {fileID: 6793351849824783413}
+  - component: {fileID: 1659250711800723590}
   m_Layer: 2
   m_Name: Room Base
   m_TagString: Untagged
@@ -1199,6 +1201,70 @@ MonoBehaviour:
   _cmBrain: {fileID: 0}
   ZoomInAmount: 0
   _camera: {fileID: 8776994331242625379}
+--- !u!114 &6793351849824783413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776994330225482753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19973b8131f47d54f83e766434c6b65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1659250711800723590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776994330225482753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917dc38863c49bf41849538348441443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_useLayerMask: 1
+  m_onCollisionEnter2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onCollsionExit2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onTriggerEnter2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onTriggerExit2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6793351849824783413}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+        m_MethodName: OnRoomExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onAwake:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8776994331158064914
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -130,6 +131,24 @@ public class TeleportAbility : MonoBehaviour
             {
                 canTeleport = false;
             }
+        }
+    }
+
+    public void ReturnAllShuriken()
+    {
+        while(_normalShurikens.Count != 0)
+        {
+            ObjectPool.ObjectPoolInstance.ReturnPooledObject(_normalShurikens.Dequeue().gameObject);
+        }
+        
+        while(_teleportShurikens.Count != 0)
+        {
+            ObjectPool.ObjectPoolInstance.ReturnPooledObject(_teleportShurikens.Dequeue().gameObject);
+        }
+
+        while (_teleportableObjects.Count != 0)
+        {
+            _teleportableObjects.Dequeue();
         }
     }
 

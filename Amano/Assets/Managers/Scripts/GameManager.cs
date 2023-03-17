@@ -81,4 +81,9 @@ public class GameManager : MonoBehaviour
         TetsuoHealthBar.tetsuoDeathEvent -= OnTetsuoDeath;
         QuickTimeTeleport.ShowUIArgsEvent -= OnQuickTimeEvent;
     }
+
+    public TeleportAbility GetTeleportAbility()
+    {
+        return _tetsuo.GetComponent<TeleportAbility>();
+    }
 }
