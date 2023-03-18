@@ -395,8 +395,8 @@ public class TetsuoController : MonoBehaviour, IMove
     public void OnMove(InputAction.CallbackContext context)
     {
         var movementVector = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y).normalized;
-        _horizontal = movementVector.x;
-        _vertical = movementVector.y;
+        _horizontal = Mathf.Round(movementVector.x);
+        _vertical = Mathf.Round(movementVector.y);
     }
 
     public void Move()

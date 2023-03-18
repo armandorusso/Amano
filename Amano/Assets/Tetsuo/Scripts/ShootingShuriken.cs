@@ -9,7 +9,7 @@ public class ShootingShuriken : MonoBehaviour
     [SerializeField] public SpriteRenderer shuriken;
     [SerializeField] public Transform shurikenTransform;
     [SerializeField] public Transform rotationPosition;
-    [SerializeField] public MousePosTracker mouseTracker;
+    [SerializeField] public AimDirectionTracker aimTracker;
     [SerializeField] public float shurikenForce;
     [SerializeField] public float shurikenShootCooldown;
     
@@ -24,7 +24,7 @@ public class ShootingShuriken : MonoBehaviour
 
     private bool canShoot;
 
-    private Vector3 mousePos;
+    private Vector3 aimPos;
 
     private void Start()
     {
@@ -33,9 +33,13 @@ public class ShootingShuriken : MonoBehaviour
 
     void Update()
     {
-        mousePos = mouseTracker.GetMousePositionInWorld();
-        Vector3 rotation = mousePos - rotationPosition.position;
-        float zRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        if(!aimTracker.usingController)
+            aimPos = aimTracker.GetMousePositionInWorld();
+        else
+            aimPos = aimTracker.GetRightStickDirection();
+        
+        // Vector3 rotation = aimPos - rotationPosition.position;
+        float zRotation = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
         rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
 
         if (transform.localScale.x != rotationPosition.localScale.x)
@@ -48,7 +52,7 @@ public class ShootingShuriken : MonoBehaviour
     {
         if (context.started && canShoot)
         {
-            var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject(); // Instantiate(shuriken.gameObject, shurikenTransform.position, Quaternion.identity);
+            var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject();
             shurikenObj.SetActive(true);
             shurikenObj.GetComponent<Rigidbody2D>().simulated = true;
             shurikenObj.transform.position = shurikenTransform.position;
@@ -70,8 +74,8 @@ public class ShootingShuriken : MonoBehaviour
         var rb = shurikenObj.GetComponent<Rigidbody2D>();
         Assert.IsNotNull(rb);
         
-        Vector3 direction = mousePos - transform.position;
-        Debug.DrawLine(shurikenTransform.position, mousePos, Color.red, 2.0f);
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * shurikenForce;
+        // Vector3 direction = aimPos - transform.position;
+        Debug.DrawLine(shurikenTransform.position, aimPos, Color.red, 2.0f);
+        rb.velocity = new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce;
     }
 }
