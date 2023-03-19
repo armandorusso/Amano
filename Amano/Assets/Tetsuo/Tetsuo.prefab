@@ -268,12 +268,12 @@ MonoBehaviour:
   MaxAccelSpeed: 8.7
   MaxAirAccelSpeed: 1
   MaxDeAccelSpeed: 20
-  MaxDeAccelAirSpeed: 1
+  MaxDeAccelAirSpeed: 0.8
   RunLerpAmount: 1
   ConserveMomentum: 1
   MaxFallSpeed: 15
   FallGravityMultiplier: 0.5
-  JumpHangTime: 0
+  JumpHangTime: 1
   _jumpingPower: 12
   coyoteTime: 0.2
   coyoteTimeCounter: 0

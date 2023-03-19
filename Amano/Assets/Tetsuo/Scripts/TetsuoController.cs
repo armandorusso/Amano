@@ -411,11 +411,11 @@ public class TetsuoController : MonoBehaviour, IMove
 
         if (_isGrounded)
         {
-            acceleration = Mathf.Abs(targetSpeed) > 0.04 ? MaxAccelSpeed : MaxDeAccelSpeed;
+            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed : MaxDeAccelSpeed;
         }
         else
         {
-            acceleration = Mathf.Abs(targetSpeed) > 0.04 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
+            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
         }
         
         // Increase air acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
@@ -427,7 +427,7 @@ public class TetsuoController : MonoBehaviour, IMove
         
         // Conserving Momentum
         if (ConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) &&
-            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.04f && !_isGrounded)
+            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && !_isGrounded)
         {
             acceleration = 0f;
         }
