@@ -26,7 +26,6 @@ public class AimDirectionTracker : MonoBehaviour
         {
             if (context.started || context.performed)
             {
-                Debug.Log($"Controller input {rightStickDirection}");
                 rightStickDirection = context.ReadValue<Vector2>();
             }
         }

@@ -404,8 +404,8 @@ public class TetsuoController : MonoBehaviour, IMove
         // Force based movement with accel and deaccel, courtesy of https://github.com/Dawnosaur/platformer-movement/blob/main/Scripts/PlayerMovement.cs#L255
         var targetSpeed = _horizontal * MaxRunSpeed;
         
-        // Makes reaching max speed a lot smoother (and not instant)
-        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1f);
+        // Smooths the change of speed and direction
+        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, RunLerpAmount);
 
         float acceleration;
 
@@ -418,9 +418,16 @@ public class TetsuoController : MonoBehaviour, IMove
             acceleration = Mathf.Abs(targetSpeed) > 0.04 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
         }
         
+        // Increase air acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
+        if ((_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < JumpHangTime)
+        {
+            acceleration *= 1.1f;
+            targetSpeed *= 1.3f;
+        }
+        
         // Conserving Momentum
         if (ConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) &&
-            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Sign(targetSpeed) > 0.04f && !_isGrounded)
+            Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.04f && !_isGrounded)
         {
             acceleration = 0f;
         }

@@ -265,10 +265,10 @@ MonoBehaviour:
     m_Bits: 1280
   animator: {fileID: 5587403623764837078}
   MaxRunSpeed: 6.7
-  MaxAccelSpeed: 6.7
+  MaxAccelSpeed: 8.7
   MaxAirAccelSpeed: 1
   MaxDeAccelSpeed: 20
-  MaxDeAccelAirSpeed: 2
+  MaxDeAccelAirSpeed: 1
   RunLerpAmount: 1
   ConserveMomentum: 1
   MaxFallSpeed: 15
