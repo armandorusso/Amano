@@ -12,6 +12,14 @@ public class ShootingShuriken : MonoBehaviour
     [SerializeField] public AimDirectionTracker aimTracker;
     [SerializeField] public float shurikenForce;
     [SerializeField] public float shurikenShootCooldown;
+
+    [SerializeField] private LineRenderer _lineRenderer;
+    
+    [SerializeField] private float _linePoints = 25;
+    [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints;
+    [SerializeField] private LayerMask IgnoreWalls;
+    private bool _isHoldingAim;
+    
     
     public static event EventHandler<ShurikenSpawnedEventArgs> ShurikenSpawnedEvent;
 
@@ -46,6 +54,11 @@ public class ShootingShuriken : MonoBehaviour
         {
             rotationPosition.localScale = transform.localScale;
         }
+
+        if (_isHoldingAim)
+            DrawTrajectory();
+        else
+            _lineRenderer.enabled = false;
     }
 
     public void SpawnShuriken(InputAction.CallbackContext context)
@@ -60,6 +73,38 @@ public class ShootingShuriken : MonoBehaviour
             ShootShuriken(shurikenObj);
             canShoot = false;
             StartCoroutine(ShurikenCooldown());
+        }
+    }
+    
+    public void CreateTrajectory(InputAction.CallbackContext context)
+    {
+        if (aimTracker.GetRightStickDirection() != Vector2.zero && context.performed)
+        {
+            _isHoldingAim = true;
+        }
+        else
+        {
+            _isHoldingAim = false;
+        }
+    }
+
+    private void DrawTrajectory()
+    {
+        _lineRenderer.enabled = true;
+        _lineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
+        Vector2 startPosition = rotationPosition.position;
+        Vector2 startVelocity = (new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce) / 1f;
+
+        int i = 0;
+        _lineRenderer.SetPosition(i, startPosition);
+
+        for (float time = 0; time < _linePoints; time += _timeBetweenPoints)
+        {
+            i++;
+            var point = startPosition + time * startVelocity;
+            point.y = startPosition.y + startVelocity.y * time + (Physics2D.gravity.y / 2f * time * time);
+
+            _lineRenderer.SetPosition(i, point);
         }
     }
 

@@ -401,6 +401,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     public void Move()
     {
+        Debug.Log($"Horizontal: {_horizontal} Vertical: {_vertical}");
         // Force based movement with accel and deaccel, courtesy of https://github.com/Dawnosaur/platformer-movement/blob/main/Scripts/PlayerMovement.cs#L255
         var targetSpeed = _horizontal * MaxRunSpeed;
         

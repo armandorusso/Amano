@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Trajectory Line",
+                    "type": "Value",
+                    "id": "c21e8fcd-26ad-4d52-afc9-06ecb41e588c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "5098055f-d6f7-4005-8040-ae8b82a5254a",
@@ -320,6 +329,17 @@
                     "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "15136c37-6607-41f8-a0dd-5e4f49942a1c",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Trajectory Line",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
