@@ -538,14 +538,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shuriken: {fileID: 334207595340738682, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
-  shurikenTransform: {fileID: 1699846089903928653}
+  ShurikenThrowTransform: {fileID: 1699846089903928653}
   rotationPosition: {fileID: 5428644879463700709}
   aimTracker: {fileID: 7893756533738633826}
   shurikenForce: 16.5
   shurikenShootCooldown: 0.3
-  _lineRenderer: {fileID: 0}
+  _lineRenderer: {fileID: 7942236682073661704}
   _linePoints: 25
-  _timeBetweenPoints: 0
+  _timeBetweenPoints: 0.01
+  TrajectoryLayerMask:
+    serializedVersion: 2
+    m_Bits: 1920
 --- !u!114 &8634714177944014448
 MonoBehaviour:
   m_ObjectHideFlags: 0

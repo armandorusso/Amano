@@ -211,6 +211,17 @@
                 },
                 {
                     "name": "",
+                    "id": "039dd7a2-2b82-46c5-a7c1-37170e34b8b4",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Abilities",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "77fa12f8-b841-479d-93e0-0cc114545689",
                     "path": "<Keyboard>/space",
                     "interactions": "",

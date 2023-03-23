@@ -3,11 +3,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class ShootingShuriken : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer shuriken;
-    [SerializeField] public Transform shurikenTransform;
+    [SerializeField] public Transform ShurikenThrowTransform;
     [SerializeField] public Transform rotationPosition;
     [SerializeField] public AimDirectionTracker aimTracker;
     [SerializeField] public float shurikenForce;
@@ -17,7 +18,7 @@ public class ShootingShuriken : MonoBehaviour
     
     [SerializeField] private float _linePoints = 25;
     [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints;
-    [SerializeField] private LayerMask IgnoreWalls;
+    [SerializeField] private LayerMask TrajectoryLayerMask;
     private bool _isHoldingAim;
     
     
@@ -68,7 +69,7 @@ public class ShootingShuriken : MonoBehaviour
             var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject();
             shurikenObj.SetActive(true);
             shurikenObj.GetComponent<Rigidbody2D>().simulated = true;
-            shurikenObj.transform.position = shurikenTransform.position;
+            shurikenObj.transform.position = ShurikenThrowTransform.position;
             shurikenObj.transform.rotation = Quaternion.identity;
             ShootShuriken(shurikenObj);
             canShoot = false;
@@ -92,7 +93,7 @@ public class ShootingShuriken : MonoBehaviour
     {
         _lineRenderer.enabled = true;
         _lineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
-        Vector2 startPosition = rotationPosition.position;
+        Vector2 startPosition = ShurikenThrowTransform.position;
         Vector2 startVelocity = (new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce) / 1f;
 
         int i = 0;
@@ -105,6 +106,18 @@ public class ShootingShuriken : MonoBehaviour
             point.y = startPosition.y + startVelocity.y * time + (Physics2D.gravity.y / 2f * time * time);
 
             _lineRenderer.SetPosition(i, point);
+            
+            // Make the line renderer stop when it hits a wall/collideable object
+            /*Vector2 lastPosition = _lineRenderer.GetPosition(i - 1);
+            var hit = Physics2D.Raycast(lastPosition, (point - lastPosition).normalized,
+                (point - lastPosition).magnitude);
+
+            if (hit.collider.gameObject.layer != TrajectoryLayerMask)
+            {
+                _lineRenderer.SetPosition(i, hit.point);
+                _lineRenderer.positionCount = i + 1; // avoids the old points to be considered
+                return;
+            }*/
         }
     }
 
@@ -120,7 +133,7 @@ public class ShootingShuriken : MonoBehaviour
         Assert.IsNotNull(rb);
         
         // Vector3 direction = aimPos - transform.position;
-        Debug.DrawLine(shurikenTransform.position, aimPos, Color.red, 2.0f);
+        Debug.DrawLine(ShurikenThrowTransform.position, aimPos, Color.red, 2.0f);
         rb.velocity = new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce;
     }
 }
