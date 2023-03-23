@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _point1: {fileID: 864377228342199813}
   _point2: {fileID: 864377228301420571}
-  _speed: 0.01
+  _speed: 0.82
   _delayBetweenPoints: 0.5
 --- !u!1 &864377228301420570
 GameObject:

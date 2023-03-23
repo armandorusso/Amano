@@ -21,7 +21,7 @@ public class MoveableObstacle : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, _endPoint.position, _speed);
+        transform.position = Vector2.Lerp(transform.position, _endPoint.position, Time.deltaTime * _speed);
         if (Vector2.Distance(transform.position, _endPoint.position) <= 0.5f)
         {
             var temp = _endPoint;
