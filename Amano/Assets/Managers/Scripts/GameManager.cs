@@ -14,11 +14,14 @@ public class GameManager : MonoBehaviour
 
     public EnemyDeathEventArgs enemyDeathEventArgs;
     public static event EventHandler<EnemyDeathEventArgs> EnemyDeathEvent;
+    public static Action<int> CollectibleAction;
     public static GameManager Instance { get; private set; }
     [SerializeField] public GameObject GameCanvas;
     [SerializeField] public GameObject GameOverCanvas;
     [SerializeField] private GameObject FKeyUI;
     [SerializeField] private GameObject _tetsuo;
+    
+    public static int CollectibleCount { get; private set; }
     
     public GameObject CurrentSpawnPoint { get; set; }
 
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
         EnemyHealth.EnemyDeathEvent += OnEnemyDeath;
         TetsuoHealthBar.tetsuoDeathEvent += OnTetsuoDeath;
         QuickTimeTeleport.ShowUIArgsEvent += OnQuickTimeEvent;
+        CollectibleCount = 0;
     }
 
     private void OnQuickTimeEvent(object sender, QuickTimeTeleport.ShowUIArgs e)
@@ -85,5 +89,11 @@ public class GameManager : MonoBehaviour
     public void ReturnAllShuriken()
     {
         _tetsuo.GetComponent<TeleportAbility>().ReturnAllShuriken();
+    }
+
+    public void IncrementCollectibleCount()
+    {
+        CollectibleCount++;
+        CollectibleAction?.Invoke(CollectibleCount);
     }
 }
