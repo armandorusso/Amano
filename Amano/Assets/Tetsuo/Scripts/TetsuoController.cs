@@ -496,10 +496,10 @@ public class TetsuoController : MonoBehaviour, IMove
 
         _isPerformingGroundedDash = true;
         _inputAction.enabled = false;
-        yield return new WaitForSeconds(dashTime);
+        _isGroundDashing = true;
+        yield return new WaitForSeconds(dashTime * 1.5f);
         rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
         groundedDashAttackEvent.Invoke(this, groundedDashAttackEventArgs);
-        _isGroundDashing = true;
         yield return new WaitForSeconds(dashTime);
         _inputAction.enabled = true;
         _isPerformingGroundedDash = false;
