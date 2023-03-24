@@ -7,19 +7,19 @@ using UnityEngine.Tilemaps;
 public class TetsuoOneWayPlatforms : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _playerCollider;
-    private IMove _moveableCharacter;
+    private TetsuoController _moveableCharacter;
     private GameObject _platform;
 
     private void Start()
     {
-        _moveableCharacter = gameObject.GetComponent(typeof(IMove)) as IMove;
+        _moveableCharacter = GetComponent<TetsuoController>();
     }
     
     void Update()
     {
-        if (_moveableCharacter.GetMovementVector().y <= -1 && _platform)
+        if (_moveableCharacter.GetMovementVector().y == -1 && _platform)
         {
-            StartCoroutine(DisablePlayerCollision());
+            _platform.GetComponent<PlatformEffector2D>().rotationalOffset = 180f;
         }
     }
 
@@ -35,15 +35,8 @@ public class TetsuoOneWayPlatforms : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Platform"))
         {
+            _platform.GetComponent<PlatformEffector2D>().rotationalOffset = 0f;
             _platform = null;
         }
-    }
-
-    private IEnumerator DisablePlayerCollision()
-    {
-        var platformCollider = _platform.GetComponent<CompositeCollider2D>();
-        Physics2D.IgnoreCollision(_playerCollider, platformCollider);
-        yield return new WaitForSeconds(0.25f);
-        Physics2D.IgnoreCollision(_playerCollider, platformCollider, false);
     }
 }
