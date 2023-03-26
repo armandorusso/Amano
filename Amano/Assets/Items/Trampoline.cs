@@ -12,7 +12,7 @@ public class Trampoline : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player") && col.gameObject.TryGetComponent(out Rigidbody2D rb))
         {
-            rb.AddForce(_launchDirection * _jumpForceAmount, ForceMode2D.Impulse);
+            rb.velocity += _launchDirection * _jumpForceAmount;
         }
     }
 }

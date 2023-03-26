@@ -43,7 +43,7 @@ public class RoomCameraManager : MonoBehaviour
         Time.timeScale = 0.05f;
         cameraTransitionArgs.isMovementDisabled = false;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(0.5f);
         cameraTransitionArgs.isMovementDisabled = true;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         Time.timeScale = 1f;
