@@ -443,7 +443,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4415898484591573548}
         m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
-        m_MethodName: DashAttack
+        m_MethodName: OnDashAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
