@@ -34,7 +34,7 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isGrounded = _tetsuoController._isGrounded;
             _isWallSticking = _tetsuoController._isWallSticking;
             _isWallSliding = _tetsuoController._isWallSliding;
-            _isDashing = _tetsuoController._isGroundDashing;
+            _isDashing = !_tetsuoController._doneDashing;
             _isWalking = _tetsuoController._isWalking;
             _isRunning = _tetsuoController._isRunning;
         }

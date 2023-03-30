@@ -274,6 +274,8 @@ MonoBehaviour:
   ConserveMomentum: 1
   MaxFallSpeed: 15
   FallGravityMultiplier: 0.5
+  ShortHopFallMultiplier: 0
+  FullHopFallMultiplier: 0
   JumpHangTime: 1
   _jumpingPower: 12
   coyoteTime: 0.2
@@ -284,7 +286,8 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
-  wallJumpPower: {x: 6.56, y: 9}
+  wallJumpingDirection: {x: 0, y: 0}
+  wallJumpForce: 0
   wallJumpingTime: 0.2
   _WallStickingTimer: 1.2
   dashPower: 8.1
@@ -352,7 +355,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4415898484591573548}
         m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
-        m_MethodName: Jump
+        m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

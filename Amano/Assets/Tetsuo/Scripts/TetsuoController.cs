@@ -23,6 +23,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public float MaxFallSpeed;
     [SerializeField] public float FallGravityMultiplier;
     private float _speed = 6f;
+    private LayerMask _collidedLayer;
 
     private float _horizontal;
     private float _vertical;
@@ -36,17 +37,21 @@ public class TetsuoController : MonoBehaviour, IMove
     private Color _spriteOriginalColor;
 
     [Header("Jumping")] 
+    public float ShortHopFallMultiplier;
+    public float FullHopFallMultiplier;
     public float JumpHangTime;
     public float _jumpingPower = 12f;
     public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
     public float jumpBufferTime = 0.2f;
-    private float jumpBufferCounter;
+    public bool hasPressedJump { get; set; }
+    public bool hasReleasedJump { get; set; }
     public bool _isJumping { get; private set; }
-    
     public bool _isJumpFalling { get; private set; }
-
     public bool _isFalling { get; private set; }
+    private float jumpBufferCounter;
+    private bool _isShortHop { get; set; }
+    private bool _isFullJump { get; set; }
 
     public class GroundFxEventArgs : EventArgs
     {
@@ -69,8 +74,9 @@ public class TetsuoController : MonoBehaviour, IMove
     private WallSlidingFxEventArgs wallSlidingEventArgs;
 
     [Header("Wall Jumping")]
-    [SerializeField] private Vector2 wallJumpPower;
-    private float wallJumpDirection;
+    [SerializeField] private Vector2 wallJumpingDirection;
+    [SerializeField] private float wallJumpForce;
+    private float wallJumpFacingDirection;
     public bool _isWallJumping { get; private set; }
     public float wallJumpingTime;
     private float wallJumpingCounter;
@@ -111,8 +117,9 @@ public class TetsuoController : MonoBehaviour, IMove
         _sprite = GetComponent<SpriteRenderer>();
         _inputAction = GetComponent<PlayerInput>();
         _spriteOriginalColor = _sprite.color;
-        wallJumpDirection = -1f;
+        wallJumpFacingDirection = -1f;
         _originalGravityScale = rb.gravityScale;
+        
         wallSlidingEventArgs = new WallSlidingFxEventArgs
         {
             isSliding = _isWallSliding,
@@ -150,6 +157,8 @@ public class TetsuoController : MonoBehaviour, IMove
                     Flip();
                 break;
         }
+        CheckIfPlayerCanWallJump();
+        Jump();
         UpdateIsFalling();
         UpdateIsRunning();
         UpdateJumpFalling();
@@ -161,242 +170,80 @@ public class TetsuoController : MonoBehaviour, IMove
         if (_isAirDashing || _isGroundDashing)
             return;
         UpdateIsGrounded();
-        StickToWall();
+        // StickToWall();
         WallSlide();
-        CheckIfPlayerCanWallJump();
 
         if (!_isWallJumping)
             Move();
     }
-
-    private void UpdateJumpFalling()
+    
+    public void OnMove(InputAction.CallbackContext context)
     {
-        if (_isJumping && !_isWallJumping && rb.velocity.y < 0f)
-        {
-            _isJumping = false;
-            _isJumpFalling = true;
-        }
+        var movementVector = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y).normalized;
+        _horizontal = Mathf.Round(movementVector.x);
+        _vertical = Mathf.Round(movementVector.y);
     }
-
-    private void ModifyJumpPeakGravity()
+    
+    public void OnDashAttack(InputAction.CallbackContext context)
     {
-        if (_doneDashing && (_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.4f)
+        if (context.started && !_hasDashed)
         {
-            SetGravityScale(rb.gravityScale * 0.5f);
-        }
-        else if(_doneDashing && !_isAirDashing)
-        {
-            SetGravityScale(_originalGravityScale);
-        }
-    }
-
-    private void SetGravityScale(float newGravityScale)
-    {
-        rb.gravityScale = newGravityScale;
-    }
-
-    private void UpdateIsGrounded()
-    {
-        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        if (_isGrounded)
-        {
-            _isWallSticking = false;
-            _isJumpFalling = false;
-            _WallStickingTimer = 2f;
-            coyoteTimeCounter = coyoteTime;
-        }
-        else
-        {
-            _hasLanded = false;
-            coyoteTimeCounter-= Time.deltaTime;
-        }
-
-        Debug.Log("Is Ground: " + _isGrounded);
-    }
-
-    private void UpdateIsFalling()
-    {
-        if (!_isWallSliding && !_isWallSticking && !_isGrounded && rb.velocity.y < 0)
-        {
-            _isFalling = true;
-            ClampGravity();
-        }
-        else
-        {
-            _isFalling = false;
+            StartCoroutine(Dash());
         }
     }
     
-    private void UpdateIsRunning()
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (_horizontal is > 0f or < 0f && _isGrounded)
+        if (context.performed)
         {
-            _isRunning = true;
+            hasPressedJump = true;
         }
-        else
+        else if (context.canceled)
         {
-            _isRunning = false;
-        }
-    }
-
-    private void ClampGravity()
-    {
-        SetGravityScale(_originalGravityScale * FallGravityMultiplier);
-        rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -MaxFallSpeed));
-    }
-
-    private void UpdateHasLanded(Collision2D collision)
-    {
-        if (_hasLanded)
-            return;
-        
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            Debug.Log("Landed");
-            _hasLanded = true;
-            _hasDashed = false;
-            
-            jumpOrLandEventArgs.isDustActivated = true;
-            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
-            jumpOrLandEventArgs.isDustActivated = false;
-        }
-    }
-
-    private bool IsTouchingWall()
-    {
-        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.03956366f, 0.7018313f), 0, wallLayer, 0, 0);
-    }
-
-    private void StickToWall()
-    {
-        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && _WallStickingTimer > 0f)
-        {
-            _isWallSticking = true;
-            _isWallSliding = false;
-            rb.gravityScale = 0f;
-            rb.velocity = Vector2.zero;
-            _sprite.color = Color.Lerp(_sprite.color, _outOfStaminaColor, Time.deltaTime / _WallStickingTimer);
-            _WallStickingTimer -= Time.deltaTime;
-        }
-        else
-        {
-            _isWallSticking = false;
-            rb.gravityScale = _originalGravityScale;
-            if(_isGrounded)
-                _sprite.color = _spriteOriginalColor;
-        }
-        
-        _sprite.flipX = _isWallSticking;
-    }
-
-    private void WallSlide()
-    {
-        if (IsTouchingWall() && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
-        {
-            _sprite.flipX = _isWallSliding;
-            rb.gravityScale = _originalGravityScale;
-            _isWallSliding = true;
-            wallSlidingEventArgs.isSliding = _isWallSliding;
-            wallSlidingEventArgs.isFacingRight = _isFacingRight;
-            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
-            rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
-        }
-        else
-        {
-            _isWallSliding = false;
-            wallSlidingEventArgs.isSliding = false;
-            wallSlidingEventArgs.isFacingRight = _isFacingRight;
-            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
-        }
-    }
-
-    private void CheckIfPlayerCanWallJump()
-    {
-        if (_isWallSliding || _isWallSticking)
-        {
-            // _isWallJumping = false;
-            wallJumpDirection = -transform.localScale.x;
-            wallJumpingCounter = wallJumpingTime;
-        }
-        else
-        {
-            wallJumpingCounter -= Time.deltaTime;
+            // Currently not used right now
+            hasReleasedJump = true;
         }
     }
 
     public void WallJump(InputAction.CallbackContext context)
     {
         Debug.Log("WallJumped: " + IsTouchingWall());
-        if (context.performed && IsTouchingWall() && (_isWallSticking || _isWallSliding) && wallJumpingCounter > 0f)
+        if (context.performed && wallJumpingCounter > 0f && (!_isGrounded || _isWallSticking || _isWallSliding))
         {
-            Debug.Log("Walljump direction: " + wallJumpDirection);
+            Debug.Log("Walljump direction: " + wallJumpFacingDirection);
             _isWallJumping = true;
-            rb.gravityScale = _originalGravityScale;
-            var wallJumpVector = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
-            rb.AddForce(wallJumpVector, ForceMode2D.Impulse);
-            wallJumpingCounter = 0f;
+            SetGravityScale(_originalGravityScale);
+            var wallJumpVector = new Vector2(wallJumpFacingDirection * wallJumpingDirection.x * wallJumpForce, wallJumpingDirection.y * wallJumpForce);
+            rb.velocity = wallJumpVector;
+            
+            // Keeping this line in for now. Not sure if it makes the walljump feel smoother or not
+            wallJumpingCounter = wallJumpingTime;
+            // wallJumpingCounter = 0f;
 
-            if (transform.localScale.x != wallJumpDirection)
+            if (transform.localScale.x != wallJumpFacingDirection)
             {
                 Flip();
             }
-            
-            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+            Invoke(nameof(StopWallJumping), wallJumpingTime);
         }
     }
-
-    public void Jump(InputAction.CallbackContext context)
+    
+    public void Walk(InputAction.CallbackContext context)
     {
-        if (_isAirDashing || _isWallJumping || _isWallSliding || _isWallSticking)
-            return;
+        if (!context.started) return;
         
-        if (context.started || context.performed)
+        if (_isRunning)
         {
-            jumpBufferCounter = jumpBufferTime;
+            _isRunning = false;
+            _isWalking = true;
+            _speed = 4f;
         }
-        else if(!_isJumping)
+        else
         {
-            jumpBufferCounter -= Time.deltaTime;
+            _isRunning = true;
+            _isWalking = false;
+            _speed = 6f;
         }
-        
-        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !(_isWallSliding || _isWallSticking))
-        {
-            jumpOrLandEventArgs.isDustActivated = true;
-            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
-            _isJumping = true;
-            rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
-            jumpBufferCounter = 0f;
-        }
-
-        if (context.canceled && rb.velocity.y > 0 && !(_isWallSliding || _isWallSticking))
-        {
-            _isJumping = true;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            coyoteTimeCounter = 0f;
-        }
-
-        jumpOrLandEventArgs.isDustActivated = false;
-    }
-
-    private void StopWallJumping()
-    {
-        _isWallJumping = false;
-        CancelInvoke(nameof(StopWallJumping));
-    }
-
-    private void Flip()
-    {
-        _isFacingRight = !_isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        var movementVector = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y).normalized;
-        _horizontal = Mathf.Round(movementVector.x);
-        _vertical = Mathf.Round(movementVector.y);
     }
 
     public void Move()
@@ -420,7 +267,7 @@ public class TetsuoController : MonoBehaviour, IMove
         }
         
         // Increase air acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if ((_isJumping || _isWallJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < JumpHangTime)
+        if ((_isJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < JumpHangTime)
         {
             acceleration *= 1.1f;
             targetSpeed *= 1.3f;
@@ -448,14 +295,209 @@ public class TetsuoController : MonoBehaviour, IMove
         return new Vector2(_horizontal, _vertical);
     }
 
-    public void DashAttack(InputAction.CallbackContext context)
+    private void UpdateJumpFalling()
     {
-        if (context.started && !_hasDashed)
+        if (_isAirDashing)
+            return;
+        
+        if (_isJumping && !_isWallJumping && rb.velocity.y < 0f)
         {
-            if (!_isGrounded)
-                StartCoroutine(Dash());
-            else
-                StartCoroutine(GroundedDashAttack());
+            ClampGravity();
+            _isJumping = false;
+            _isJumpFalling = true;
+        }
+    }
+
+    private void UpdateIsGrounded()
+    {
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        if (_isGrounded)
+        {
+            _isWallSticking = false;
+            _isJumpFalling = false;
+            _WallStickingTimer = 2f;
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            _hasLanded = false;
+            coyoteTimeCounter-= Time.deltaTime;
+        }
+
+        Debug.Log("Is Ground: " + _isGrounded);
+    }
+
+    private void UpdateIsFalling()
+    {
+        if (_isAirDashing)
+            return;
+        
+        if (!_isWallSliding && !_isWallSticking && !_isGrounded && rb.velocity.y < 0)
+        {
+            _isFalling = true;
+            ClampGravity();
+        }
+        else
+        {
+            SetGravityScale(_originalGravityScale);
+            _isFalling = false;
+        }
+    }
+    
+    private void UpdateIsRunning()
+    {
+        if ((_horizontal is > 0f or < 0f) && Mathf.Abs(rb.velocity.x) >= 0f && _isGrounded)
+        {
+            _isRunning = true;
+        }
+        else
+        {
+            _isRunning = false;
+        }
+    }
+
+    private void UpdateHasLanded(Collision2D collision)
+    {
+        if (_hasLanded)
+            return;
+        
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Landed");
+            _hasLanded = true;
+            _hasDashed = false;
+            
+            jumpOrLandEventArgs.isDustActivated = true;
+            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
+            jumpOrLandEventArgs.isDustActivated = false;
+        }
+    }
+
+    private void SetGravityScale(float newGravityScale)
+    {
+        rb.gravityScale = newGravityScale;
+    }
+    
+    private void ClampGravity()
+    {
+        if (!_isAirDashing)
+        {
+            SetGravityScale(_originalGravityScale * FallGravityMultiplier);
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -MaxFallSpeed));
+        }
+    }
+    
+    private bool IsTouchingWall()
+    {
+        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.05099699f, 0.7018313f), 0, wallLayer, 0, 0);
+    }
+
+    private void StickToWall()
+    {
+        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && _WallStickingTimer > 0f)
+        {
+            _isWallSticking = true;
+            _isWallSliding = false;
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
+            _sprite.color = Color.Lerp(_sprite.color, _outOfStaminaColor, Time.deltaTime / _WallStickingTimer);
+            _WallStickingTimer -= Time.deltaTime;
+        }
+        else
+        {
+            _isWallSticking = false;
+            rb.gravityScale = _originalGravityScale;
+            if(_isGrounded)
+                _sprite.color = _spriteOriginalColor;
+        }
+        
+        _sprite.flipX = _isWallSticking;
+    }
+
+    private void WallSlide()
+    {
+        if (IsTouchingWall() && _horizontal != 0 && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
+        {
+            _isWallSliding = true;
+            wallSlidingEventArgs.isSliding = _isWallSliding;
+            wallSlidingEventArgs.isFacingRight = _isFacingRight;
+            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
+            rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
+        }
+        else
+        {
+            _isWallSliding = false;
+            wallSlidingEventArgs.isSliding = false;
+            wallSlidingEventArgs.isFacingRight = _isFacingRight;
+            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
+        }
+    }
+
+    private void CheckIfPlayerCanWallJump()
+    {
+        if (!_isGrounded && IsTouchingWall())
+        {
+            _isWallJumping = false;
+            wallJumpFacingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+    }
+    
+    private void StopWallJumping()
+    {
+        _isWallJumping = false;
+        CancelInvoke(nameof(StopWallJumping));
+    }
+
+    private void Jump()
+    {
+        if (_isWallJumping || _isAirDashing || _isWallSliding || _isWallSticking)
+            return;
+        
+        if (hasPressedJump)
+        {
+            jumpBufferCounter = jumpBufferTime;
+            hasPressedJump = false;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
+        {
+            jumpOrLandEventArgs.isDustActivated = true;
+            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
+            _isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+            jumpBufferCounter = 0f;
+        }
+        
+        // Had to use "GetKeyUp" as using context.cancelled is very buggy and breaks the jump buffering
+        if (Input.GetKeyUp(KeyCode.Space) /*|| Gamepad.current.aButton.wasReleasedThisFrame*/ && rb.velocity.y > 0)
+        {
+            hasReleasedJump = false;
+            _isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            coyoteTimeCounter = 0f;
+        }
+
+        jumpOrLandEventArgs.isDustActivated = false;
+    }
+    
+    private void ModifyJumpPeakGravity()
+    {
+        if (!_isAirDashing && (_isJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < 0.2f)
+        {
+            SetGravityScale(_originalGravityScale * 0.5f);
+        }
+        else if(!_isAirDashing && _isFalling)
+        {
+            SetGravityScale(_originalGravityScale * FallGravityMultiplier);
         }
     }
 
@@ -464,19 +506,25 @@ public class TetsuoController : MonoBehaviour, IMove
         Debug.Log("Dash");
         var dashCoolDown = dashCooldown;
         SetDashParameters();
-
-        var dashDirection = _horizontal != 0 || _vertical != 0
-                ? new Vector2( _horizontal, _vertical).normalized * dashPower
-                : new Vector2(dashPower * transform.localScale.x, 0f);
         
-        rb.velocity = dashDirection;
+        rb.velocity = Vector2.zero;
         _isAirDashing = true;
         SetGravityScale(0f);
+        // _inputAction.enabled = false;
+        yield return new WaitForSeconds(dashTime + 0.4f);
+        var dashDirection = _horizontal != 0 || _vertical != 0
+            ? new Vector2( _horizontal, _vertical).normalized * dashPower
+            : new Vector2(dashPower * transform.localScale.x, 0f);
+        rb.velocity = dashDirection;
+        _inputAction.enabled = true;
+        dashAttackEventArgs.isDashing = true;
+        groundedDashAttackEvent?.Invoke(this, groundedDashAttackEventArgs);
+        dashAttackEvent?.Invoke(this, dashAttackEventArgs);
         yield return new WaitForSeconds(dashTime);
         dashAttackEventArgs.isDashing = false;
-        dashAttackEvent.Invoke(this, dashAttackEventArgs);
-        SetGravityScale(_originalGravityScale);
+        dashAttackEvent?.Invoke(this, dashAttackEventArgs);
         _isAirDashing = false;
+        SetGravityScale(_originalGravityScale);
         yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
         Debug.Log("Has landed: "+ _hasLanded + " Is Grounded " + _isGrounded);
@@ -516,27 +564,15 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         _doneDashing = false;
         _hasDashed = true;
-        dashAttackEventArgs.isDashing = true;
-        dashAttackEvent.Invoke(this, dashAttackEventArgs);
         _sprite.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 150); // Temp color
     }
 
-    public void Walk(InputAction.CallbackContext context)
+    private void Flip()
     {
-        if (!context.started) return;
-        
-        if (_isRunning)
-        {
-            _isRunning = false;
-            _isWalking = true;
-            _speed = 4f;
-        }
-        else
-        {
-            _isRunning = true;
-            _isWalking = false;
-            _speed = 6f;
-        }
+        _isFacingRight = !_isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
     }
 
     private void OnDrawGizmosSelected()
@@ -547,6 +583,12 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        CheckLayerCollision(collision);
         UpdateHasLanded(collision);
+    }
+
+    private void CheckLayerCollision(Collision2D collision)
+    {
+        _collidedLayer = collision.gameObject.layer;
     }
 }
