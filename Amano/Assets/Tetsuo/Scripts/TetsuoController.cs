@@ -9,62 +9,57 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public Rigidbody2D rb;
     [SerializeField] public Transform groundCheck;
     [SerializeField] public LayerMask groundLayer;
-    [SerializeField] public Animator animator;
+    [SerializeField] public Transform wallCheckPoint;
+    [SerializeField] public TetsuoScriptableObject TetsuoData;
+    
     private PlayerInput _inputAction;
-
-    [Header("Movement")] 
-    [SerializeField] public float MaxRunSpeed;
-    [SerializeField] public float MaxAccelSpeed;
-    [SerializeField] public float MaxAirAccelSpeed;
-    [SerializeField] public float MaxDeAccelSpeed;
-    [SerializeField] public float MaxDeAccelAirSpeed;
-    [SerializeField] public float RunLerpAmount;
-    [SerializeField] public bool ConserveMomentum;
-    [SerializeField] public float MaxFallSpeed;
-    [SerializeField] public float FallGravityMultiplier;
-    private float _speed = 6f;
     private LayerMask _collidedLayer;
-
     private float _horizontal;
     private float _vertical;
+    private bool _isFacingRight { get; set; }
+    private float _isFacingRightScale = 1f;
+    private float _originalGravityScale;
+    
     public bool _isGrounded { get; set; }
     public bool _isWalking { get; private set; }
     public bool _isRunning { get; private set; }
     public bool _hasLanded { get; private set; }
-    private bool _isFacingRight { get; set; }
-    private float _isFacingRightScale = 1f;
-    private SpriteRenderer _sprite;
-    private Color _spriteOriginalColor;
-
-    [Header("Jumping")] 
-    public float ShortHopFallMultiplier;
-    public float FullHopFallMultiplier;
-    public float JumpHangTime;
-    public float _jumpingPower = 12f;
-    public float coyoteTime = 0.2f;
-    public float coyoteTimeCounter;
-    public float jumpBufferTime = 0.2f;
+    
     public bool hasPressedJump { get; set; }
     public bool hasReleasedJump { get; set; }
     public bool _isJumping { get; private set; }
     public bool _isJumpFalling { get; private set; }
+    
     public bool _isFalling { get; private set; }
     private float jumpBufferCounter;
     private bool _isShortHop { get; set; }
     private bool _isFullJump { get; set; }
+    private SpriteRenderer _sprite;
+    private Color _spriteOriginalColor;
+    private Color _outOfStaminaColor = Color.red;
+    
+    public bool _isWallSticking { get; private set; }
+    public bool _isWallSliding { get; private set; }
+    
+    private float wallJumpFacingDirection;
+    public bool _isWallJumping { get; private set; }
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    
+    private bool _isPerformingGroundedDash { get; set; }
+    public bool _hasDashed { get; private set; }
+    public bool _isAirDashing { get; private set; }
+    public bool _isGroundDashing { get; private set; }
+    public bool _doneDashing { get; private set; }
 
+    
     public class GroundFxEventArgs : EventArgs
     {
         public bool isDustActivated { get; set; }
     }
     public static event EventHandler<GroundFxEventArgs> jumpOrLandEvent;
     private GroundFxEventArgs jumpOrLandEventArgs;
-
-    [Header("Wall Sliding")]
-    [SerializeField] private float wallSlideSpeed = 0f;
-    [SerializeField] public Transform wallCheckPoint;
-    [SerializeField] public LayerMask wallLayer;
-    public bool _isWallSliding { get; private set; }
+    
     public class WallSlidingFxEventArgs : EventArgs
     {
         public bool isSliding { get; set; }
@@ -73,28 +68,6 @@ public class TetsuoController : MonoBehaviour, IMove
     public static event EventHandler<WallSlidingFxEventArgs> wallSlidingEvent;
     private WallSlidingFxEventArgs wallSlidingEventArgs;
 
-    [Header("Wall Jumping")]
-    [SerializeField] private Vector2 wallJumpingDirection;
-    [SerializeField] private float wallJumpForce;
-    private float wallJumpFacingDirection;
-    public bool _isWallJumping { get; private set; }
-    public float wallJumpingTime;
-    private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
-
-    [Header("Wall Sticking")]
-    public float _WallStickingTimer = 2f;
-
-    public bool _isWallSticking { get; private set; }
-    private Color _outOfStaminaColor = Color.red;
-    private float _originalGravityScale;
-    
-    [Header("Dash Attack")]
-    [SerializeField] public float dashPower;
-    [SerializeField] public float dashTime;
-    [SerializeField] public float dashCooldown;
-    [SerializeField] public float dashCooldownOnGround;
-    private bool _isPerformingGroundedDash { get; set; }
     public class DashAttackFxEventArgs : EventArgs
     {
         public bool isDashing { get; set; }
@@ -107,11 +80,7 @@ public class TetsuoController : MonoBehaviour, IMove
     }
     public static event EventHandler<GroundedDashAttackFxEventArgs> groundedDashAttackEvent;
     private GroundedDashAttackFxEventArgs groundedDashAttackEventArgs;
-    public bool _hasDashed { get; private set; }
-    public bool _isAirDashing { get; private set; }
-    public bool _isGroundDashing { get; private set; }
-    public bool _doneDashing { get; private set; }
-
+    
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
@@ -213,18 +182,18 @@ public class TetsuoController : MonoBehaviour, IMove
             Debug.Log("Walljump direction: " + wallJumpFacingDirection);
             _isWallJumping = true;
             SetGravityScale(_originalGravityScale);
-            var wallJumpVector = new Vector2(wallJumpFacingDirection * wallJumpingDirection.x * wallJumpForce, wallJumpingDirection.y * wallJumpForce);
+            var wallJumpVector = new Vector2(wallJumpFacingDirection * TetsuoData.wallJumpingDirection.x * TetsuoData.wallJumpForce, TetsuoData.wallJumpingDirection.y * TetsuoData.wallJumpForce);
             rb.velocity = wallJumpVector;
             
             // Keeping this line in for now. Not sure if it makes the walljump feel smoother or not
-            wallJumpingCounter = wallJumpingTime;
+            wallJumpingCounter = TetsuoData.wallJumpingTime;
             // wallJumpingCounter = 0f;
 
             if (transform.localScale.x != wallJumpFacingDirection)
             {
                 Flip();
             }
-            Invoke(nameof(StopWallJumping), wallJumpingTime);
+            Invoke(nameof(StopWallJumping), TetsuoData.wallJumpingTime);
         }
     }
     
@@ -236,13 +205,13 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             _isRunning = false;
             _isWalking = true;
-            _speed = 4f;
+            TetsuoData._speed = 4f;
         }
         else
         {
             _isRunning = true;
             _isWalking = false;
-            _speed = 6f;
+            TetsuoData._speed = 6f;
         }
     }
 
@@ -250,31 +219,31 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         Debug.Log($"Horizontal: {_horizontal} Vertical: {_vertical}");
         // Force based movement with accel and deaccel, courtesy of https://github.com/Dawnosaur/platformer-movement/blob/main/Scripts/PlayerMovement.cs#L255
-        var targetSpeed = _horizontal * MaxRunSpeed;
+        var targetSpeed = _horizontal * TetsuoData.MaxRunSpeed;
         
         // Smooths the change of speed and direction
-        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, RunLerpAmount);
+        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, TetsuoData.RunLerpAmount);
 
         float acceleration;
 
         if (_isGrounded)
         {
-            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed : MaxDeAccelSpeed;
+            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? TetsuoData.MaxAccelSpeed : TetsuoData.MaxDeAccelSpeed;
         }
         else
         {
-            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? MaxAccelSpeed * MaxAirAccelSpeed : MaxDeAccelSpeed * MaxDeAccelAirSpeed;
+            acceleration = Mathf.Abs(targetSpeed) > 0.01 ? TetsuoData.MaxAccelSpeed * TetsuoData.MaxAirAccelSpeed : TetsuoData.MaxDeAccelSpeed * TetsuoData.MaxDeAccelAirSpeed;
         }
         
         // Increase air acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if ((_isJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < JumpHangTime)
+        if ((_isJumping || _isJumpFalling) && Mathf.Abs(rb.velocity.y) < TetsuoData.JumpHangTime)
         {
             acceleration *= 1.1f;
             targetSpeed *= 1.3f;
         }
         
         // Conserving Momentum
-        if (ConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) &&
+        if (TetsuoData.ConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) &&
             Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && !_isGrounded)
         {
             acceleration = 0f;
@@ -315,13 +284,13 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             _isWallSticking = false;
             _isJumpFalling = false;
-            _WallStickingTimer = 2f;
-            coyoteTimeCounter = coyoteTime;
+            TetsuoData._WallStickingTimer = 2f;
+            TetsuoData.coyoteTimeCounter = TetsuoData.coyoteTime;
         }
         else
         {
             _hasLanded = false;
-            coyoteTimeCounter-= Time.deltaTime;
+            TetsuoData.coyoteTimeCounter-= Time.deltaTime;
         }
 
         Debug.Log("Is Ground: " + _isGrounded);
@@ -382,26 +351,26 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         if (!_isAirDashing)
         {
-            SetGravityScale(_originalGravityScale * FallGravityMultiplier);
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -MaxFallSpeed));
+            SetGravityScale(_originalGravityScale * TetsuoData.FallGravityMultiplier);
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -TetsuoData.MaxFallSpeed));
         }
     }
     
     private bool IsTouchingWall()
     {
-        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.05099699f, 0.7018313f), 0, wallLayer, 0, 0);
+        return Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.05099699f, 0.7018313f), 0, TetsuoData.wallLayer, 0, 0);
     }
 
     private void StickToWall()
     {
-        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && _WallStickingTimer > 0f)
+        if (IsTouchingWall() && !_isGrounded && _horizontal != 0 && TetsuoData._WallStickingTimer > 0f)
         {
             _isWallSticking = true;
             _isWallSliding = false;
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
-            _sprite.color = Color.Lerp(_sprite.color, _outOfStaminaColor, Time.deltaTime / _WallStickingTimer);
-            _WallStickingTimer -= Time.deltaTime;
+            _sprite.color = Color.Lerp(_sprite.color, _outOfStaminaColor, Time.deltaTime / TetsuoData._WallStickingTimer);
+            TetsuoData._WallStickingTimer -= Time.deltaTime;
         }
         else
         {
@@ -422,7 +391,7 @@ public class TetsuoController : MonoBehaviour, IMove
             wallSlidingEventArgs.isSliding = _isWallSliding;
             wallSlidingEventArgs.isFacingRight = _isFacingRight;
             wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
-            rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
+            rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -TetsuoData.wallSlideSpeed, float.MaxValue));
         }
         else
         {
@@ -439,7 +408,7 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             _isWallJumping = false;
             wallJumpFacingDirection = -transform.localScale.x;
-            wallJumpingCounter = wallJumpingTime;
+            wallJumpingCounter = TetsuoData.wallJumpingTime;
         }
         else
         {
@@ -460,7 +429,7 @@ public class TetsuoController : MonoBehaviour, IMove
         
         if (hasPressedJump)
         {
-            jumpBufferCounter = jumpBufferTime;
+            jumpBufferCounter = TetsuoData.jumpBufferTime;
             hasPressedJump = false;
         }
         else
@@ -468,12 +437,12 @@ public class TetsuoController : MonoBehaviour, IMove
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
+        if (jumpBufferCounter > 0f && TetsuoData.coyoteTimeCounter > 0f)
         {
             jumpOrLandEventArgs.isDustActivated = true;
             jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
             _isJumping = true;
-            rb.velocity = new Vector2(rb.velocity.x, _jumpingPower);
+            rb.velocity = new Vector2(rb.velocity.x, TetsuoData._jumpingPower);
             jumpBufferCounter = 0f;
         }
         
@@ -483,7 +452,7 @@ public class TetsuoController : MonoBehaviour, IMove
             hasReleasedJump = false;
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            coyoteTimeCounter = 0f;
+            TetsuoData.coyoteTimeCounter = 0f;
         }
 
         jumpOrLandEventArgs.isDustActivated = false;
@@ -497,30 +466,30 @@ public class TetsuoController : MonoBehaviour, IMove
         }
         else if(!_isAirDashing && _isFalling)
         {
-            SetGravityScale(_originalGravityScale * FallGravityMultiplier);
+            SetGravityScale(_originalGravityScale * TetsuoData.FallGravityMultiplier);
         }
     }
 
     private IEnumerator Dash()
     {
         Debug.Log("Dash");
-        var dashCoolDown = dashCooldown;
+        var dashCoolDown = TetsuoData.dashCooldown;
         SetDashParameters();
         
         rb.velocity = Vector2.zero;
         _isAirDashing = true;
         SetGravityScale(0f);
         // _inputAction.enabled = false;
-        yield return new WaitForSeconds(dashTime + 0.4f);
+        yield return new WaitForSeconds(TetsuoData.dashTime + 0.4f);
         var dashDirection = _horizontal != 0 || _vertical != 0
-            ? new Vector2( _horizontal, _vertical).normalized * dashPower
-            : new Vector2(dashPower * transform.localScale.x, 0f);
+            ? new Vector2( _horizontal, _vertical).normalized * TetsuoData.dashPower
+            : new Vector2(TetsuoData.dashPower * transform.localScale.x, 0f);
         rb.velocity = dashDirection;
         _inputAction.enabled = true;
         dashAttackEventArgs.isDashing = true;
         groundedDashAttackEvent?.Invoke(this, groundedDashAttackEventArgs);
         dashAttackEvent?.Invoke(this, dashAttackEventArgs);
-        yield return new WaitForSeconds(dashTime);
+        yield return new WaitForSeconds(TetsuoData.dashTime);
         dashAttackEventArgs.isDashing = false;
         dashAttackEvent?.Invoke(this, dashAttackEventArgs);
         _isAirDashing = false;
@@ -534,30 +503,6 @@ public class TetsuoController : MonoBehaviour, IMove
             _sprite.color = _spriteOriginalColor;
             _hasDashed = false;
         }
-    }
-
-    private IEnumerator GroundedDashAttack()
-    {
-        Debug.Log("Grounded Dash");
-        var dashCoolDown = dashCooldownOnGround;
-        SetDashParameters();
-
-        _isPerformingGroundedDash = true;
-        _inputAction.enabled = false;
-        _isGroundDashing = true;
-        yield return new WaitForSeconds(dashTime * 1.5f);
-        rb.velocity = new Vector2(dashPower * transform.localScale.x, 0f);
-        groundedDashAttackEvent.Invoke(this, groundedDashAttackEventArgs);
-        yield return new WaitForSeconds(dashTime);
-        _inputAction.enabled = true;
-        _isPerformingGroundedDash = false;
-        dashAttackEventArgs.isDashing = false;
-        dashAttackEvent.Invoke(this, dashAttackEventArgs);
-        SetGravityScale(_originalGravityScale);
-        _isGroundDashing = false;
-        yield return new WaitForSeconds(dashCoolDown);
-        _doneDashing = true;
-        _hasDashed = false;
     }
 
     private void SetDashParameters()

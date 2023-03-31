@@ -264,36 +264,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1280
-  animator: {fileID: 5587403623764837078}
-  MaxRunSpeed: 6.7
-  MaxAccelSpeed: 8.7
-  MaxAirAccelSpeed: 1
-  MaxDeAccelSpeed: 20
-  MaxDeAccelAirSpeed: 0.8
-  RunLerpAmount: 1
-  ConserveMomentum: 1
-  MaxFallSpeed: 15
-  FallGravityMultiplier: 0.5
-  ShortHopFallMultiplier: 0
-  FullHopFallMultiplier: 0
-  JumpHangTime: 1
-  _jumpingPower: 12
-  coyoteTime: 0.2
-  coyoteTimeCounter: 0
-  jumpBufferTime: 0.2
-  wallSlideSpeed: 0.8
   wallCheckPoint: {fileID: 263263850758630252}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  wallJumpingDirection: {x: 0, y: 0}
-  wallJumpForce: 0
-  wallJumpingTime: 0.2
-  _WallStickingTimer: 1.2
-  dashPower: 8.1
-  dashTime: 0.18
-  dashCooldown: 0.8
-  dashCooldownOnGround: 2
+  animator: {fileID: 5587403623764837078}
+  TetsuoData: {fileID: 11400000, guid: 1815164ab3d578a4fb0e09300fc1c6ba, type: 2}
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0
