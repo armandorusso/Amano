@@ -11,7 +11,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public LayerMask groundLayer;
     [SerializeField] public Transform wallCheckPoint;
     [SerializeField] public TetsuoScriptableObject TetsuoData;
-    
+
     private PlayerInput _inputAction;
     private LayerMask _collidedLayer;
     private float _horizontal;
@@ -114,6 +114,8 @@ public class TetsuoController : MonoBehaviour, IMove
         _isRunning = true;
         _isFacingRight = true;
         _doneDashing = true;
+
+        MoveableObstacle.TouchingPlatformAction += OnLeavingPlatform;
     }
 
     void Update()
@@ -212,6 +214,15 @@ public class TetsuoController : MonoBehaviour, IMove
             _isRunning = true;
             _isWalking = false;
             TetsuoData._speed = 6f;
+        }
+    }
+    
+    private void OnLeavingPlatform(Vector2 platformVelocity)
+    {
+        // While running off + jumping a fast moving platform, gain a boost of speed
+        if (_isJumping)
+        {
+            rb.velocity += platformVelocity;
         }
     }
 
@@ -528,12 +539,6 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        CheckLayerCollision(collision);
         UpdateHasLanded(collision);
-    }
-
-    private void CheckLayerCollision(Collision2D collision)
-    {
-        _collidedLayer = collision.gameObject.layer;
     }
 }
