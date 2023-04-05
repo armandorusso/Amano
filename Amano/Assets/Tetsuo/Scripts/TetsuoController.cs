@@ -34,6 +34,8 @@ public class TetsuoController : MonoBehaviour, IMove
     private float jumpBufferCounter;
     private bool _isShortHop { get; set; }
     private bool _isFullJump { get; set; }
+    public bool hasActivatedTeleportPopOut { get; set; }
+    private float teleportPopOutTimer = 0.08f;
     private SpriteRenderer _sprite;
     private Color _spriteOriginalColor;
     private Color _outOfStaminaColor = Color.red;
@@ -116,6 +118,7 @@ public class TetsuoController : MonoBehaviour, IMove
         _doneDashing = true;
 
         MoveableObstacle.TouchingPlatformAction += OnLeavingPlatform;
+        TeleportAbility.TeleportPopOutAction += OnTeleportPopOut;
     }
 
     void Update()
@@ -168,6 +171,7 @@ public class TetsuoController : MonoBehaviour, IMove
         if (context.performed)
         {
             hasPressedJump = true;
+            Invoke(nameof(SetTeleportPopOutBooleanToFalse), teleportPopOutTimer);
         }
         else if (context.canceled)
         {
@@ -224,6 +228,21 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             rb.velocity += platformVelocity;
         }
+    }
+    
+    private void OnTeleportPopOut(float popOutForce)
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && (_isGrounded || _isJumping || _isFalling))
+        {
+            hasActivatedTeleportPopOut = true;
+            Invoke(nameof(SetTeleportPopOutBooleanToFalse), teleportPopOutTimer);
+        }
+    }
+
+    public void SetTeleportPopOutBooleanToFalse()
+    {
+        hasActivatedTeleportPopOut = false;
+        CancelInvoke(nameof(SetTeleportPopOutBooleanToFalse));
     }
 
     public void Move()
@@ -437,6 +456,12 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         if (_isWallJumping || _isAirDashing || _isWallSliding || _isWallSticking)
             return;
+
+        if (hasActivatedTeleportPopOut)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 20);
+            return;
+        }
         
         if (hasPressedJump)
         {
@@ -451,7 +476,7 @@ public class TetsuoController : MonoBehaviour, IMove
         if (jumpBufferCounter > 0f && TetsuoData.coyoteTimeCounter > 0f)
         {
             jumpOrLandEventArgs.isDustActivated = true;
-            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
+            jumpOrLandEvent?.Invoke(this, jumpOrLandEventArgs);
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, TetsuoData._jumpingPower);
             jumpBufferCounter = 0f;

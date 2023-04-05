@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class TeleportAbility : MonoBehaviour
 {
+    [SerializeField] public float TeleportPopOutForce;
     private Queue<ShurikenProjectile> _normalShurikens;
     private Queue<ShurikenProjectile> _teleportShurikens;
     private Queue<Transform> _teleportableObjects;
@@ -29,6 +30,8 @@ public class TeleportAbility : MonoBehaviour
     }
     public static event EventHandler<QuickTimeTeleportEventArgs> QuickTimeTeleportEvent;
     private QuickTimeTeleportEventArgs quickTimeTeleportEventArgs;
+
+    public static Action<float> TeleportPopOutAction; 
 
     void Awake()
     {
@@ -126,6 +129,8 @@ public class TeleportAbility : MonoBehaviour
 
                 QuickTimeTeleportEvent?.Invoke(this, quickTimeTeleportEventArgs);
             }
+
+            TeleportPopOutAction?.Invoke(TeleportPopOutForce);
 
             if (_teleportShurikens.Count < 1)
             {
