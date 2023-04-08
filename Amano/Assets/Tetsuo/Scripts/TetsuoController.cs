@@ -191,9 +191,7 @@ public class TetsuoController : MonoBehaviour, IMove
             var wallJumpVector = new Vector2(wallJumpFacingDirection * TetsuoData.wallJumpingDirection.x * TetsuoData.wallJumpForce, TetsuoData.wallJumpingDirection.y * TetsuoData.wallJumpForce);
             rb.velocity = wallJumpVector;
             
-            // Keeping this line in for now. Not sure if it makes the walljump feel smoother or not
-            wallJumpingCounter = TetsuoData.wallJumpingTime;
-            // wallJumpingCounter = 0f;
+            wallJumpingCounter = 0f;
 
             if (transform.localScale.x != wallJumpFacingDirection)
             {
