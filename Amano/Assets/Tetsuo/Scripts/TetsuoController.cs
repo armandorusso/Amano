@@ -54,28 +54,11 @@ public class TetsuoController : MonoBehaviour, IMove
     public bool _isGroundDashing { get; private set; }
     public bool _doneDashing { get; private set; }
 
-    
-    public class GroundFxEventArgs : EventArgs
-    {
-        public bool isDustActivated { get; set; }
-    }
-    public static event EventHandler<GroundFxEventArgs> jumpOrLandEvent;
-    private GroundFxEventArgs jumpOrLandEventArgs;
-    
-    public class WallSlidingFxEventArgs : EventArgs
-    {
-        public bool isSliding { get; set; }
-        public bool isFacingRight { get; set; }
-    }
-    public static event EventHandler<WallSlidingFxEventArgs> wallSlidingEvent;
-    private WallSlidingFxEventArgs wallSlidingEventArgs;
 
-    public class DashAttackFxEventArgs : EventArgs
-    {
-        public bool isDashing { get; set; }
-    }
-    public static event EventHandler<DashAttackFxEventArgs> dashAttackEvent;
-    private DashAttackFxEventArgs dashAttackEventArgs;
+    public static Action<bool> JumpOrLandEffectAction;
+    public static Action<bool, bool> WallSlidingEffectAction;
+    public static Action<bool> DashAttackLeafEffectAction;
+    
     public class GroundedDashAttackFxEventArgs : EventArgs
     {
         public GameObject Tetsuo { get; set; }
@@ -90,22 +73,6 @@ public class TetsuoController : MonoBehaviour, IMove
         _spriteOriginalColor = _sprite.color;
         wallJumpFacingDirection = -1f;
         _originalGravityScale = rb.gravityScale;
-        
-        wallSlidingEventArgs = new WallSlidingFxEventArgs
-        {
-            isSliding = _isWallSliding,
-            isFacingRight = _isFacingRight
-        };
-
-        jumpOrLandEventArgs = new GroundFxEventArgs
-        {
-            isDustActivated = false
-        };
-
-        dashAttackEventArgs = new DashAttackFxEventArgs
-        {
-            isDashing = false
-        };
 
         groundedDashAttackEventArgs = new GroundedDashAttackFxEventArgs
         {
@@ -364,9 +331,8 @@ public class TetsuoController : MonoBehaviour, IMove
             _hasLanded = true;
             _hasDashed = false;
             
-            jumpOrLandEventArgs.isDustActivated = true;
-            jumpOrLandEvent.Invoke(this, jumpOrLandEventArgs);
-            jumpOrLandEventArgs.isDustActivated = false;
+            JumpOrLandEffectAction?.Invoke(true);
+            JumpOrLandEffectAction?.Invoke(false);
         }
     }
 
@@ -416,17 +382,13 @@ public class TetsuoController : MonoBehaviour, IMove
         if (IsTouchingWall() && _horizontal != 0 && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
         {
             _isWallSliding = true;
-            wallSlidingEventArgs.isSliding = _isWallSliding;
-            wallSlidingEventArgs.isFacingRight = _isFacingRight;
-            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
+            WallSlidingEffectAction?.Invoke(_isWallSliding, _isFacingRight);
             rb.velocity = new Vector2(rb.velocity.x, Math.Clamp(rb.velocity.y, -TetsuoData.wallSlideSpeed, float.MaxValue));
         }
         else
         {
             _isWallSliding = false;
-            wallSlidingEventArgs.isSliding = false;
-            wallSlidingEventArgs.isFacingRight = _isFacingRight;
-            wallSlidingEvent.Invoke(this, wallSlidingEventArgs);
+            WallSlidingEffectAction?.Invoke(_isWallSliding, _isFacingRight);
         }
     }
 
@@ -473,8 +435,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
         if (jumpBufferCounter > 0f && TetsuoData.coyoteTimeCounter > 0f)
         {
-            jumpOrLandEventArgs.isDustActivated = true;
-            jumpOrLandEvent?.Invoke(this, jumpOrLandEventArgs);
+            JumpOrLandEffectAction?.Invoke(true);
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, TetsuoData._jumpingPower);
             jumpBufferCounter = 0f;
@@ -488,8 +449,8 @@ public class TetsuoController : MonoBehaviour, IMove
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             TetsuoData.coyoteTimeCounter = 0f;
         }
-
-        jumpOrLandEventArgs.isDustActivated = false;
+        
+        JumpOrLandEffectAction?.Invoke(false);
     }
     
     private void ModifyJumpPeakGravity()
@@ -520,12 +481,10 @@ public class TetsuoController : MonoBehaviour, IMove
             : new Vector2(TetsuoData.dashPower * transform.localScale.x, 0f);
         rb.velocity = dashDirection;
         _inputAction.enabled = true;
-        dashAttackEventArgs.isDashing = true;
+        DashAttackLeafEffectAction?.Invoke(true);
         groundedDashAttackEvent?.Invoke(this, groundedDashAttackEventArgs);
-        dashAttackEvent?.Invoke(this, dashAttackEventArgs);
         yield return new WaitForSeconds(TetsuoData.dashTime);
-        dashAttackEventArgs.isDashing = false;
-        dashAttackEvent?.Invoke(this, dashAttackEventArgs);
+        DashAttackLeafEffectAction?.Invoke(false);
         _isAirDashing = false;
         SetGravityScale(_originalGravityScale);
         yield return new WaitForSeconds(dashCoolDown);

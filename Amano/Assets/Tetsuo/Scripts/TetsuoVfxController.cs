@@ -14,14 +14,14 @@ public class TetsuoVfxController : MonoBehaviour
 
     private void Start()
     {
-        TetsuoController.wallSlidingEvent += OnWallSlidingEvent;
-        TetsuoController.jumpOrLandEvent += OnPlayerJumpOrLanding;
-        TetsuoController.dashAttackEvent += OnDashAttackEvent;
+        TetsuoController.WallSlidingEffectAction += OnWallSlidingEvent;
+        TetsuoController.JumpOrLandEffectAction += OnPlayerJumpOrLanding;
+        TetsuoController.DashAttackLeafEffectAction += OnDashAttackEvent;
     }
 
-    private void OnWallSlidingEvent(object sender, TetsuoController.WallSlidingFxEventArgs e)
+    private void OnWallSlidingEvent(bool isSliding, bool isFacingRight)
     {
-        if (!e.isSliding)
+        if (!isSliding)
         {
             if (isWallDustPlaying)
             {
@@ -31,14 +31,14 @@ public class TetsuoVfxController : MonoBehaviour
             }
         }
 
-        if (e.isSliding)
+        if (isSliding)
         {
             if (isWallDustPlaying)
                 return;
             
             Debug.Log("Dust wall playing");
             var transformLocalScale = wallDustFx.gameObject.transform.localScale;
-            if (e.isFacingRight)
+            if (isFacingRight)
             {
                 transformLocalScale.x = -1f;
             }
@@ -51,18 +51,18 @@ public class TetsuoVfxController : MonoBehaviour
         }
     }
 
-    public void OnPlayerJumpOrLanding(object sender, TetsuoController.GroundFxEventArgs e)
+    public void OnPlayerJumpOrLanding(bool isDustActivated)
     {
-        if (e.isDustActivated)
+        if (isDustActivated)
         {
             groundDustFx.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.3f, gameObject.transform.position.z);
             groundDustFx.Play();
         }
     }
 
-    public void OnDashAttackEvent(object sender, TetsuoController.DashAttackFxEventArgs e)
+    public void OnDashAttackEvent(bool isDashing)
     {
-        if (e.isDashing)
+        if (isDashing)
         {
             leavesFx.Play();
         }
@@ -74,8 +74,8 @@ public class TetsuoVfxController : MonoBehaviour
 
     private void OnDestroy()
     {
-        TetsuoController.wallSlidingEvent -= OnWallSlidingEvent;
-        TetsuoController.jumpOrLandEvent -= OnPlayerJumpOrLanding;
-        TetsuoController.dashAttackEvent -= OnDashAttackEvent;
+        TetsuoController.WallSlidingEffectAction -= OnWallSlidingEvent;
+        TetsuoController.JumpOrLandEffectAction -= OnPlayerJumpOrLanding;
+        TetsuoController.DashAttackLeafEffectAction -= OnDashAttackEvent;
     }
 }
