@@ -6,40 +6,85 @@ using UnityEngine;
 public class FallingPlatform : MonoBehaviour
 {
     [SerializeField] public float PlatformFallSpeed;
-    [SerializeField] public float DelayBeforePlatformFalls = 2f;
+    [SerializeField] public float DelayBeforePlatformFalls;
+    [SerializeField] public float RespawnTime;
+    private Vector2 RespawnLocation;
+    private Color _originalSpriteColor;
+    private SpriteRenderer _fallingPlatformSprite;
     private Rigidbody2D _rb;
-    private bool steppedOn;
-    private bool isFalling;
+    private BoxCollider2D _collider;
+    private bool _steppedOn;
+    private bool _isPlatformBreaking;
+    private bool _isFalling;
+    private bool _canRespawn;
     
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _fallingPlatformSprite = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<BoxCollider2D>();
         _rb.bodyType = RigidbodyType2D.Static;
+        _originalSpriteColor = _fallingPlatformSprite.color;
+        RespawnLocation = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (steppedOn && !isFalling)
+        if (_steppedOn && !_isFalling)
         {
             Invoke(nameof(DelayPlatformFalling), DelayBeforePlatformFalls);
-            steppedOn = false;
+            _isPlatformBreaking = true;
+            _steppedOn = false;
+        }
+
+        else if(_isPlatformBreaking)
+        {
+            _fallingPlatformSprite.color = Color.Lerp(_fallingPlatformSprite.color, Color.red,
+                Time.deltaTime / DelayBeforePlatformFalls);
+        }
+        
+        else if (_canRespawn)
+        {
+            RespawnPlatform();
         }
     }
 
     private void DelayPlatformFalling()
     {
-        isFalling = true;
+        _isFalling = true;
         _rb.bodyType = RigidbodyType2D.Dynamic;
         _rb.gravityScale = PlatformFallSpeed;
+        Invoke(nameof(StartRespawnPlatform), RespawnTime);
+    }
+
+    private void StartRespawnPlatform()
+    {
+        _isPlatformBreaking = false;
+        _canRespawn = true;
+    }
+    
+    private void RespawnPlatform()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, RespawnLocation, Time.deltaTime / 1f);
+        _fallingPlatformSprite.color = Color.Lerp(_fallingPlatformSprite.color, _originalSpriteColor,
+            Time.deltaTime / DelayBeforePlatformFalls);
+        ResetPlatformValues();
+    }
+
+    private void ResetPlatformValues()
+    {
+        _isFalling = false;
+        _rb.bodyType = RigidbodyType2D.Static;
+        _rb.gravityScale = 0f;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            steppedOn = true;
+            _steppedOn = true;
         }
     }
 }

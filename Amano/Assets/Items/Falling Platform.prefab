@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 940780097692896045}
   - component: {fileID: 940780097692896046}
   - component: {fileID: 940780097692896041}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Falling Platform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,3 +148,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlatformFallSpeed: 1.5
   DelayBeforePlatformFalls: 2
+  RespawnTime: 1
+  RespawnLocation: {fileID: 0}
