@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 627419778922173208}
   - component: {fileID: 4397823771420894528}
   - component: {fileID: 1733921002243111321}
+  - component: {fileID: 2713606433761734073}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameCanvas: {fileID: 0}
   GameOverCanvas: {fileID: 0}
+  FKeyUI: {fileID: 0}
+  _tetsuo: {fileID: 0}
 --- !u!114 &1733921002243111321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,3 +62,163 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362badc486e49bf41924619c90e4a230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2713606433761734073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3787491049051698439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa73ded14cf94d4f8213407193a95ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controllerInput:
+    m_Name: Controller Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b8ec6074-4650-4b31-bdea-7c3d3153cc64
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Left Control Stick
+      m_Id: 62ee935e-952a-47c2-9d35-723ca2203054
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 70a4a9ba-73ed-458d-95d4-d16e6ccdb4f0
+      m_Path: <Gamepad>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 6d16f0cc-090e-4fd3-8b58-a510f9ce7c56
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: a6724772-f987-4972-ae6d-bedce9c05211
+      m_Path: <Gamepad>/leftStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 56a08466-5b94-4e43-b671-d9bd5c598e9a
+      m_Path: <Gamepad>/leftStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: Right Control Stick
+      m_Id: 2b09bd3f-287f-4335-82c9-d2a32df87254
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 929f0a58-b828-41ec-b759-a44a8ee6d5e5
+      m_Path: <Gamepad>/rightStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: c3117c01-a3b3-4c1b-a60d-b16b10adb1c3
+      m_Path: <Gamepad>/rightStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 57e50b0f-a9eb-4b40-8cdc-322d46e2ce46
+      m_Path: <Gamepad>/rightStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 07802f9d-6f39-437a-ac0e-18c67781aea1
+      m_Path: <Gamepad>/rightStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 8
+    - m_Name: 
+      m_Id: 7714f09f-2708-4677-830f-f031db9f2fcd
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d4d7ac87-f8e8-498f-b8e8-d1184ee7985b
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 6c04dad2-04be-47dc-bfda-5809cf783c47
+      m_Path: <Gamepad>/buttonNorth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 74817185-7207-4a1a-bcb3-2437b7688a5f
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    m_Flags: 0
+  _keyboardAndMouseInput:
+    m_Name: Keyboard And Mouse Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c06cc300-0c06-4d96-a6f5-605700809948
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d85f27d2-3256-485f-b356-f7f44bb0b43c
+      m_Path: <Keyboard>/anyKey
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Keyboard And Mouse Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: cb2f8834-999f-4e0c-ba23-a63423e5e171
+      m_Path: <Mouse>/delta
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Keyboard And Mouse Input
+      m_Flags: 0
+    m_Flags: 0
+  currentInputType: 0
+  inputSwitchCooldown: 0.5
