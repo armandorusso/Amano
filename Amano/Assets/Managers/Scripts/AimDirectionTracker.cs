@@ -5,13 +5,18 @@ using UnityEngine.InputSystem;
 public class AimDirectionTracker : MonoBehaviour
 {
     [SerializeField] private Camera camera;
-    [SerializeField] public bool usingController;
+    [SerializeField] public GameInputManager.InputType CurrentInput;
     private Vector3 mousePositionInWorld { get; set; }
     private Vector2 rightStickDirection { get; set; }
 
     private void Start()
     {
-        
+        GameInputManager.SwitchInputAction += OnControllerInputSwitch;
+    }
+
+    private void OnControllerInputSwitch(GameInputManager.InputType isUsingController)
+    {
+        CurrentInput = isUsingController;
     }
 
     private void Update()
@@ -30,7 +35,7 @@ public class AimDirectionTracker : MonoBehaviour
 
     public void OnShootWeapon(InputAction.CallbackContext context)
     {
-        if(!usingController)
+        if(CurrentInput == GameInputManager.InputType.KeyboardMouse)
             mousePositionInWorld = camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         else
         {

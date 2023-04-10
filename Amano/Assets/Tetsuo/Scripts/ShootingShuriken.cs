@@ -20,8 +20,7 @@ public class ShootingShuriken : MonoBehaviour
     [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints;
     [SerializeField] private LayerMask TrajectoryLayerMask;
     private bool _isHoldingAim;
-    
-    
+
     public static event EventHandler<ShurikenSpawnedEventArgs> ShurikenSpawnedEvent;
 
     public class ShurikenSpawnedEventArgs : EventArgs
@@ -42,22 +41,28 @@ public class ShootingShuriken : MonoBehaviour
 
     void Update()
     {
-        if(!aimTracker.usingController)
+        if (aimTracker.CurrentInput == GameInputManager.InputType.KeyboardMouse)
+        {
             aimPos = aimTracker.GetMousePositionInWorld();
-        else
-            aimPos = aimTracker.GetRightStickDirection();
-        
-        // Vector3 rotation = aimPos - rotationPosition.position;
-        float zRotation = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
-        rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
 
+            Vector3 rotation = aimPos - rotationPosition.position;
+            float zRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
+        }
+
+        else
+        {
+            aimPos = aimTracker.GetRightStickDirection();
+            float zRotation = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
+            rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
+        }
         if (transform.localScale.x != rotationPosition.localScale.x)
         {
             rotationPosition.localScale = transform.localScale;
         }
 
         if (_isHoldingAim)
-            DrawTrajectory();
+            DrawAimTrajectory();
         else
             _lineRenderer.enabled = false;
     }
@@ -77,7 +82,7 @@ public class ShootingShuriken : MonoBehaviour
         }
     }
     
-    public void CreateTrajectory(InputAction.CallbackContext context)
+    public void CreateAimTrajectory(InputAction.CallbackContext context)
     {
         if (aimTracker.GetRightStickDirection() != Vector2.zero && context.performed)
         {
@@ -89,7 +94,7 @@ public class ShootingShuriken : MonoBehaviour
         }
     }
 
-    private void DrawTrajectory()
+    private void DrawAimTrajectory()
     {
         _lineRenderer.enabled = true;
         _lineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
@@ -131,9 +136,16 @@ public class ShootingShuriken : MonoBehaviour
     {
         var rb = shurikenObj.GetComponent<Rigidbody2D>();
         Assert.IsNotNull(rb);
-        
-        // Vector3 direction = aimPos - transform.position;
+
+        if (aimTracker.CurrentInput == GameInputManager.InputType.KeyboardMouse)
+        {
+            Vector3 direction = aimPos - transform.position;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * shurikenForce;
+        }
+        else
+        {
+            rb.velocity = new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce;
+        }
         Debug.DrawLine(ShurikenThrowTransform.position, aimPos, Color.red, 2.0f);
-        rb.velocity = new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce;
     }
 }

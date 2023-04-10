@@ -16,6 +16,8 @@ public class GameInputManager : MonoBehaviour
     public float inputSwitchCooldown = 0.5f;
     private float lastInputSwitchTime;
 
+    public static Action<InputType> SwitchInputAction;
+
     private void Start()
     {
         _controllerInput.Enable();
@@ -36,6 +38,7 @@ public class GameInputManager : MonoBehaviour
             {
                 currentInputType = InputType.KeyboardMouse;
                 lastInputSwitchTime = Time.time;
+                SwitchInputAction?.Invoke(currentInputType);
                 Debug.Log("Using Keyboard and Mouse");
             }
         }
@@ -47,6 +50,7 @@ public class GameInputManager : MonoBehaviour
             {
                 currentInputType = InputType.Controller;
                 lastInputSwitchTime = Time.time;
+                SwitchInputAction?.Invoke(currentInputType);
                 Debug.Log("Using Controller");
             }
         }
