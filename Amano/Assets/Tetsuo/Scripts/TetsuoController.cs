@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class TetsuoController : MonoBehaviour, IMove
 {
@@ -11,6 +12,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public LayerMask groundLayer;
     [SerializeField] public Transform wallCheckPoint;
     [SerializeField] public TetsuoScriptableObject TetsuoData;
+    [SerializeField] public InputAction JumpBoostButton;
 
     private PlayerInput _inputAction;
     private LayerMask _collidedLayer;
@@ -70,6 +72,7 @@ public class TetsuoController : MonoBehaviour, IMove
     {
         _sprite = GetComponent<SpriteRenderer>();
         _inputAction = GetComponent<PlayerInput>();
+        JumpBoostButton.Enable();
         _spriteOriginalColor = _sprite.color;
         wallJumpFacingDirection = -1f;
         _originalGravityScale = rb.gravityScale;
@@ -197,7 +200,7 @@ public class TetsuoController : MonoBehaviour, IMove
     
     private void OnTeleportPopOut(float popOutForce)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (_isGrounded || _isJumping || _isFalling))
+        if (JumpBoostButton.IsPressed() && (_isGrounded || _isJumping || _isFalling))
         {
             hasActivatedTeleportPopOut = true;
             Invoke(nameof(SetTeleportPopOutBooleanToFalse), teleportPopOutTimer);

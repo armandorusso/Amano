@@ -266,6 +266,31 @@ MonoBehaviour:
     m_Bits: 1280
   wallCheckPoint: {fileID: 263263850758630252}
   TetsuoData: {fileID: 11400000, guid: 1815164ab3d578a4fb0e09300fc1c6ba, type: 2}
+  JumpBoostButton:
+    m_Name: Jump Boost Button
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2354456e-4c73-46d9-ab74-072f101d3388
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: abdcfae9-d44e-4e17-b764-4a974a1c213c
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump Boost Button
+      m_Flags: 0
+    - m_Name: 
+      m_Id: fb309267-4f67-4c8b-95f5-acd11845cd27
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump Boost Button
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,7 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  usingController: 1
+  CurrentInput: 0
 --- !u!120 &7942236682073661704
 LineRenderer:
   m_ObjectHideFlags: 0
