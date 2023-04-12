@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8053ce3399d69ec418f3005a5a59903f
+guid: 98524a65e6734c640bc9d00b7d987ea6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ninja_character_running 1_0
+      name: ninja_character_running_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59f9e83121b53c54fbd775cc8133443e
-      internalID: -1413991904
+      spriteID: 4d2408348b071e042a4c34f3699d04a1
+      internalID: 272277120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_1
+      name: ninja_character_running_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d785843be69c16448a2bd59aa41f02ba
-      internalID: -1839575091
+      spriteID: 4efd8153d9446a042baaf5a9070f45e2
+      internalID: -1385830037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_2
+      name: ninja_character_running_2
       rect:
         serializedVersion: 2
         x: 32
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d73ba803611d844581a938a2b82c410
-      internalID: 912271512
+      spriteID: b5d44a88051ec66408285177983ff4e2
+      internalID: 2060127278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_3
+      name: ninja_character_running_3
       rect:
         serializedVersion: 2
         x: 48
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e9588e1162518340bafa5550b0e637b
-      internalID: -1756928643
+      spriteID: fcbf29dd8589c6f42ad36dadbd6030d0
+      internalID: 2079682
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_4
+      name: ninja_character_running_4
       rect:
         serializedVersion: 2
         x: 64
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2a7daaf42ffb14408a0a6cd828a2c02
-      internalID: 761301598
+      spriteID: 6b5f3ff776c8ad24d81b5b548fbb292c
+      internalID: -1759531760
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_5
+      name: ninja_character_running_5
       rect:
         serializedVersion: 2
         x: 80
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd485f4d8e19c224c92320e196f638f5
-      internalID: -508256991
+      spriteID: 4cf6701c9aa4f9143ab3d87abb7c07f0
+      internalID: 465699433
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_6
+      name: ninja_character_running_6
       rect:
         serializedVersion: 2
         x: 96
@@ -245,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d292a78073c7a248a4dce43a39c48e0
-      internalID: 12161062
+      spriteID: 61b4c3576d9fda84fa16b67222cc8798
+      internalID: 473630841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_7
+      name: ninja_character_running_7
       rect:
         serializedVersion: 2
         x: 112
@@ -266,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c07439d32cd7d28428c305553cf2bfa9
-      internalID: -2110992969
+      spriteID: a91393d679f62af4eaa31866ebd0a0d1
+      internalID: 112295389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_8
+      name: ninja_character_running_8
       rect:
         serializedVersion: 2
         x: 128
@@ -287,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 436ec7b215930d94eb5acc2754f3f203
-      internalID: -133747002
+      spriteID: 8ffd84349aafb8140be66cbdbff62c46
+      internalID: 1104954002
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_9
+      name: ninja_character_running_9
       rect:
         serializedVersion: 2
         x: 144
@@ -308,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e57c1466fe1edc549bfccd6db6f2e7bf
-      internalID: -1834921897
+      spriteID: 12ebfd8cc3b611f45af1586799da1c77
+      internalID: 1923109377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_10
+      name: ninja_character_running_10
       rect:
         serializedVersion: 2
         x: 160
@@ -329,14 +329,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55331478da2a13f4497866bfe4d6f88b
-      internalID: 238030006
+      spriteID: bac2df511251ace48b20779b25be8131
+      internalID: -216040476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninja_character_running 1_11
+      name: ninja_character_running_11
       rect:
         serializedVersion: 2
         x: 176
@@ -350,8 +350,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d68d33c4be7a4a468e2ad38b34fb45c
-      internalID: 536413829
+      spriteID: 153ebee2b41fa5e47b9a666b6d06daae
+      internalID: 224613123
       vertices: []
       indices: 
       edges: []
@@ -367,18 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ninja_character_running 1_11: 536413829
-      ninja_character_running 1_5: -508256991
-      ninja_character_running 1_7: -2110992969
-      ninja_character_running 1_8: -133747002
-      ninja_character_running 1_3: -1756928643
-      ninja_character_running 1_1: -1839575091
-      ninja_character_running 1_9: -1834921897
-      ninja_character_running 1_0: -1413991904
-      ninja_character_running 1_2: 912271512
-      ninja_character_running 1_6: 12161062
-      ninja_character_running 1_4: 761301598
-      ninja_character_running 1_10: 238030006
+      ninja_character_running_5: 465699433
+      ninja_character_running_7: 112295389
+      ninja_character_running_11: 224613123
+      ninja_character_running_4: -1759531760
+      ninja_character_running_6: 473630841
+      ninja_character_running_2: 2060127278
+      ninja_character_running_8: 1104954002
+      ninja_character_running_0: 272277120
+      ninja_character_running_3: 2079682
+      ninja_character_running_10: -216040476
+      ninja_character_running_1: -1385830037
+      ninja_character_running_9: 1923109377
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
