@@ -27,7 +27,7 @@ MonoBehaviour:
   JumpHangTime: 1
   _jumpingPower: 12
   coyoteTime: 0.2
-  coyoteTimeCounter: 0
+  coyoteTimeCounter: 0.2
   jumpBufferTime: 0.2
   wallSlideSpeed: 1.2
   wallLayer:
@@ -36,8 +36,8 @@ MonoBehaviour:
   wallJumpingDirection: {x: 1.5, y: 2}
   wallJumpForce: 6
   wallJumpingTime: 0.28
-  dashPower: 8.1
+  dashPower: 16.1
   dashTime: 0.18
   dashCooldown: 0.8
   dashCooldownOnGround: 2
-  _WallStickingTimer: 1.2
+  _WallStickingTimer: 2
