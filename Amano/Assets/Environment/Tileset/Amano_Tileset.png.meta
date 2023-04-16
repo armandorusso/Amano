@@ -67,12 +67,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
+    maxTextureSize: 256
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -108,8 +108,8 @@ TextureImporter:
       name: Amano_Tileset_0
       rect:
         serializedVersion: 2
-        x: 48
-        y: 208
+        x: 0
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -129,8 +129,8 @@ TextureImporter:
       name: Amano_Tileset_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 208
+        x: 16
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -150,8 +150,8 @@ TextureImporter:
       name: Amano_Tileset_2
       rect:
         serializedVersion: 2
-        x: 80
-        y: 192
+        x: 32
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -171,8 +171,8 @@ TextureImporter:
       name: Amano_Tileset_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 192
+        x: 48
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -192,8 +192,8 @@ TextureImporter:
       name: Amano_Tileset_4
       rect:
         serializedVersion: 2
-        x: 16
-        y: 176
+        x: 64
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -217,8 +217,8 @@ TextureImporter:
       name: Amano_Tileset_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 176
+        x: 128
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -238,8 +238,8 @@ TextureImporter:
       name: Amano_Tileset_6
       rect:
         serializedVersion: 2
-        x: 48
-        y: 176
+        x: 144
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -259,8 +259,8 @@ TextureImporter:
       name: Amano_Tileset_7
       rect:
         serializedVersion: 2
-        x: 64
-        y: 176
+        x: 160
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -284,8 +284,8 @@ TextureImporter:
       name: Amano_Tileset_8
       rect:
         serializedVersion: 2
-        x: 96
-        y: 176
+        x: 176
+        y: 240
         width: 16
         height: 16
       alignment: 0
@@ -305,8 +305,8 @@ TextureImporter:
       name: Amano_Tileset_9
       rect:
         serializedVersion: 2
-        x: 112
-        y: 176
+        x: 128
+        y: 224
         width: 16
         height: 16
       alignment: 0
@@ -326,8 +326,8 @@ TextureImporter:
       name: Amano_Tileset_10
       rect:
         serializedVersion: 2
-        x: 16
-        y: 160
+        x: 144
+        y: 224
         width: 16
         height: 16
       alignment: 0
@@ -351,8 +351,8 @@ TextureImporter:
       name: Amano_Tileset_11
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
+        x: 160
+        y: 224
         width: 16
         height: 16
       alignment: 0
@@ -372,8 +372,8 @@ TextureImporter:
       name: Amano_Tileset_12
       rect:
         serializedVersion: 2
-        x: 48
-        y: 160
+        x: 176
+        y: 224
         width: 16
         height: 16
       alignment: 0
@@ -393,8 +393,8 @@ TextureImporter:
       name: Amano_Tileset_13
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
+        x: 192
+        y: 224
         width: 16
         height: 16
       alignment: 0
@@ -418,8 +418,8 @@ TextureImporter:
       name: Amano_Tileset_14
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
+        x: 160
+        y: 208
         width: 16
         height: 16
       alignment: 0
@@ -439,8 +439,8 @@ TextureImporter:
       name: Amano_Tileset_15
       rect:
         serializedVersion: 2
-        x: 112
-        y: 160
+        x: 176
+        y: 208
         width: 16
         height: 16
       alignment: 0
@@ -460,8 +460,8 @@ TextureImporter:
       name: Amano_Tileset_16
       rect:
         serializedVersion: 2
-        x: 16
-        y: 144
+        x: 192
+        y: 208
         width: 16
         height: 16
       alignment: 0
@@ -490,8 +490,8 @@ TextureImporter:
       name: Amano_Tileset_17
       rect:
         serializedVersion: 2
-        x: 32
-        y: 144
+        x: 16
+        y: 192
         width: 16
         height: 16
       alignment: 0
@@ -511,8 +511,8 @@ TextureImporter:
       name: Amano_Tileset_18
       rect:
         serializedVersion: 2
-        x: 48
-        y: 144
+        x: 64
+        y: 192
         width: 16
         height: 16
       alignment: 0
@@ -532,8 +532,8 @@ TextureImporter:
       name: Amano_Tileset_19
       rect:
         serializedVersion: 2
-        x: 64
-        y: 144
+        x: 112
+        y: 192
         width: 16
         height: 16
       alignment: 0
@@ -556,6 +556,480 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_20
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22bfbfae52bc38346a4f34308ce8114a
+      internalID: 323177209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_21
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da17dd53d4a5fea4cb1a9172d8c7030a
+      internalID: 246383205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_22
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfff930e9cf0fab4391847ed5391eecc
+      internalID: 947355068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_23
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2feabf08b7132b44195b3a9426cb27fc
+      internalID: 510319902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_24
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b136bdfc42cd9040b1dd5f6988ef7a2
+      internalID: 896104808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_25
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a44515faa60436b49aef551badd5c590
+      internalID: -1475403017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_26
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8afa07b34adbc142af55ed7ed1ca22a
+      internalID: -1122863895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_27
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93a1c8dfe57676a49a35767f177a2694
+      internalID: -241233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_28
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0778809e2892bde4392cb974f433badc
+      internalID: -1531490934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_29
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57646687dfc2f484793c4a5e3b6f7a0f
+      internalID: 2072083516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_30
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddf82468227288b49854e7ba53553fc6
+      internalID: 1129404395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_31
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4278088c3e07363428359c95c9026919
+      internalID: 2058748713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_32
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b51b5cd53694f6d4aba44edf42e28629
+      internalID: 221259866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_33
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2329ae29258f8cf4eb15daef8aa57ec6
+      internalID: 1826600486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_34
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b18b835903aa0424ea198593cafb137c
+      internalID: 1936440197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_35
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6ec791fcad6654d94579c00a7aca3a
+      internalID: -25535562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_36
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df8e2d52e7d514440899eb4aeea892c1
+      internalID: -2027824175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_37
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c3793828b4d9e24cb5fa523561051ac
+      internalID: 942405355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_38
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -5, y: -3}
+        - {x: -5, y: 2}
+        - {x: 8, y: 2}
+        - {x: 8, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4958aa119c1e59a478c37a87f14748e5
+      internalID: 492483337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_39
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -3}
+        - {x: -8, y: 2}
+        - {x: 8, y: 2}
+        - {x: 8, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 455d7844597f1154a894e470a6d17255
+      internalID: 1473419841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_40
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -3}
+        - {x: -8, y: 2}
+        - {x: 6, y: 2}
+        - {x: 6, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd06abdd444c0a84ea76407c6800c3fb
+      internalID: 1657319547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amano_Tileset_41
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 245488f80684a1b4189cea8a45d7a5b8
+      internalID: 1431756291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -569,24 +1043,46 @@ TextureImporter:
     nameFileIdTable:
       Amano_Tileset_5: -529967631
       Amano_Tileset_18: -2125147934
+      Amano_Tileset_34: 1936440197
       Amano_Tileset_11: 878291856
       Amano_Tileset_14: -1867342554
       Amano_Tileset_4: 2145637530
       Amano_Tileset_7: -226341769
       Amano_Tileset_17: 1759531133
       Amano_Tileset_0: 797268712
+      Amano_Tileset_38: 492483337
+      Amano_Tileset_37: 942405355
+      Amano_Tileset_39: 1473419841
+      Amano_Tileset_26: -1122863895
       Amano_Tileset_2: -1050599220
       Amano_Tileset_10: 314016427
+      Amano_Tileset_25: -1475403017
+      Amano_Tileset_41: 1431756291
       Amano_Tileset_12: 1749461432
+      Amano_Tileset_20: 323177209
+      Amano_Tileset_21: 246383205
+      Amano_Tileset_30: 1129404395
       Amano_Tileset_1: 1561057721
       Amano_Tileset_3: -2064496268
       Amano_Tileset_13: -2138245044
+      Amano_Tileset_33: 1826600486
       Amano_Tileset_16: 2054379545
       Amano_Tileset_8: 1881095297
+      Amano_Tileset_23: 510319902
+      Amano_Tileset_22: 947355068
+      Amano_Tileset_28: -1531490934
+      Amano_Tileset_32: 221259866
+      Amano_Tileset_24: 896104808
+      Amano_Tileset_40: 1657319547
+      Amano_Tileset_27: -241233
+      Amano_Tileset_29: 2072083516
       Amano_Tileset_19: 1122006257
       Amano_Tileset_15: 1212208858
+      Amano_Tileset_31: 2058748713
+      Amano_Tileset_35: -25535562
       Amano_Tileset_6: 874230940
       Amano_Tileset_9: -1727032532
+      Amano_Tileset_36: -2027824175
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
