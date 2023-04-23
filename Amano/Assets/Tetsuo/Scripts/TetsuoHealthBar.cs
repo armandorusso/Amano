@@ -22,8 +22,6 @@ public class TetsuoHealthBar : MonoBehaviour
     {
         public bool isMovementEnabled { get; set; }
     }
-
-    public TetsuoDeathEventArgs tetsuoDeathEventArgs;
     public static event EventHandler<TetsuoDeathEventArgs> tetsuoDeathEvent;
 
     void Start()
@@ -36,7 +34,7 @@ public class TetsuoHealthBar : MonoBehaviour
         healthUIEvent?.Invoke(this, healthUIEventArgs);
         ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent += OnMeleeSlashHit;
-        DeathZone.tetsuoFallDeathEvent += OnDeathFall;
+        DeathZone.TetsuoDeathZoneAction += OnDeathFall;
     }
 
     private void OnDisable()
@@ -50,7 +48,7 @@ public class TetsuoHealthBar : MonoBehaviour
         
         ShurikenProjectile.ShurikenHitCharacterEvent -= OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent -= OnMeleeSlashHit;
-        DeathZone.tetsuoFallDeathEvent -= OnDeathFall;
+        DeathZone.TetsuoDeathZoneAction -= OnDeathFall;
     }
 
     private void OnMeleeSlashHit(object sender, SlashingHitbox.SlashHitEventArgs e)
@@ -77,7 +75,7 @@ public class TetsuoHealthBar : MonoBehaviour
         }
     }
 
-    private void OnDeathFall(object sender, DeathZone.TetsuoFallDeathEventArgs e)
+    private void OnDeathFall(bool disableMovement)
     {
         TetsuoHealthPoints.DecreaseHealth(100f);
 
@@ -93,11 +91,12 @@ public class TetsuoHealthBar : MonoBehaviour
             {
                 currentHealth = 100f
             };
+            
             healthUIEvent?.Invoke(this, healthUIEventArgs);
             
             tetsuoDeathEvent.Invoke(this, new TetsuoDeathEventArgs
             {
-                isMovementEnabled = true
+                isMovementEnabled = false
             });
         }
     }

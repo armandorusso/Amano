@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public EnemyDeathEventArgs enemyDeathEventArgs;
     public static event EventHandler<EnemyDeathEventArgs> EnemyDeathEvent;
     public static Action<int> CollectibleAction;
+    public bool isTetsuoDead { get; private set; }
     public static GameManager Instance { get; private set; }
     [SerializeField] public GameObject GameCanvas;
     [SerializeField] public GameObject GameOverCanvas;
@@ -53,7 +54,33 @@ public class GameManager : MonoBehaviour
 
     private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
     {
-        _tetsuo.transform.position = CurrentSpawnPoint.transform.position;
+        isTetsuoDead = true;
+        Invoke(nameof(TetsuoDeathDelay), 0.5f);
+    }
+
+    private void TetsuoDeathDelay()
+    {
+        StartCoroutine(MoveTetsuoToCheckpoint());
+    }
+
+    private IEnumerator MoveTetsuoToCheckpoint()
+    {
+        TetsuoDisableMovement.Instance.ResetVelocity();
+        
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        
+        while (Vector2.Distance(_tetsuo.transform.position, CurrentSpawnPoint.transform.position) >= 1f)
+        {
+            yield return new WaitForEndOfFrame();
+            
+            _tetsuo.transform.position = Vector3.Lerp(_tetsuo.transform.position,
+                CurrentSpawnPoint.transform.position, Time.deltaTime / 1f * 2f);
+        }
+        
+        TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
+        isTetsuoDead = false;
+        _tetsuo.GetComponent<Rigidbody2D>().gravityScale = 3.5f;
     }
 
     private void OnEnemyDeath(object sender, EnemyHealth.EnemyDeathEventArgs e)

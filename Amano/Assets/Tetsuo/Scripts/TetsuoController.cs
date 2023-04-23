@@ -167,6 +167,7 @@ public class TetsuoController : MonoBehaviour, IMove
             {
                 Flip();
             }
+            
             Invoke(nameof(StopWallJumping), TetsuoData.wallJumpingTime);
         }
     }

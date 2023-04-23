@@ -16,6 +16,7 @@ public class TetsuoAnimatorController : MonoBehaviour
     private bool _isDashing;
     private bool _isWalking;
     private bool _isRunning;
+    private bool _hasDied;
 
     private TetsuoController _tetsuoController;
 
@@ -37,6 +38,7 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isDashing = !_tetsuoController._doneDashing;
             _isWalking = _tetsuoController._isWalking;
             _isRunning = _tetsuoController._isRunning;
+            _hasDied = GameManager.Instance.isTetsuoDead;
         }
 
         SetRunningAnimation();
@@ -45,11 +47,7 @@ public class TetsuoAnimatorController : MonoBehaviour
         SetFallingAnimation();
         SetWallHoldingAnimation();
         SetDashingAnimation();
-    }
-
-    private void SetWalkingAnimation()
-    {
-        _animationController.SetBool("isWalking", _isWalking);
+        SetDeathAnimation();
     }
 
     private void SetRunningAnimation()
@@ -57,15 +55,20 @@ public class TetsuoAnimatorController : MonoBehaviour
         _animationController.SetBool("isRunning", _isRunning);
     }
 
-    private void SetDashingAnimation()
+    private void SetWalkingAnimation()
     {
-        _animationController.SetBool("isDashing", _isDashing);
+        _animationController.SetBool("isWalking", _isWalking);
     }
 
     private void SetJumpAnimation()
     {
         _animationController.SetBool("isJumping", _isJumping);
         // Try Crossfade instead? Blends smoothly between animations
+    }
+
+    private void SetDashingAnimation()
+    {
+        _animationController.SetBool("isDashing", _isDashing);
     }
 
     private void SetFallingAnimation()
@@ -83,5 +86,10 @@ public class TetsuoAnimatorController : MonoBehaviour
 
         _animationController.SetBool("isWallSliding", _isWallSliding);
         _animationController.SetBool("isWallSticking", _isWallSticking);
+    }
+    
+    private void SetDeathAnimation()
+    {
+        _animationController.SetBool("hasDied", _hasDied);
     }
 }
