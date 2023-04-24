@@ -145,6 +145,7 @@ Transform:
   - {fileID: 2063878399030481582}
   - {fileID: 2523680694951370090}
   - {fileID: 8547843264825062822}
+  - {fileID: 1637258958880165143}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -500,6 +501,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c21e8fcd-26ad-4d52-afc9-06ecb41e588c
     m_ActionName: Player/Trajectory Line
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4415898484591573548}
+        m_TargetAssemblyTypeName: TetsuoController, Assembly-CSharp
+        m_MethodName: Slash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 52b1ec3c-81c3-4ade-a36f-cae48e47210c
+    m_ActionName: Player/Slash
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5831,6 +5848,72 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   Damage: 20
+--- !u!1 &8855484919524574002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1637258958880165143}
+  - component: {fileID: 3831035036017561662}
+  m_Layer: 6
+  m_Name: Slash Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1637258958880165143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855484919524574002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3365518849668369168}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &3831035036017561662
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855484919524574002}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.85874796, y: 0.004220426}
+      - {x: 0.576813, y: 0.014030874}
+      - {x: 0.2646165, y: -0.1214422}
+      - {x: 0.2592134, y: -0.12042099}
+      - {x: -0.048314273, y: -0.4419421}
+      - {x: 0.3341235, y: -0.5003526}
+      - {x: 0.894567, y: -0.5038062}
+      - {x: 1.0004301, y: -0.34982347}
+      - {x: 0.9939852, y: -0.12177849}
 --- !u!1 &9005815399160179386
 GameObject:
   m_ObjectHideFlags: 0

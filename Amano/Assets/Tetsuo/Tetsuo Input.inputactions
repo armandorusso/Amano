@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Slash",
+                    "type": "Button",
+                    "id": "52b1ec3c-81c3-4ade-a36f-cae48e47210c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -256,7 +265,7 @@
                 {
                     "name": "",
                     "id": "ef1303a5-25cf-483d-992d-70fd6195b1b1",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -349,6 +358,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Trajectory Line",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba1801d2-23b6-420f-abed-18f10467380d",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

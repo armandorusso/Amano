@@ -55,6 +55,8 @@ public class TetsuoController : MonoBehaviour, IMove
     public bool _isAirDashing { get; private set; }
     public bool _isGroundDashing { get; private set; }
     public bool _doneDashing { get; private set; }
+    
+    public bool _isSlashing { get; private set; }
 
 
     public static Action<bool> JumpOrLandEffectAction;
@@ -161,7 +163,7 @@ public class TetsuoController : MonoBehaviour, IMove
             var wallJumpVector = new Vector2(wallJumpFacingDirection * TetsuoData.wallJumpingDirection.x * TetsuoData.wallJumpForce, TetsuoData.wallJumpingDirection.y * TetsuoData.wallJumpForce);
             rb.velocity = wallJumpVector;
             
-            wallJumpingCounter = 0f;
+            wallJumpingCounter = 0.28f;
 
             if (transform.localScale.x != wallJumpFacingDirection)
             {
@@ -169,6 +171,19 @@ public class TetsuoController : MonoBehaviour, IMove
             }
             
             Invoke(nameof(StopWallJumping), TetsuoData.wallJumpingTime);
+        }
+    }
+    
+    public void Slash(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            _isSlashing = true;
+        }
+
+        if (context.canceled)
+        {
+            _isSlashing = false;
         }
     }
     

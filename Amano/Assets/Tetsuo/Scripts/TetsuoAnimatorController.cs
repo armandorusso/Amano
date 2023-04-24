@@ -16,6 +16,7 @@ public class TetsuoAnimatorController : MonoBehaviour
     private bool _isDashing;
     private bool _isWalking;
     private bool _isRunning;
+    private bool _isSlashing;
     private bool _hasDied;
 
     private TetsuoController _tetsuoController;
@@ -38,6 +39,7 @@ public class TetsuoAnimatorController : MonoBehaviour
             _isDashing = !_tetsuoController._doneDashing;
             _isWalking = _tetsuoController._isWalking;
             _isRunning = _tetsuoController._isRunning;
+            _isSlashing = _tetsuoController._isSlashing;
             _hasDied = GameManager.Instance.isTetsuoDead;
         }
 
@@ -47,6 +49,7 @@ public class TetsuoAnimatorController : MonoBehaviour
         SetFallingAnimation();
         SetWallHoldingAnimation();
         SetDashingAnimation();
+        SetSlashingAnimation();
         SetDeathAnimation();
     }
 
@@ -87,7 +90,12 @@ public class TetsuoAnimatorController : MonoBehaviour
         _animationController.SetBool("isWallSliding", _isWallSliding);
         _animationController.SetBool("isWallSticking", _isWallSticking);
     }
-    
+
+    private void SetSlashingAnimation()
+    {
+        _animationController.SetBool("isSlashing", _isSlashing);
+    }
+
     private void SetDeathAnimation()
     {
         _animationController.SetBool("hasDied", _hasDied);
