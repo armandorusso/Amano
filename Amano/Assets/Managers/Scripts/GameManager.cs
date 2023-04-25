@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator MoveTetsuoToCheckpoint()
     {
         TetsuoDisableMovement.Instance.ResetVelocity();
+        _tetsuo.GetComponent<BoxCollider2D>().enabled = false;
         
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
         
         TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
         isTetsuoDead = false;
+        _tetsuo.GetComponent<BoxCollider2D>().enabled = true;
         _tetsuo.GetComponent<Rigidbody2D>().gravityScale = 3.5f;
     }
 

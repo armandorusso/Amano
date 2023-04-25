@@ -5847,7 +5847,7 @@ MonoBehaviour:
   HitboxLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  Damage: 20
+  Damage: 50
 --- !u!1 &8855484919524574002
 GameObject:
   m_ObjectHideFlags: 0
@@ -5858,7 +5858,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1637258958880165143}
   - component: {fileID: 3831035036017561662}
-  m_Layer: 6
+  - component: {fileID: 3447207411307022263}
+  - component: {fileID: 4372230033575988149}
+  m_Layer: 12
   m_Name: Slash Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5890,7 +5892,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5914,6 +5916,39 @@ PolygonCollider2D:
       - {x: 0.894567, y: -0.5038062}
       - {x: 1.0004301, y: -0.34982347}
       - {x: 0.9939852, y: -0.12177849}
+--- !u!114 &3447207411307022263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855484919524574002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2339393c65fc564e9396851b79c27c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitboxLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  Damage: 25
+--- !u!114 &4372230033575988149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855484919524574002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7733bd0fa63949489ede2790955d02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitboxLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  BoostDirection: {x: 5, y: 0}
+  BoostPower: 8
 --- !u!1 &9005815399160179386
 GameObject:
   m_ObjectHideFlags: 0

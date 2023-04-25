@@ -91,6 +91,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
         MoveableObstacle.TouchingPlatformAction += OnLeavingPlatform;
         TeleportAbility.TeleportPopOutAction += OnTeleportPopOut;
+        TetsuoSlashAttack.SlashBoostAction += OnSlashBoost;
     }
 
     void Update()
@@ -176,6 +177,9 @@ public class TetsuoController : MonoBehaviour, IMove
     
     public void Slash(InputAction.CallbackContext context)
     {
+        if (context.performed)
+            return;
+        
         if(context.started)
         {
             _isSlashing = true;
@@ -208,7 +212,7 @@ public class TetsuoController : MonoBehaviour, IMove
     private void OnLeavingPlatform(Vector2 platformVelocity)
     {
         // While running off + jumping a fast moving platform, gain a boost of speed
-        if (_isJumping)
+        if (JumpBoostButton.IsPressed() && _isJumping)
         {
             rb.velocity += platformVelocity;
         }
@@ -221,6 +225,18 @@ public class TetsuoController : MonoBehaviour, IMove
             hasActivatedTeleportPopOut = true;
             Invoke(nameof(SetTeleportPopOutBooleanToFalse), teleportPopOutTimer);
         }
+    }
+
+    private void OnSlashBoost(Vector2 boostDirection, float boostPower)
+    {
+        TetsuoData.ConserveMomentum = false;
+        rb.velocity = (GetFacingDirection() * -1) * boostDirection * boostPower;
+        Invoke(nameof(SetConservationMomentum), 1.2f);
+    }
+
+    private void SetConservationMomentum()
+    {
+        TetsuoData.ConserveMomentum = true;
     }
 
     public void SetTeleportPopOutBooleanToFalse()
@@ -530,6 +546,11 @@ public class TetsuoController : MonoBehaviour, IMove
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
+    }
+
+    public float GetFacingDirection()
+    {
+        return transform.localScale.x;
     }
 
     private void OnDrawGizmosSelected()
