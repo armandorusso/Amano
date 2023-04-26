@@ -41,3 +41,4 @@ MonoBehaviour:
   dashCooldown: 0.8
   dashCooldownOnGround: 2
   _WallStickingTimer: 2
+  SlashingTime: 0.12

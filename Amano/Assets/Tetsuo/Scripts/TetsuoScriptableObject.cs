@@ -41,4 +41,7 @@ public class TetsuoScriptableObject : ScriptableObject
     
     [Header("Wall Sticking")]
     public float _WallStickingTimer = 2f;
+
+    [Header("Slash Attack")] 
+    public float SlashingTime;
 }

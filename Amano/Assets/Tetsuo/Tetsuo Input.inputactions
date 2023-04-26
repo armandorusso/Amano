@@ -296,59 +296,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Right Stick",
-                    "id": "937d2671-da1e-42be-9216-d15bee10157f",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "9eed2268-fc8a-4fd6-99b6-bd8101869e6c",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Mouse",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "ca5cf2fb-5fc7-4656-bafd-fecbfd32a3c3",
-                    "path": "<Gamepad>/rightStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "a9cc4083-7b4a-4ea4-8ac4-8f272c0bd4e1",
-                    "path": "<Gamepad>/rightStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "ca5a7f9d-b903-44c9-84bf-2457f953a507",
-                    "path": "<Gamepad>/rightStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "30dbdd25-701b-43d1-a84b-95fb7ea33e90",
-                    "path": "<Gamepad>/rightStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",

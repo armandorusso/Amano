@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public EnemyDeathEventArgs enemyDeathEventArgs;
     public static event EventHandler<EnemyDeathEventArgs> EnemyDeathEvent;
     public static Action<int> CollectibleAction;
+    public static Action<bool> DeathTrailEffectAction;
     public bool isTetsuoDead { get; private set; }
     public static GameManager Instance { get; private set; }
     [SerializeField] public GameObject GameCanvas;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     {
         TetsuoDisableMovement.Instance.ResetVelocity();
         _tetsuo.GetComponent<BoxCollider2D>().enabled = false;
+        DeathTrailEffectAction?.Invoke(true);
         
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
         
         TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
         isTetsuoDead = false;
+        DeathTrailEffectAction?.Invoke(false);
         _tetsuo.GetComponent<BoxCollider2D>().enabled = true;
         _tetsuo.GetComponent<Rigidbody2D>().gravityScale = 3.5f;
     }

@@ -62,6 +62,7 @@ public class TetsuoController : MonoBehaviour, IMove
     public static Action<bool> JumpOrLandEffectAction;
     public static Action<bool, bool> WallSlidingEffectAction;
     public static Action<bool> DashAttackLeafEffectAction;
+    public static Action<bool> MaxSpeedExceedEffectAction;
     
     public class GroundedDashAttackFxEventArgs : EventArgs
     {
@@ -156,7 +157,7 @@ public class TetsuoController : MonoBehaviour, IMove
     public void WallJump(InputAction.CallbackContext context)
     {
         Debug.Log("WallJumped: " + IsTouchingWall());
-        if (context.performed && wallJumpingCounter > 0f && (!_isGrounded || _isWallSticking || _isWallSliding))
+        if (context.performed && wallJumpingCounter > 0f && (!_hasDashed || !_isGrounded || _isWallSticking || _isWallSliding))
         {
             Debug.Log("Walljump direction: " + wallJumpFacingDirection);
             _isWallJumping = true;
@@ -183,11 +184,7 @@ public class TetsuoController : MonoBehaviour, IMove
         if(context.started)
         {
             _isSlashing = true;
-        }
-
-        if (context.canceled)
-        {
-            _isSlashing = false;
+            Invoke(nameof(StopSlashing), TetsuoData.SlashingTime);
         }
     }
     
@@ -207,6 +204,12 @@ public class TetsuoController : MonoBehaviour, IMove
             _isWalking = false;
             TetsuoData._speed = 6f;
         }
+    }
+
+    public void StopSlashing()
+    {
+        _isSlashing = false;
+        CancelInvoke(nameof(StopSlashing));
     }
     
     private void OnLeavingPlatform(Vector2 platformVelocity)
@@ -230,7 +233,7 @@ public class TetsuoController : MonoBehaviour, IMove
     private void OnSlashBoost(Vector2 boostDirection, float boostPower)
     {
         TetsuoData.ConserveMomentum = false;
-        rb.velocity = (GetFacingDirection() * -1) * boostDirection * boostPower;
+        rb.AddForce((GetFacingDirection() * -1) * boostDirection * boostPower, ForceMode2D.Force);
         Invoke(nameof(SetConservationMomentum), 1.2f);
     }
 
@@ -277,6 +280,11 @@ public class TetsuoController : MonoBehaviour, IMove
             Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && !_isGrounded)
         {
             acceleration = 0f;
+            MaxSpeedExceedEffectAction?.Invoke(true);
+        }
+        else
+        {
+            MaxSpeedExceedEffectAction?.Invoke(false);
         }
         
         // Calculate difference between current velocity and desired velocity

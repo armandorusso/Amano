@@ -594,6 +594,7 @@ MonoBehaviour:
   groundDustFx: {fileID: 0}
   wallDustFx: {fileID: 580608158163245011}
   leavesFx: {fileID: 2685376308485938850}
+  speedFx: {fileID: 0}
 --- !u!114 &4774640018617696223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +627,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3365518849668369170}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -639,7 +640,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -691,7 +692,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.7529412, g: 0.6721941, b: 0.4509804, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0.7568628, g: 0.6784314, b: 0.46274513, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5907,15 +5908,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.85874796, y: 0.004220426}
-      - {x: 0.576813, y: 0.014030874}
-      - {x: 0.2646165, y: -0.1214422}
-      - {x: 0.2592134, y: -0.12042099}
+    - - {x: 1.0158372, y: -0.498753}
+      - {x: 0.991874, y: -0.040734142}
+      - {x: 0.3121755, y: 0.24173635}
+      - {x: 0.20156616, y: 0.24275756}
       - {x: -0.048314273, y: -0.4419421}
-      - {x: 0.3341235, y: -0.5003526}
-      - {x: 0.894567, y: -0.5038062}
-      - {x: 1.0004301, y: -0.34982347}
-      - {x: 0.9939852, y: -0.12177849}
 --- !u!114 &3447207411307022263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5948,7 +5945,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   BoostDirection: {x: 5, y: 0}
-  BoostPower: 8
+  BoostPower: 150
 --- !u!1 &9005815399160179386
 GameObject:
   m_ObjectHideFlags: 0
@@ -6067,8 +6064,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7911828836469833421, guid: 617e55ae99e74a947a6b27ec2ce5b8ee, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 40
+      propertyPath: InitialModule.rotation3D
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 617e55ae99e74a947a6b27ec2ce5b8ee, type: 3}
