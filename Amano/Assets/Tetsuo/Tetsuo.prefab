@@ -5944,7 +5944,7 @@ MonoBehaviour:
   HitboxLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  BoostDirection: {x: 5, y: 0}
+  BoostDirection: {x: 5, y: -3.5}
   BoostPower: 150
 --- !u!1 &9005815399160179386
 GameObject:

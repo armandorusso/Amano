@@ -13070,10 +13070,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tetsuo
       objectReference: {fileID: 0}
-    - target: {fileID: 4372230033575988149, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
-      propertyPath: BoostDirection.y
-      value: -3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4415898484591573548, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
       propertyPath: dustGround
       value: 
@@ -13302,7 +13298,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4372230033575988149, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
 --- !u!4 &3365518847721839515 stripped
 Transform:
