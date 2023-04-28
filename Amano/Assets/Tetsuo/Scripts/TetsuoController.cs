@@ -105,7 +105,7 @@ public class TetsuoController : MonoBehaviour, IMove
                     Flip();
                 break;
         }
-        CheckIfPlayerCanWallJump();
+        // CheckIfPlayerCanWallJump();
         Jump();
         UpdateIsFalling();
         UpdateIsRunning();
@@ -157,15 +157,16 @@ public class TetsuoController : MonoBehaviour, IMove
     public void WallJump(InputAction.CallbackContext context)
     {
         Debug.Log("WallJumped: " + IsTouchingWall());
-        if (context.performed && wallJumpingCounter > 0f && (!_hasDashed || !_isGrounded || _isWallSticking || _isWallSliding))
+        if (context.performed && !_isGrounded && IsTouchingWall() && (!_hasDashed || !_isGrounded || _isWallSticking || _isWallSliding))
         {
+            wallJumpFacingDirection = -transform.localScale.x;
             Debug.Log("Walljump direction: " + wallJumpFacingDirection);
             _isWallJumping = true;
             SetGravityScale(_originalGravityScale);
             var wallJumpVector = new Vector2(wallJumpFacingDirection * TetsuoData.wallJumpingDirection.x * TetsuoData.wallJumpForce, TetsuoData.wallJumpingDirection.y * TetsuoData.wallJumpForce);
             rb.velocity = wallJumpVector;
             
-            wallJumpingCounter = 0.28f;
+            // wallJumpingCounter = 0.28f;
 
             if (transform.localScale.x != wallJumpFacingDirection)
             {
