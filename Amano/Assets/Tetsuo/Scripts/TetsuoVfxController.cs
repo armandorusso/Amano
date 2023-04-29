@@ -8,7 +8,7 @@ public class TetsuoVfxController : MonoBehaviour
     [SerializeField] private ParticleSystem groundDustFx;
     [SerializeField] private ParticleSystem wallDustFx;
     [SerializeField] private ParticleSystem leavesFx;
-    [SerializeField] private TrailRenderer speedFx;
+    [SerializeField] private ParticleSystem speedFx;
 
     private bool isWallDustPlaying;
     private bool isLeavesFlyingPlaying;
@@ -18,9 +18,8 @@ public class TetsuoVfxController : MonoBehaviour
         TetsuoController.WallSlidingEffectAction += OnWallSlidingEvent;
         TetsuoController.JumpOrLandEffectAction += OnPlayerJumpOrLanding;
         TetsuoController.DashAttackLeafEffectAction += OnDashAttackEvent;
+        TetsuoController.MaxSpeedExceedEffectAction += OnExceedingMaxSpeed;
         GameManager.DeathTrailEffectAction += OnDeath;
-
-        speedFx = GetComponent<TrailRenderer>();
     }
 
     private void OnWallSlidingEvent(bool isSliding, bool isFacingRight)
@@ -76,14 +75,22 @@ public class TetsuoVfxController : MonoBehaviour
         }
     }
 
-    public void OnExceedingMaxSpeed()
+    public void OnExceedingMaxSpeed(bool isGoingFast)
     {
-        // Have a simple pixel particle effect that emmits when exceeding max speed (acts like leaves)
+        // Have a simple pixel particle effect that emits when exceeding max speed (acts like leaves)
+        if (isGoingFast)
+        {
+            speedFx.Play();
+        }
+        else
+        {
+            speedFx.Stop();
+        }
     }
     
     public void OnDeath(bool isEmitting)
     {
-        speedFx.emitting = isEmitting;
+        // speedFx.emitting = isEmitting;
     }
 
     private void OnDestroy()
@@ -91,6 +98,7 @@ public class TetsuoVfxController : MonoBehaviour
         TetsuoController.WallSlidingEffectAction -= OnWallSlidingEvent;
         TetsuoController.JumpOrLandEffectAction -= OnPlayerJumpOrLanding;
         TetsuoController.DashAttackLeafEffectAction -= OnDashAttackEvent;
+        TetsuoController.MaxSpeedExceedEffectAction -= OnExceedingMaxSpeed;
         GameManager.DeathTrailEffectAction -= OnDeath;
     }
 }

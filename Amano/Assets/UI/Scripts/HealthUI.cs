@@ -7,11 +7,27 @@ using UnityEngine.UI;
 public class HealthUI : MonoBehaviour
 {
     private Slider HealthBar;
+    private RectTransform[] HealthUISprites;
     
     private void Awake()
     {
         TetsuoHealthBar.healthUIEvent += OnHealthUiEvent;
+        TetsuoAnimatorController.EnableHealthUiAction += OnStartGame;
         HealthBar = GetComponent<Slider>();
+        HealthUISprites = GetComponentsInChildren<RectTransform>();
+        
+        foreach (var sprite in HealthUISprites)
+        {
+            sprite.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnStartGame(bool hasStarted)
+    {
+        foreach (var sprite in HealthUISprites)
+        {
+            sprite.gameObject.SetActive(hasStarted);
+        }
     }
 
     private void OnHealthUiEvent(object sender, TetsuoHealthBar.HealthUIEventArgs e)
@@ -22,5 +38,6 @@ public class HealthUI : MonoBehaviour
     private void OnDestroy()
     {
         TetsuoHealthBar.healthUIEvent -= OnHealthUiEvent;
+        TetsuoAnimatorController.EnableHealthUiAction -= OnStartGame;
     }
 }

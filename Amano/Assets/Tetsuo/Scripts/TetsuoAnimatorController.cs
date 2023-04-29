@@ -17,14 +17,21 @@ public class TetsuoAnimatorController : MonoBehaviour
     private bool _isWalking;
     private bool _isRunning;
     private bool _isSlashing;
+    private bool _isSitting;
     private bool _hasDied;
 
     private TetsuoController _tetsuoController;
+    public static Action<bool> EnableInputAction;
+    public static Action<bool> EnableHealthUiAction;
 
     private void Start()
     {
         _animationController = GetComponent<Animator>();
         _tetsuoController = GetComponent<TetsuoController>();
+        StartGame.PlayGetUpAnimationAction += OnStartGame;
+
+        _isSitting = true;
+        _animationController.SetBool("isSitting", true);
     }
 
     private void Update()
@@ -94,6 +101,21 @@ public class TetsuoAnimatorController : MonoBehaviour
     private void SetSlashingAnimation()
     {
         _animationController.SetBool("isSlashing", _isSlashing);
+    }
+    
+    private void OnStartGame(bool hasEnabledInput)
+    {
+        StartCoroutine(WaitForAnimationToFinish(hasEnabledInput));
+    }
+
+    public IEnumerator WaitForAnimationToFinish(bool hasEnabledInput)
+    {
+        yield return new WaitForSeconds(1f);
+        _isSitting = false;
+        _animationController.SetBool("isSitting", false);
+        EnableInputAction?.Invoke(hasEnabledInput);
+        EnableHealthUiAction?.Invoke(hasEnabledInput);
+        StopCoroutine(WaitForAnimationToFinish(hasEnabledInput));
     }
 
     private void SetDeathAnimation()

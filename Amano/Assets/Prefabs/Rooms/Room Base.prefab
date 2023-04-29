@@ -1518,7 +1518,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VirtualCamera: {fileID: 8776994331242625378}
   _cmBrain: {fileID: 0}
-  ZoomInAmount: 0
+  OriginalFieldOfView: 5
+  Velocity: 0
+  SmoothTime: 0.5
   _camera: {fileID: 8776994331242625379}
 --- !u!114 &6793351849824783413
 MonoBehaviour:

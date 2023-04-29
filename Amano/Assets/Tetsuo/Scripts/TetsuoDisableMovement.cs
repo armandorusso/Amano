@@ -33,6 +33,7 @@ public class TetsuoDisableMovement : MonoBehaviour
     private void Start()
     {
         RoomCameraManager.cameraTransitionEvent += OnCameraTransitionEvent;
+        TetsuoAnimatorController.EnableInputAction += OnStartGame;
         TetsuoHealthBar.tetsuoDeathEvent += OnTetsuoDeath;
 
         _rb = GetComponent<Rigidbody2D>();
@@ -61,6 +62,11 @@ public class TetsuoDisableMovement : MonoBehaviour
             EnableOrDisableInputActions(e.isMovementDisabled);
         }
     }
+    
+    private void OnStartGame(bool isInputEnabled)
+    {
+        EnableOrDisableInputActions(isInputEnabled);
+    }
 
     public void EnableOrDisableInputActions(bool isEnabled)
     {
@@ -72,5 +78,6 @@ public class TetsuoDisableMovement : MonoBehaviour
     {
         RoomCameraManager.cameraTransitionEvent -= OnCameraTransitionEvent;
         TetsuoHealthBar.tetsuoDeathEvent -= OnTetsuoDeath;
+        TetsuoAnimatorController.EnableInputAction -= OnStartGame;
     }
 }

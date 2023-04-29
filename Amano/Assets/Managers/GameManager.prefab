@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 627419778922173208}
   - component: {fileID: 4397823771420894528}
+  - component: {fileID: 3386717726051705824}
   - component: {fileID: 1733921002243111321}
   - component: {fileID: 2713606433761734073}
   m_Layer: 0
@@ -50,6 +51,18 @@ MonoBehaviour:
   GameOverCanvas: {fileID: 0}
   FKeyUI: {fileID: 0}
   _tetsuo: {fileID: 0}
+--- !u!114 &3386717726051705824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3787491049051698439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f9a249af3d27c4ba8e700fa7eba4b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1733921002243111321
 MonoBehaviour:
   m_ObjectHideFlags: 0

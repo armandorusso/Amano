@@ -8,8 +8,13 @@ public class RoomCameraManager : MonoBehaviour
 {
     [SerializeField] public GameObject VirtualCamera;
     [SerializeField] private CinemachineBrain _cmBrain;
-    [SerializeField] public float ZoomInAmount;
+    [SerializeField] public float OriginalFieldOfView;
+    [SerializeField] public float Velocity;
+    [SerializeField] public float SmoothTime;
     [SerializeField] private CinemachineVirtualCamera _camera; // Change transition speed parameters
+
+    private bool _hasClickedStart;
+    
     public class CameraTransitionArgs : EventArgs
     {
         public bool isMovementDisabled { get; set; }
@@ -26,6 +31,21 @@ public class RoomCameraManager : MonoBehaviour
             isMovementDisabled = false
         };
         QuickTimeTeleport.ZoomInEvent += OnQuickTimeEvent;
+        StartGame.ZoomOutCameraAction += OnStartGameEvent;
+    }
+
+    private void Update()
+    {
+        if (_hasClickedStart)
+        {
+            _camera.m_Lens.OrthographicSize =
+                Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, OriginalFieldOfView, ref Velocity, SmoothTime);
+        }
+    }
+
+    private void OnStartGameEvent(bool hasStartedGame)
+    {
+        _hasClickedStart = hasStartedGame;
     }
 
     public void OnTriggerEnter2D(Collider2D col)
