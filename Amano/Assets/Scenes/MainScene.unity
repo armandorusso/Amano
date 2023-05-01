@@ -5646,7 +5646,7 @@ GameObject:
   - component: {fileID: 1649567692}
   m_Layer: 0
   m_Name: Death Zone
-  m_TagString: Untagged
+  m_TagString: DeathZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11908,7 +11908,7 @@ PrefabInstance:
       objectReference: {fileID: 3365518847721839515}
     - target: {fileID: 982605489256376078, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.7238264
+      value: 5.017226
       objectReference: {fileID: 0}
     - target: {fileID: 982605489256376078, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11920,7 +11920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982605489304258822, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.6609263
+      value: 4.4200263
       objectReference: {fileID: 0}
     - target: {fileID: 982605489304258822, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11944,7 +11944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982605490024378900, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.0413265
+      value: 5.3555264
       objectReference: {fileID: 0}
     - target: {fileID: 982605490024378903, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: camera
@@ -11956,7 +11956,7 @@ PrefabInstance:
       objectReference: {fileID: 3365518847721839515}
     - target: {fileID: 982605490214956825, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 982605490214956826, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: camera
@@ -11968,11 +11968,11 @@ PrefabInstance:
       objectReference: {fileID: 3365518847721839515}
     - target: {fileID: 982605490214956827, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.497326
+      value: 12.428626
       objectReference: {fileID: 0}
     - target: {fileID: 982605490214956827, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.2
+      value: 75.72174
       objectReference: {fileID: 0}
     - target: {fileID: 982605490249890276, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_IsActive
@@ -11984,7 +11984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982605490249890278, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.151226
+      value: 5.9179263
       objectReference: {fileID: 0}
     - target: {fileID: 982605490249890278, guid: 3552d82f873c7fc428e27504a188a7f2, type: 3}
       propertyPath: m_LocalPosition.z
