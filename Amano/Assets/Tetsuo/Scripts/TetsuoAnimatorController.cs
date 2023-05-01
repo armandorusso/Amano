@@ -24,14 +24,17 @@ public class TetsuoAnimatorController : MonoBehaviour
     public static Action<bool> EnableInputAction;
     public static Action<bool> EnableHealthUiAction;
 
-    private void Start()
+    private void Awake()
     {
         _animationController = GetComponent<Animator>();
-        _tetsuoController = GetComponent<TetsuoController>();
-        StartGame.PlayGetUpAnimationAction += OnStartGame;
-
         _isSitting = true;
         _animationController.SetBool("isSitting", true);
+    }
+
+    private void Start()
+    {
+        _tetsuoController = GetComponent<TetsuoController>();
+        StartGame.PlayGetUpAnimationAction += OnStartGame;
     }
 
     private void Update()
