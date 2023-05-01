@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 20
+  ShurikenAttachedColor: {r: 0, g: 1, b: 0.8396714, a: 1}
+  _sprite: {fileID: 0}
   _animator: {fileID: 0}
   _rb: {fileID: 0}
   _collider: {fileID: 0}
