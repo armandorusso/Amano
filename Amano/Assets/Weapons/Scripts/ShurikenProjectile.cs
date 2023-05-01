@@ -10,10 +10,13 @@ using UnityEngine.Events;
 public class ShurikenProjectile : MonoBehaviour
 {
     [SerializeField] public float Damage;
+    [SerializeField] public Color ShurikenAttachedColor;
+    public SpriteRenderer _sprite;
     public Animator _animator;
     public Rigidbody2D _rb;
     public Collider2D _collider;
     public TrailRenderer _trailRenderer;
+    private Color _originalColor;
     private bool hitTeleportableObj;
     private bool hitGroundOrWall;
     private bool _instantiatedShurikenProperties = false;
@@ -45,10 +48,13 @@ public class ShurikenProjectile : MonoBehaviour
         hitTeleportableObj = false;
         hitGroundOrWall = false;
         _rb = GetComponent<Rigidbody2D>();
+        _sprite = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
         _trailRenderer = GetComponent<TrailRenderer>();
         _instantiatedShurikenProperties = true;
+
+        _originalColor = _sprite.color;
     }
 
     public void OnEnable()
@@ -61,9 +67,20 @@ public class ShurikenProjectile : MonoBehaviour
     {
         if (_instantiatedShurikenProperties)
         {
+            ChangeToOriginalColor();
             SwitchShurikenProperties(false);
             hitGroundOrWall = false;
         }
+    }
+
+    public void ChangeToOriginalColor()
+    {
+        _sprite.color = _originalColor;
+    }
+    
+    public void ChangeToNewColor()
+    {
+        _sprite.color = ShurikenAttachedColor;
     }
 
     private void SwitchShurikenProperties(bool b)
