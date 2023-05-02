@@ -8,13 +8,13 @@ public class StartGame : MonoBehaviour
     [SerializeField] public float ZoomOutTime;
     // Start is called before the first frame update
     public static Action<bool> FadeStartScreenAction;
-    public static Action<bool> PlayGetUpAnimationAction;
-    public static Action<bool> ZoomOutCameraAction;
+    public static Action<bool, float> PlayGetUpAnimationAction;
+    public static Action<bool, float> ZoomOutCameraAction;
 
     public void OnStartGame()
     {
         FadeStartScreenAction?.Invoke(true);
-        PlayGetUpAnimationAction?.Invoke(true);
-        ZoomOutCameraAction?.Invoke(true);
+        PlayGetUpAnimationAction?.Invoke(true, ZoomOutTime);
+        ZoomOutCameraAction?.Invoke(true, ZoomOutTime);
     }
 }

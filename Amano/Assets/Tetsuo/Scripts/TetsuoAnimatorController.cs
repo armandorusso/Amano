@@ -106,19 +106,19 @@ public class TetsuoAnimatorController : MonoBehaviour
         _animationController.SetBool("isSlashing", _isSlashing);
     }
     
-    private void OnStartGame(bool hasEnabledInput)
+    private void OnStartGame(bool hasEnabledInput, float zoomOutTime)
     {
-        StartCoroutine(WaitForAnimationToFinish(hasEnabledInput));
+        StartCoroutine(WaitForAnimationToFinish(hasEnabledInput, zoomOutTime));
     }
 
-    public IEnumerator WaitForAnimationToFinish(bool hasEnabledInput)
+    public IEnumerator WaitForAnimationToFinish(bool hasEnabledInput, float zoomOutTime)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(zoomOutTime);
         _isSitting = false;
         _animationController.SetBool("isSitting", false);
         EnableInputAction?.Invoke(hasEnabledInput);
         EnableHealthUiAction?.Invoke(hasEnabledInput);
-        StopCoroutine(WaitForAnimationToFinish(hasEnabledInput));
+        StopCoroutine(WaitForAnimationToFinish(hasEnabledInput, zoomOutTime));
     }
 
     private void SetDeathAnimation()

@@ -43,9 +43,10 @@ public class RoomCameraManager : MonoBehaviour
         }
     }
 
-    private void OnStartGameEvent(bool hasStartedGame)
+    private void OnStartGameEvent(bool hasStartedGame, float zoomOutTime)
     {
         _hasClickedStart = hasStartedGame;
+        SmoothTime = zoomOutTime - SmoothTime;
     }
 
     public void OnTriggerEnter2D(Collider2D col)
