@@ -13,6 +13,7 @@ public class TetsuoController : MonoBehaviour, IMove
     [SerializeField] public Transform wallCheckPoint;
     [SerializeField] public TetsuoScriptableObject TetsuoData;
     [SerializeField] public InputAction JumpBoostButton;
+    [SerializeField] public FactsScriptableObject AbilityFacts;
 
     private PlayerInput _inputAction;
     private LayerMask _collidedLayer;
@@ -134,6 +135,11 @@ public class TetsuoController : MonoBehaviour, IMove
     
     public void OnDashAttack(InputAction.CallbackContext context)
     {
+        if (AbilityFacts.Facts["Dash"] == 0)
+        {
+            return;
+        }
+        
         if (context.started && !_hasDashed)
         {
             StartCoroutine(Dash());

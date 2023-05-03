@@ -1,11 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
  
 public class AimDirectionTracker : MonoBehaviour
 {
     [SerializeField] private Camera camera;
+    [SerializeField] private SpriteRenderer _aimReticleSprite;
     [SerializeField] public GameInputManager.InputType CurrentInput;
+    [SerializeField] public FactsScriptableObject AbilityFacts;
+    
     private Vector3 mousePositionInWorld { get; set; }
     private Vector2 rightStickDirection { get; set; }
 
@@ -35,6 +39,11 @@ public class AimDirectionTracker : MonoBehaviour
 
     public void OnShootWeapon(InputAction.CallbackContext context)
     {
+        if (AbilityFacts.Facts["Shuriken"] == 0)
+        {
+            return;
+        }
+        
         if(CurrentInput == GameInputManager.InputType.KeyboardMouse)
             mousePositionInWorld = camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         else
@@ -44,6 +53,12 @@ public class AimDirectionTracker : MonoBehaviour
                 rightStickDirection = context.ReadValue<Vector2>();
             }
         }
+
+        StartCoroutine(FadeReticle());
     }
-        
+
+    private IEnumerator FadeReticle()
+    {
+        yield return new WaitForSeconds(1f);
+    }
 }

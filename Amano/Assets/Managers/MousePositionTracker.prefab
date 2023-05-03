@@ -61,7 +61,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2058402201177748992}
-        m_TargetAssemblyTypeName: MousePosTracker, Assembly-CSharp
+        m_TargetAssemblyTypeName: AimDirectionTracker, Assembly-CSharp
         m_MethodName: OnShootWeapon
         m_Mode: 0
         m_Arguments:
@@ -92,3 +92,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
+  CurrentInput: 0
+  AbilityFacts: {fileID: 11400000, guid: 005fada98f1e0134197335aebcdb20c2, type: 2}

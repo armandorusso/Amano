@@ -293,6 +293,7 @@ MonoBehaviour:
       m_Action: Jump Boost Button
       m_Flags: 0
     m_Flags: 0
+  AbilityFacts: {fileID: 11400000, guid: 005fada98f1e0134197335aebcdb20c2, type: 2}
 --- !u!114 &1773835547415062491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,6 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shuriken: {fileID: 334207595340738682, guid: 6d51b08de597ba543ac890ecef8a359c, type: 3}
+  AbilityFacts: {fileID: 11400000, guid: 005fada98f1e0134197335aebcdb20c2, type: 2}
   ShurikenThrowTransform: {fileID: 1699846089903928653}
   rotationPosition: {fileID: 5428644879463700709}
   aimTracker: {fileID: 7893756533738633826}
@@ -781,6 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   CurrentInput: 0
+  AbilityFacts: {fileID: 11400000, guid: 005fada98f1e0134197335aebcdb20c2, type: 2}
 --- !u!120 &7942236682073661704
 LineRenderer:
   m_ObjectHideFlags: 0

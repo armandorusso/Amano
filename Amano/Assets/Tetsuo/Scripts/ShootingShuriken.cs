@@ -8,6 +8,8 @@ using UnityEngine.Serialization;
 public class ShootingShuriken : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer shuriken;
+    [SerializeField] private FactsScriptableObject AbilityFacts;
+    
     [SerializeField] public Transform ShurikenThrowTransform;
     [SerializeField] public Transform rotationPosition;
     [SerializeField] public AimDirectionTracker aimTracker;
@@ -56,6 +58,7 @@ public class ShootingShuriken : MonoBehaviour
             float zRotation = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
             rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
         }
+        
         if (transform.localScale.x != rotationPosition.localScale.x)
         {
             rotationPosition.localScale = transform.localScale;
@@ -69,6 +72,11 @@ public class ShootingShuriken : MonoBehaviour
 
     public void SpawnShuriken(InputAction.CallbackContext context)
     {
+        if (AbilityFacts.Facts["Shuriken"] == 0)
+        {
+            return;
+        }
+        
         if (context.started && canShoot)
         {
             var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject();
@@ -84,6 +92,11 @@ public class ShootingShuriken : MonoBehaviour
     
     public void CreateAimTrajectory(InputAction.CallbackContext context)
     {
+        if (AbilityFacts.Facts["Shuriken"] == 0)
+        {
+            return;
+        }
+        
         if (aimTracker.GetRightStickDirection() != Vector2.zero && context.performed)
         {
             _isHoldingAim = true;

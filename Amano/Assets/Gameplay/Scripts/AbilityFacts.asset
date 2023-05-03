@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dac5e6bd26286d428bf4a9c99eb03c3, type: 3}
   m_Name: AbilityFacts
   m_EditorClassIdentifier: 
+  Facts:
+    list:
+    - Key: Shuriken
+      Value: 1
+    - Key: Dash
+      Value: 1
+    keyCollision: 0
