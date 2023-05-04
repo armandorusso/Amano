@@ -8,8 +8,6 @@ public class TetsuoDisableMovement : MonoBehaviour
 {
     [SerializeField] public PlayerInput _tetsuoMovement;
 
-    [SerializeField] private PlayerInput _tetsuoAbilities;
-
     private Rigidbody2D _rb;
 
     private static TetsuoDisableMovement _instance;
@@ -71,7 +69,6 @@ public class TetsuoDisableMovement : MonoBehaviour
     public void EnableOrDisableInputActions(bool isEnabled)
     {
         _instance._tetsuoMovement.enabled = isEnabled;
-        _instance._tetsuoAbilities.enabled = isEnabled;
     }
 
     private void OnDestroy()
