@@ -492,7 +492,7 @@ public class TetsuoController : MonoBehaviour, IMove
         }
         
         // Had to use "GetKeyUp" as using context.cancelled is very buggy and breaks the jump buffering
-        if (Input.GetKeyUp(KeyCode.Space) /*|| Gamepad.current.aButton.wasReleasedThisFrame*/ && rb.velocity.y > 0)
+        if (Input.GetKeyUp(KeyCode.Space) || JumpBoostButton.WasReleasedThisFrame() && rb.velocity.y > 0)
         {
             hasReleasedJump = false;
             _isJumping = true;
