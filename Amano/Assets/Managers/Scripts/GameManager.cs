@@ -67,25 +67,30 @@ public class GameManager : MonoBehaviour
     private IEnumerator MoveTetsuoToCheckpoint()
     {
         TetsuoDisableMovement.Instance.ResetVelocity();
-        _tetsuo.GetComponent<BoxCollider2D>().enabled = false;
+        // _tetsuo.GetComponent<BoxCollider2D>().enabled = false;
         DeathTrailEffectAction?.Invoke(true);
         
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         
-        while (Vector2.Distance(_tetsuo.transform.position, CurrentSpawnPoint.transform.position) >= 1f)
+        float currentTime = 0f;
+        float duration = 5f;
+        
+        while (currentTime <= duration && 
+               Vector2.Distance(_tetsuo.transform.position, 
+                   CurrentSpawnPoint.transform.position) >= 1.5f)
         {
-            yield return new WaitForEndOfFrame();
-            
+            currentTime += Time.deltaTime;
             _tetsuo.transform.position = Vector3.Lerp(_tetsuo.transform.position,
-                CurrentSpawnPoint.transform.position, Time.deltaTime / 1f * 2f);
+                CurrentSpawnPoint.transform.position, currentTime / duration);
+            yield return null;
         }
         
-        TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
         isTetsuoDead = false;
         DeathTrailEffectAction?.Invoke(false);
         _tetsuo.GetComponent<BoxCollider2D>().enabled = true;
         _tetsuo.GetComponent<Rigidbody2D>().gravityScale = 3.5f;
+        TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
     }
 
     private void OnEnemyDeath(object sender, EnemyHealth.EnemyDeathEventArgs e)

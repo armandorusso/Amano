@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="align-items: center;">
+        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Gamebuild/Assets/gamebuild_logo_white.png?fileID=2800000&amp;guid=7407ec3e572dfa442be8ea206f8c5271&amp;type=3#gamebuild_logo_white&apos;); width: 250px; height: 50px; align-items: center; justify-content: flex-start; margin-top: 5px; min-height: 50px;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="align-items: center;">
+        <ui:VisualElement style="justify-content: center; flex-direction: row; width: 100%; align-items: center; min-height: 46px;">
+            <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Gamebuild/Assets/attentionIcon.png?fileID=2800000&amp;guid=f576f96153d783a4a8120a9b7f611832&amp;type=3#attentionIcon&apos;); width: 40px; height: 40px; min-width: 40px; min-height: 40px;" />
+            <ui:Label text="Before you build, make sure you set your build settings. " display-tooltip-when-elided="true" style="height: 46px; width: 285px; -unity-text-align: upper-left; white-space: normal; margin-top: 10px; margin-right: 10px; margin-left: 10px; font-size: 16px; margin-bottom: 10px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:Button text="Build" display-tooltip-when-elided="true" name="build-button" style="height: 100px; width: 90%; margin-right: 0; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 0; margin-left: 0; align-items: auto; justify-content: center; flex-wrap: nowrap;" />
+        <ui:Button text="Copy Link " display-tooltip-when-elided="true" name="copylink-button" style="height: 41px; width: 90%; margin-right: 0; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 10px; margin-left: 0; align-items: auto; justify-content: center; flex-wrap: nowrap;" />
+        <ui:Label text="Need help?" display-tooltip-when-elided="true" style="height: 10px; width: 90%; -unity-text-align: middle-left; white-space: normal; margin-top: 20px; margin-right: 0; margin-left: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; font-size: 16px; -unity-font-style: bold;" />
+        <ui:Button text="Get Started Guide" display-tooltip-when-elided="true" name="getstarted-button" style="height: 26px; width: 90%; margin-right: 0; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 10px; margin-left: 0;" />
+        <ui:Button text="Discord" display-tooltip-when-elided="true" name="discord-button" style="height: 26px; width: 90%; margin-right: 0; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 10px; margin-left: 0;" />
+        <ui:Button text="Give us feedback" display-tooltip-when-elided="true" name="feedback-button" style="height: 26px; width: 90%; margin-right: 0; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 10px; margin-left: 0;" />
+        <ui:Label text="© 2023 gamebuild.io" display-tooltip-when-elided="true" style="height: -8px; width: 90%; -unity-text-align: middle-left; white-space: normal; margin-top: 10px; margin-right: 0; margin-left: 0; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; font-size: 11px; -unity-font-style: bold; align-items: center; justify-content: space-between;" />
+    </ui:VisualElement>
+</ui:UXML>
