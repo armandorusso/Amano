@@ -37,6 +37,8 @@ public class TetsuoScriptableObject : ScriptableObject
     [SerializeField] public float dashPower;
     [SerializeField] public float dashTime;
     [SerializeField] public float dashCooldown;
+    [SerializeField] public float dashEndSpeed;
+    [SerializeField] public float dashEndTime;
     [SerializeField] public float dashCooldownOnGround;
     
     [Header("Wall Sticking")]

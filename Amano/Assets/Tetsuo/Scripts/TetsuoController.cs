@@ -165,6 +165,7 @@ public class TetsuoController : MonoBehaviour, IMove
         Debug.Log("WallJumped: " + IsTouchingWall());
         if (context.performed && !_isGrounded && IsTouchingWall() && (!_hasDashed || !_isGrounded || _isWallSticking || _isWallSliding))
         {
+            CancelInvoke(nameof(StopWallJumping));
             wallJumpFacingDirection = -transform.localScale.x;
             Debug.Log("Walljump direction: " + wallJumpFacingDirection);
             _isWallJumping = true;
@@ -491,12 +492,12 @@ public class TetsuoController : MonoBehaviour, IMove
             jumpBufferCounter = 0f;
         }
         
-        // Had to use "GetKeyUp" as using context.cancelled is very buggy and breaks the jump buffering
-        if (Input.GetKeyUp(KeyCode.Space) || JumpBoostButton.WasReleasedThisFrame() && rb.velocity.y > 0)
+        if (JumpBoostButton.WasReleasedThisFrame() && rb.velocity.y > 0)
         {
             hasReleasedJump = false;
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            jumpBufferCounter = 0f;
             TetsuoData.coyoteTimeCounter = 0f;
         }
         
@@ -524,18 +525,28 @@ public class TetsuoController : MonoBehaviour, IMove
         rb.velocity = Vector2.zero;
         _isAirDashing = true;
         SetGravityScale(0f);
-        // _inputAction.enabled = false;
         yield return new WaitForSeconds(TetsuoData.dashTime + 0.4f);
+        
         var dashDirection = _horizontal != 0 || _vertical != 0
             ? new Vector2( _horizontal, _vertical).normalized * TetsuoData.dashPower
             : new Vector2(TetsuoData.dashPower * transform.localScale.x, 0f);
         rb.velocity = dashDirection;
-        _inputAction.enabled = true;
+        _inputAction.enabled = false;
         DashAttackLeafEffectAction?.Invoke(true);
         groundedDashAttackEvent?.Invoke(this, groundedDashAttackEventArgs);
         yield return new WaitForSeconds(TetsuoData.dashTime);
+        
         DashAttackLeafEffectAction?.Invoke(false);
         _isAirDashing = false;
+        var startTime = Time.time;
+        rb.velocity = TetsuoData.dashEndSpeed * dashDirection.normalized;
+
+        while (Time.time - startTime <= TetsuoData.dashEndTime)
+        {
+            yield return null;
+        }
+        
+        _inputAction.enabled = true;
         SetGravityScale(_originalGravityScale);
         yield return new WaitForSeconds(dashCoolDown);
         _doneDashing = true;
