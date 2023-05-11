@@ -44,13 +44,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyHealth.EnemyDeathEvent += OnEnemyDeath;
         TetsuoHealthBar.tetsuoDeathEvent += OnTetsuoDeath;
-        QuickTimeTeleport.ShowUIArgsEvent += OnQuickTimeEvent;
         CollectibleCount = 0;
-    }
-
-    private void OnQuickTimeEvent(object sender, QuickTimeTeleport.ShowUIArgs e)
-    {
-        FKeyUI.SetActive(e.isActive);
     }
 
     private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
@@ -120,7 +114,6 @@ public class GameManager : MonoBehaviour
     {
         EnemyHealth.EnemyDeathEvent -= OnEnemyDeath;
         TetsuoHealthBar.tetsuoDeathEvent -= OnTetsuoDeath;
-        QuickTimeTeleport.ShowUIArgsEvent -= OnQuickTimeEvent;
     }
 
     public void ReturnAllShuriken()

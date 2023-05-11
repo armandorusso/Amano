@@ -23,6 +23,14 @@ public class SlashingHitbox : MonoBehaviour
         
         if ((HitboxLayerMask.value & 1 << collidedGameObject.layer) != 0)
         {
+            var shield = collidedGameObject.GetComponentInChildren(typeof(ShieldRotation));
+
+            if (shield != null)
+            {
+                Debug.Log("Shield detected, enemy not damaged");
+                return;
+            }
+            
             slashHitEventArgs = new SlashHitEventArgs
             {
                 hitGameObject = collidedGameObject,

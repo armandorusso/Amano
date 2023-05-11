@@ -22,16 +22,9 @@ public class TeleportAbility : MonoBehaviour
     }
     public static event EventHandler<VanishingFxEventArgs> VanishingEvent;
     private VanishingFxEventArgs vanishingEventArgs;
-    
-    public class QuickTimeTeleportEventArgs : EventArgs
-    {
-        public GameObject objectBeingTeleported { get; set; }
-        public GameObject enemy { get; set; }
-    }
-    public static event EventHandler<QuickTimeTeleportEventArgs> QuickTimeTeleportEvent;
-    private QuickTimeTeleportEventArgs quickTimeTeleportEventArgs;
 
-    public static Action<float> TeleportPopOutAction; 
+    public static Action<float> TeleportPopOutAction;
+    public static Action<ShieldRotation> RemoveShieldComponentsAction;
 
     void Awake()
     {
@@ -121,15 +114,9 @@ public class TeleportAbility : MonoBehaviour
 
             ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
 
-            if (objectToTeleport.gameObject.layer == 13)
+            if (objectToTeleport.TryGetComponent(out ShieldRotation shield))
             {
-                quickTimeTeleportEventArgs = new QuickTimeTeleportEventArgs
-                {
-                    objectBeingTeleported = objectToTeleport.gameObject,
-                    enemy = objectToTeleport.transform.parent.parent.gameObject
-                };
-
-                QuickTimeTeleportEvent?.Invoke(this, quickTimeTeleportEventArgs);
+                RemoveShieldComponentsAction?.Invoke(shield);
             }
 
             TeleportPopOutAction?.Invoke(TeleportPopOutForce);

@@ -54,12 +54,12 @@ public class AimDirectionTracker : MonoBehaviour
         
         if (CurrentInput == GameInputManager.InputType.KeyboardMouse)
         {
-            if (MouseMoveEvent.GetPooled().mouseDelta == Vector2.zero)
+            /*if (MouseMoveEvent.GetPooled().mouseDelta == Vector2.zero)
             {
                 Debug.Log("Not aiming");
                 _isAiming = false;
                 return;
-            }
+            }*/
             
             mousePositionInWorld = camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             _aimReticleSprite.color = _aimOriginalColor;

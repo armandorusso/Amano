@@ -20,6 +20,7 @@ public class ShurikenProjectile : MonoBehaviour
     private bool hitTeleportableObj;
     private bool hitGroundOrWall;
     private bool _instantiatedShurikenProperties = false;
+    
     public static event EventHandler<ShurikenAttachedEventArgs> ShurikenAttachedEvent;
 
     public class ShurikenAttachedEventArgs : EventArgs
@@ -122,19 +123,18 @@ public class ShurikenProjectile : MonoBehaviour
 
             if (otherObject.CompareTag("Teleport"))
             {
+                var contactedCollider = col.GetContact(0).collider;
+                if (contactedCollider != null && contactedCollider.gameObject.layer is 10)
+                {
+                    otherObject = contactedCollider.gameObject;
+                }
+                
                 transform.parent = otherObject.transform;
                 hitTeleportableObj = true;
 
                 GameObject teleportObject = null;
                 int? teleportObjectLayer = null;
-
-                if (otherObject.layer == 13 && otherObject.TryGetComponent(out EnemyData quickTimeComponent))
-                {
-                    teleportObject = quickTimeComponent.gameObject.transform.GetChild(0).GetChild(0).gameObject;
-                    teleportObjectLayer = teleportObject.gameObject.layer;
-                    transform.parent = teleportObject.transform;
-                }
-
+                
                 ShurikenAttachedEventArgs args = new ShurikenAttachedEventArgs
                 {
                     objectCanTeleport = hitTeleportableObj,
@@ -145,9 +145,6 @@ public class ShurikenProjectile : MonoBehaviour
                 
                 ShurikenAttachedEvent?.Invoke(this, args);
                 hitTeleportableObj = false;
-
-                if (teleportObject)
-                    return;
             }
             else
             {

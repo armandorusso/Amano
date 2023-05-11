@@ -39,7 +39,7 @@ public class EnemyPatrolShieldState : IAmanoState
         var enemyPosition = _enemyData.transform.position;
         var tetsuoPosition = _tetsuoPosition.position;
         _playerDirection = tetsuoPosition - enemyPosition;
-        Debug.Log(_playerDirection);
+        
         var hit = Physics2D.Raycast(enemyPosition, _playerDirection, _enemyData.LineOfSightDistance,
             _enemyData.RayCastLayers);
         Debug.DrawRay(enemyPosition, _playerDirection.normalized, Color.magenta);

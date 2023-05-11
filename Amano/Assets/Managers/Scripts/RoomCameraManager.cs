@@ -30,7 +30,6 @@ public class RoomCameraManager : MonoBehaviour
         {
             isMovementDisabled = false
         };
-        QuickTimeTeleport.ZoomInEvent += OnQuickTimeEvent;
         StartGame.ZoomOutCameraAction += OnStartGameEvent;
     }
 
@@ -69,25 +68,11 @@ public class RoomCameraManager : MonoBehaviour
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         Time.timeScale = 1f;
     }
-
-    private void OnQuickTimeEvent(object sender, QuickTimeTeleport.ZoomInEventArgs e)
-    {
-        var duration = 0f;
-        while (duration < 2f)
-        {
-            _camera.m_Lens.OrthographicSize = Mathf.Lerp(_camera.m_Lens.OrthographicSize, e.zoomInAmount, 0.8f);
-            duration += Time.deltaTime;
-        }
-    }
+    
 
     public void OnTriggerExit2D(Collider2D other)
     {
         if(other.CompareTag("Player") && _cmBrain.ActiveVirtualCamera.VirtualCameraGameObject != VirtualCamera)
             VirtualCamera.SetActive(false);
-    }
-
-    public void OnDestroy()
-    {
-        QuickTimeTeleport.ZoomInEvent -= OnQuickTimeEvent;
     }
 }
