@@ -10,6 +10,8 @@ public class TetsuoHealthBar : MonoBehaviour
     // Instead, have the Health class be attached to Tetsuo?
     // To be honest, not sure if we can really apply it here
     private IHealth TetsuoHealthPoints;
+    private bool isInvulnerable;
+    
     public class HealthUIEventArgs : EventArgs
     {
         public float currentHealth { get; set; }
@@ -64,28 +66,23 @@ public class TetsuoHealthBar : MonoBehaviour
         }
     }
 
-    private void OnTetsuoDamaged(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
-    {
-        if (e.objectLayer == 6)
-        {
-            TetsuoHealthPoints.DecreaseHealth(e.damage);
-            healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
-            healthUIEvent?.Invoke(this, healthUIEventArgs);
-
-            CheckIfTetsuoIsDead();
-        }
-    }
-
     private void OnTetsuoDamaged(float damage, LayerMask objectLayer)
     {
-        if (objectLayer == 6)
+        if (!isInvulnerable && objectLayer == 6)
         {
             TetsuoHealthPoints.DecreaseHealth(damage);
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
-
+        
             CheckIfTetsuoIsDead();
+            isInvulnerable = true;
+            Invoke(nameof(SetInvulnerabilityFalse), 0.8f);
         }
+    }
+
+    private void SetInvulnerabilityFalse()
+    {
+        isInvulnerable = false;
     }
 
     private void OnDeathFall(bool disableMovement)
@@ -99,6 +96,9 @@ public class TetsuoHealthBar : MonoBehaviour
     {
         if (TetsuoHealthPoints.HitPoints <= 0)
         {
+            isInvulnerable = true;
+            Invoke(nameof(SetInvulnerabilityFalse), 2f);
+            
             TetsuoHealthPoints.IncreaseHealth(100f);
             healthUIEventArgs = new HealthUIEventArgs
             {
