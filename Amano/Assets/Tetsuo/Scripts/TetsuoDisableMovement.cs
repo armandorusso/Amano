@@ -71,6 +71,18 @@ public class TetsuoDisableMovement : MonoBehaviour
         _instance._tetsuoMovement.enabled = isEnabled;
     }
 
+    public void DisableMovementForTime(float timeDisabled)
+    {
+        StartCoroutine(DisableMovementForAFewSeconds(timeDisabled));
+    }
+
+    private IEnumerator DisableMovementForAFewSeconds(float timeDisabled)
+    {
+        EnableOrDisableInputActions(false);
+        yield return new WaitForSeconds(timeDisabled);
+        EnableOrDisableInputActions(true);
+    }
+
     private void OnDestroy()
     {
         RoomCameraManager.cameraTransitionEvent -= OnCameraTransitionEvent;

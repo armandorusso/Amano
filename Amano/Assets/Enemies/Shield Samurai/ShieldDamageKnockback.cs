@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShieldDamageKnockback : MonoBehaviour
 {
     [SerializeField] private float KnockbackForce;
     [SerializeField] private float ShieldDamage;
+    [SerializeField] private float DisableMovementDelay;
+    [SerializeField] public UnityEvent<float> DisableMovementAction;
+    
 
     public static Action<float, LayerMask> DamageTetsuoAction;
 
@@ -15,8 +19,11 @@ public class ShieldDamageKnockback : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             var rb = col.rigidbody;
-
-            col.rigidbody.velocity = new Vector2(col.transform.localScale.x * -1 * KnockbackForce, 10f);
+            var direction = (col.transform.position - gameObject.transform.position).normalized;
+            
+            col.rigidbody.AddForce(new Vector2(direction.x * KnockbackForce, direction.y * 10f), ForceMode2D.Impulse);
+            
+            DisableMovementAction?.Invoke(DisableMovementDelay);
             
             DamageTetsuoAction?.Invoke(ShieldDamage, col.gameObject.layer);
         }
