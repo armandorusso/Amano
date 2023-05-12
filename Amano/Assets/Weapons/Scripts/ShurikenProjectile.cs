@@ -33,7 +33,7 @@ public class ShurikenProjectile : MonoBehaviour
     public static event EventHandler ShurikenDestroyedEvent;
     
     public static event EventHandler<ShurikenHitEventArgs> ShurikenHitEvent;
-    public static event EventHandler<ShurikenHitEventArgs> ShurikenHitCharacterEvent;
+    public static Action<float, LayerMask> ShurikenHitCharacterEvent;
 
     public class ShurikenHitEventArgs : EventArgs
     {
@@ -108,7 +108,7 @@ public class ShurikenProjectile : MonoBehaviour
                 objectLayer = otherObject.gameObject.layer
             };
 
-            ShurikenHitCharacterEvent?.Invoke(this, args);
+            ShurikenHitCharacterEvent?.Invoke(Damage, otherObject.gameObject.layer);
             ObjectPool.ObjectPoolInstance.ReturnPooledObject(gameObject);
 
             return;
@@ -167,7 +167,7 @@ public class ShurikenProjectile : MonoBehaviour
                     enemy = enemy.gameObject
                 };
                 
-                ShurikenHitCharacterEvent?.Invoke(this, args);
+                ShurikenHitCharacterEvent?.Invoke(Damage, otherObject.gameObject.layer);
             }
         }
     }

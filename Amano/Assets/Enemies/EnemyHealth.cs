@@ -39,11 +39,11 @@ public class EnemyHealth : MonoBehaviour
         CurrentHitPoints = MaxHealthPoints;
     }
 
-    private void OnEnemyHit(object sender, ShurikenProjectile.ShurikenHitEventArgs e)
+    private void OnEnemyHit(float damage, LayerMask layer)
     {
-        if (e.enemy == gameObject)
+        if (layer == 7)
         {
-            DamageEnemy(e.damage);
+            DamageEnemy(damage);
         }
     }
 

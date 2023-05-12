@@ -33,6 +33,7 @@ public class TetsuoHealthBar : MonoBehaviour
         TetsuoHealthPoints = new Health(100f);
         healthUIEvent?.Invoke(this, healthUIEventArgs);
         ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
+        ShieldDamageKnockback.DamageTetsuoAction += OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent += OnMeleeSlashHit;
         DeathZone.TetsuoDeathZoneAction += OnDeathFall;
     }
@@ -68,6 +69,18 @@ public class TetsuoHealthBar : MonoBehaviour
         if (e.objectLayer == 6)
         {
             TetsuoHealthPoints.DecreaseHealth(e.damage);
+            healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
+            healthUIEvent?.Invoke(this, healthUIEventArgs);
+
+            CheckIfTetsuoIsDead();
+        }
+    }
+
+    private void OnTetsuoDamaged(float damage, LayerMask objectLayer)
+    {
+        if (objectLayer == 6)
+        {
+            TetsuoHealthPoints.DecreaseHealth(damage);
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
 
