@@ -12,7 +12,7 @@ public class ShieldDamageKnockback : MonoBehaviour
     [SerializeField] public UnityEvent<float> DisableMovementAction;
     
 
-    public static Action<float, LayerMask> DamageTetsuoAction;
+    public static Action<float, LayerMask, GameObject> DamageTetsuoAction;
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -25,7 +25,7 @@ public class ShieldDamageKnockback : MonoBehaviour
             
             DisableMovementAction?.Invoke(DisableMovementDelay);
             
-            DamageTetsuoAction?.Invoke(ShieldDamage, col.gameObject.layer);
+            DamageTetsuoAction?.Invoke(ShieldDamage, col.gameObject.layer, null);
         }
     }
 }

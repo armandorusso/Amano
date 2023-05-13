@@ -11,6 +11,8 @@ public class TetsuoHealthBar : MonoBehaviour
     // To be honest, not sure if we can really apply it here
     private IHealth TetsuoHealthPoints;
     private bool isInvulnerable;
+    private SpriteRenderer _sprite;
+    private Color _originalColor;
     
     public class HealthUIEventArgs : EventArgs
     {
@@ -33,6 +35,9 @@ public class TetsuoHealthBar : MonoBehaviour
             currentHealth = 100f
         };
         TetsuoHealthPoints = new Health(100f);
+        _sprite = GetComponent<SpriteRenderer>();
+        _originalColor = _sprite.color;
+        
         healthUIEvent?.Invoke(this, healthUIEventArgs);
         ShurikenProjectile.ShurikenHitCharacterEvent += OnTetsuoDamaged;
         ShieldDamageKnockback.DamageTetsuoAction += OnTetsuoDamaged;
@@ -66,23 +71,36 @@ public class TetsuoHealthBar : MonoBehaviour
         }
     }
 
-    private void OnTetsuoDamaged(float damage, LayerMask objectLayer)
+    private void OnTetsuoDamaged(float damage, LayerMask objectLayer, GameObject arg3)
     {
         if (!isInvulnerable && objectLayer == 6)
         {
             TetsuoHealthPoints.DecreaseHealth(damage);
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
-        
+
+            StartCoroutine(SetSpriteColor());
+            
             CheckIfTetsuoIsDead();
-            isInvulnerable = true;
-            Invoke(nameof(SetInvulnerabilityFalse), 0.8f);
+
+            StartCoroutine(SetInvulnerabilityFalse());
         }
     }
 
-    private void SetInvulnerabilityFalse()
+    private IEnumerator SetInvulnerabilityFalse()
     {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(0.5f);
         isInvulnerable = false;
+        StopCoroutine(SetInvulnerabilityFalse());
+    }
+
+    private IEnumerator SetSpriteColor()
+    {
+        _sprite.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = _originalColor;
+        StopCoroutine(SetSpriteColor());
     }
 
     private void OnDeathFall(bool disableMovement)
@@ -97,7 +115,7 @@ public class TetsuoHealthBar : MonoBehaviour
         if (TetsuoHealthPoints.HitPoints <= 0)
         {
             isInvulnerable = true;
-            Invoke(nameof(SetInvulnerabilityFalse), 2f);
+            Invoke(nameof(SetInvulnerabilityFalse), 1.5f);
             
             TetsuoHealthPoints.IncreaseHealth(100f);
             healthUIEventArgs = new HealthUIEventArgs

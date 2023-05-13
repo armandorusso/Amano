@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
             numberOfShuriken = numberOfShuriken
         };
         
-        EnemyDeathEvent.Invoke(this, enemyDeathEventArgs);
+        EnemyDeathEvent?.Invoke(this, enemyDeathEventArgs);
     }
 
     private void OnDestroy()

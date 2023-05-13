@@ -7,7 +7,9 @@ public class EnemyHealth : MonoBehaviour
 {
     private float MaxHealthPoints;
     private float CurrentHitPoints;
-    
+    private SpriteRenderer _sprite;
+    private Color _originalColor;
+
     public class EnemyDeathEventArgs : EventArgs
     {
         public GameObject enemy { get; set; }
@@ -24,6 +26,9 @@ public class EnemyHealth : MonoBehaviour
 
         ShurikenProjectile.ShurikenHitCharacterEvent += OnEnemyHit;
         SlashingHitbox.SlashHitEvent += OnEnemySlashed;
+        
+        _sprite = GetComponent<SpriteRenderer>();
+        _originalColor = _sprite.color;
     }
 
     private void OnEnemySlashed(object sender, SlashingHitbox.SlashHitEventArgs e)
@@ -39,9 +44,9 @@ public class EnemyHealth : MonoBehaviour
         CurrentHitPoints = MaxHealthPoints;
     }
 
-    private void OnEnemyHit(float damage, LayerMask layer)
+    private void OnEnemyHit(float damage, LayerMask layer, GameObject enemy)
     {
-        if (layer == 7)
+        if (enemy == gameObject && layer == 7)
         {
             DamageEnemy(damage);
         }
@@ -58,13 +63,21 @@ public class EnemyHealth : MonoBehaviour
                 enemy = gameObject
             };
 
-            EnemyDeathEvent.Invoke(this, enemyDeathEventArgs);
+            EnemyDeathEvent?.Invoke(this, enemyDeathEventArgs);
         }
     }
 
     private void DecreaseHealth(float damage)
     {
         CurrentHitPoints -= damage;
+        StartCoroutine(ChangeSpriteColor());
+    }
+
+    private IEnumerator ChangeSpriteColor()
+    {
+        _sprite.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = _originalColor;
     }
 
     private void OnDestroy()
