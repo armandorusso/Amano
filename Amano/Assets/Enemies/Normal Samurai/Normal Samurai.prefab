@@ -78,6 +78,8 @@ GameObject:
   - component: {fileID: 3365187791886019243}
   - component: {fileID: 7674069901513495694}
   - component: {fileID: 5953132167242192615}
+  - component: {fileID: 6939854520844951601}
+  - component: {fileID: 3517296818151878510}
   m_Layer: 7
   m_Name: Normal Samurai
   m_TagString: Teleport
@@ -143,7 +145,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -439629357, guid: 3b8f8e1c3163c7b4ebaf4f40bd0931ae, type: 3}
+  m_Sprite: {fileID: -1213278449, guid: 3b8f8e1c3163c7b4ebaf4f40bd0931ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -166,22 +168,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53f8d04a8041ce4cad91838861dfec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyParameters: {fileID: 11400000, guid: dc1fa5c106771ba489046c4af159a8f6, type: 2}
   Timer: {fileID: 7674069901513495694}
   GroundCheck: {fileID: 1508394702720032208}
   TetsuoPosition: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   ThrowPosition: {fileID: 7262230595521616340}
-  Sprite: {fileID: 0}
   LineOfSightDistance: 2
   RayCastLayers:
     serializedVersion: 2
     m_Bits: 832
-  canInvokeQuickTimeEvent: 0
+  EnemyParameters: {fileID: 11400000, guid: dc1fa5c106771ba489046c4af159a8f6, type: 2}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
-  Rb: {fileID: 4751308941784329157}
-  Collider: {fileID: 4751308941784329154}
 --- !u!50 &4751308941784329157
 Rigidbody2D:
   serializedVersion: 4
@@ -263,5 +261,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0589758ffd96a40b006ddd9d670bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &6939854520844951601
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751308941784329155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5537d2b02da00bf4daab2e9dab8f2a3b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3517296818151878510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751308941784329155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a311f2d017395468b3b4d16fa3aa5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

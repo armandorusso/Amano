@@ -12594,6 +12594,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 2.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.5625
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158833664464663068, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2158833664464663069, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
       propertyPath: m_RootOrder
       value: 34
@@ -12650,10 +12678,6 @@ PrefabInstance:
       propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 437123372}
-    - target: {fileID: 2158833664464663071, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
-      propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: Dash
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 373ab08878e164946a5fde4d72bfae61, type: 3}
 --- !u!1001 &3365518847721839498

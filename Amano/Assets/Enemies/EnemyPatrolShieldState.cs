@@ -14,6 +14,8 @@ public class EnemyPatrolShieldState : IAmanoState
     public bool _isFacingRight;
     private AmanoTimer _timer;
 
+    public static Action<GameObject, bool> IsWalkingAction;
+
     public void EnterState(AmanoStateMachine stateMachine)
     {
         _enemyData = stateMachine.GetComponent<ShieldSamuraiData>();
@@ -26,7 +28,7 @@ public class EnemyPatrolShieldState : IAmanoState
     public void UpdateState(AmanoStateMachine stateMachine)
     {
         LineOfSight(stateMachine);
-        Patrol();
+        Patrol(stateMachine);
     }
 
     public void ExitState(AmanoStateMachine stateMachine)
@@ -50,12 +52,13 @@ public class EnemyPatrolShieldState : IAmanoState
         }
     }
 
-    private void Patrol()
+    private void Patrol(AmanoStateMachine stateMachine)
     {
         if (_timer.IsTimerInProgress())
         {
-            _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.EnemyParameters.Speed, _enemyData.Rb.velocity.y);
-
+            stateMachine._rb.velocity = new Vector2(_direction * _enemyData.EnemyParameters.Speed, stateMachine._rb.velocity.y);
+            IsWalkingAction?.Invoke(stateMachine.gameObject, Mathf.Abs(stateMachine._rb.velocity.x) > 0 && _direction != 0);
+            
             var localScale = _direction < 0 ? -1 : 1;
             FlipGroundCheck(localScale);
             
@@ -64,7 +67,7 @@ public class EnemyPatrolShieldState : IAmanoState
             {
                 case true when _playerDirection.x < 0f:
                 case false when _playerDirection.x > 0f:
-                    Flip();
+                    Flip(stateMachine);
                     break;
             }
 
@@ -93,10 +96,10 @@ public class EnemyPatrolShieldState : IAmanoState
         return !Physics2D.Raycast(_enemyData.GroundCheck.transform.position, Vector2.down, 1f, _enemyData.GroundLayer);
     }
 
-    private void Flip()
+    private void Flip(AmanoStateMachine stateMachine)
     {
         _isFacingRight = !_isFacingRight;
-        _enemyData.Sprite.flipX = !_isFacingRight;
+        stateMachine._sprite.flipX = !_isFacingRight;
         var transformLocalScale = _enemyData.AttackingHitbox.transform.localScale;
         transformLocalScale.x *= -1f;
         _enemyData.AttackingHitbox.transform.localScale = transformLocalScale;

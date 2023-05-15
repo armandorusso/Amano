@@ -11,11 +11,22 @@ public class AmanoStateMachine : MonoBehaviour
     protected IAmanoState _defaultState;
     protected HashSet<IAmanoState> _states;
 
+    public SpriteRenderer _sprite { get; private set; }
+    public Rigidbody2D _rb { get; private set; }
+    public Collider2D _collider { get; private set; }
+
     public static event EventHandler<OnStateChangedArgs> onStateChangedEvent;
     public class OnStateChangedArgs : EventArgs
     {
         public string previousState;
         public string newState;
+    }
+
+    private void Awake()
+    {
+        _sprite = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
     }
 
     protected virtual void Start()

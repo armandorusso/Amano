@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyShootState : IAmanoState
@@ -6,6 +8,8 @@ public class EnemyShootState : IAmanoState
     private AmanoTimer _timer;
     private int _direction;
     
+    public static Action<GameObject, bool> IsShootingAction;
+
     public void EnterState(AmanoStateMachine stateMachine)
     {
         Debug.Log("Entered Shoot State");
@@ -19,15 +23,22 @@ public class EnemyShootState : IAmanoState
         var enemyPosition = stateMachine.transform.position;
         if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) < 2f && _timer.IsTimerDone())
         {
-            ShootWeapon(enemyPosition);
+            IsShootingAction?.Invoke(stateMachine.gameObject, true);
+
+            ShootWeapon(enemyPosition, stateMachine);
         }
         else if(Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) > 2f)
         {
             stateMachine.SwitchState("EnemyPatrolState");
         }
+        
+        /*else if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) <= 1f)
+        {
+            stateMachine.SwitchState("EnemySlashState");
+        }*/
     }
 
-    private void ShootWeapon(Vector3 enemyPosition)
+    private void ShootWeapon(Vector3 enemyPosition, AmanoStateMachine stateMachine)
     {
         var directionToShootProjectile = FaceInDirectionOfTetsuo(enemyPosition, out _);
         Debug.Log(directionToShootProjectile);
@@ -36,12 +47,19 @@ public class EnemyShootState : IAmanoState
         var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
 
         rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 20f;
+        stateMachine.StartCoroutine(SetThrowingAnimationToFalse(stateMachine));
         _timer.StartTimer(2f);
+    }
+
+    private IEnumerator SetThrowingAnimationToFalse(AmanoStateMachine stateMachine)
+    {
+        yield return new WaitForSeconds(0.8f);
+        IsShootingAction?.Invoke(stateMachine.gameObject, false);
     }
 
     public void ExitState(AmanoStateMachine stateMachine)
     {
-        
+        IsShootingAction?.Invoke(stateMachine.gameObject, false);
     }
 
     private Vector3 FaceInDirectionOfTetsuo(Vector3 enemyPosition, out Vector3 enemyFaceDirection)

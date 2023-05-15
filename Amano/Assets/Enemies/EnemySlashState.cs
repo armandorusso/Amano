@@ -61,7 +61,7 @@ public class EnemySlashState : IAmanoState
         Debug.Log("Slashing!");
         _timer.StartTimer(1f);
         isSlashing = true;
-        slashingEvent.Invoke(this, slashingEventArgs);
+        slashingEvent?.Invoke(this, slashingEventArgs);
     }
 
     private void SlashCooldown()

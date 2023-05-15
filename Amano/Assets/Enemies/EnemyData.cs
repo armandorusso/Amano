@@ -4,16 +4,12 @@ using UnityEngine;
 
 public abstract class EnemyData : MonoBehaviour
 {
-    [SerializeField] public EnemyScriptableObject EnemyParameters;
     [SerializeField] public AmanoTimer Timer;
     [SerializeField] public GameObject GroundCheck;
     [SerializeField] public Transform TetsuoPosition;
     [SerializeField] public Transform ThrowPosition;
-    [SerializeField] public SpriteRenderer Sprite;
     [SerializeField] public int LineOfSightDistance;
     [SerializeField] public LayerMask RayCastLayers;
-    [SerializeField] public bool canInvokeQuickTimeEvent;
+    [SerializeField] public EnemyScriptableObject EnemyParameters;
     public LayerMask GroundLayer;
-    public Rigidbody2D Rb;
-    public Collider2D Collider;
 }

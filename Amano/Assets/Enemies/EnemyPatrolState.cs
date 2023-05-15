@@ -11,6 +11,8 @@ public class EnemyPatrolState : IAmanoState
     public bool _isFacingRight;
     private AmanoTimer _timer;
 
+    public static Action<GameObject, bool> IsWalkingAction;
+
     public void EnterState(AmanoStateMachine stateMachine)
     {
         _enemyData = stateMachine.GetComponent<NormalSamuraiData>();
@@ -21,11 +23,14 @@ public class EnemyPatrolState : IAmanoState
 
     public void UpdateState(AmanoStateMachine stateMachine)
     {
+        
+        IsWalkingAction?.Invoke(stateMachine.gameObject, Mathf.Abs(stateMachine._rb.velocity.x) > 0 && _direction != 0);
+
         Debug.Log("Patrol");
         if (_timer.IsTimerInProgress())
         {
-            _enemyData.Rb.velocity = new Vector2(_direction * _enemyData.EnemyParameters.Speed, _enemyData.Rb.velocity.y);
-            
+            stateMachine._rb.velocity = new Vector2(_direction * _enemyData.EnemyParameters.Speed, stateMachine._rb.velocity.y);
+
             // If its facing right && its moving in the negative direction, flip the sprite. Same thing for the opposite condition
             switch (_isFacingRight)
             {
@@ -41,6 +46,7 @@ public class EnemyPatrolState : IAmanoState
         else if (_timer.IsTimerDone())
         {
             _direction = Random.Range(-1, 2);
+            stateMachine._rb.velocity = Vector2.zero;
             _timer.StartTimer(2f);
         }
 
@@ -50,6 +56,7 @@ public class EnemyPatrolState : IAmanoState
     public void ExitState(AmanoStateMachine stateMachine)
     {
         _timer.ResetTimer();
+        IsWalkingAction?.Invoke(stateMachine.gameObject, false);
     }
 
     private void LineOfSight(AmanoStateMachine stateMachine)

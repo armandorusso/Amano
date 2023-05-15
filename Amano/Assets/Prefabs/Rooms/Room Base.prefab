@@ -1322,7 +1322,7 @@ GameObject:
   - component: {fileID: 6075423086307231784}
   - component: {fileID: 2458652029697030591}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

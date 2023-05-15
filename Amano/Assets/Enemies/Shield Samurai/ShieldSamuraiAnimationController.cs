@@ -10,24 +10,19 @@ public class ShieldSamuraiAnimationController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        EnemySlashState.slashingEvent += OnSlashEvent;
+        EnemyPatrolShieldState.IsWalkingAction += OnWalkingEvent;
     }
 
-    private void Update()
+    private void OnWalkingEvent(GameObject sender, bool isWalking)
     {
-
-    }
-
-    private void OnSlashEvent(object sender, EnemySlashState.SlashingEventAnimationArgs e)
-    {
-        if (e.currentActor == gameObject)
+        if (sender == gameObject)
         {
-            _animator.SetBool("isSlashing", e.isSlashing);
+            _animator.SetBool("isWalking", isWalking);
         }
     }
 
     public void OnDestroy()
     {
-        EnemySlashState.slashingEvent -= OnSlashEvent;
+        EnemyPatrolShieldState.IsWalkingAction -= OnWalkingEvent;
     }
 }
