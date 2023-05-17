@@ -15,4 +15,13 @@ public class DeathZone : MonoBehaviour
             TetsuoDeathZoneAction?.Invoke(false);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.layer == 6)
+        {
+            TetsuoDisableMovement.Instance.ResetVelocity();
+            TetsuoDeathZoneAction?.Invoke(false);
+        }
+    }
 }

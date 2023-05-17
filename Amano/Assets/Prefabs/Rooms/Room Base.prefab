@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 1543354721686396705}
   m_Layer: 0
   m_Name: Spikes
-  m_TagString: Untagged
+  m_TagString: DeathZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VirtualCamera: {fileID: 8776994331242625378}
   _cmBrain: {fileID: 0}
-  OriginalFieldOfView: 5
+  OriginalFieldOfView: 4.4
   Velocity: 0
   SmoothTime: 0.5
   _camera: {fileID: 8776994331242625379}
@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5.4
+    OrthographicSize: 5.8
     NearClipPlane: 0
     FarClipPlane: 100
     Dutch: 0

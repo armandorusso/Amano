@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollectibleUI : MonoBehaviour
 {
+    [SerializeField] public Image CollectibleImage;
     private TextMeshProUGUI _collectibleText;
     private bool hasTextUpdated;
     
@@ -20,10 +22,12 @@ public class CollectibleUI : MonoBehaviour
         if (hasTextUpdated)
         {
             _collectibleText.CrossFadeAlpha(255f, 0.5f, false);
+            CollectibleImage.CrossFadeAlpha(255f, 0.5f, false);
         }
         else
         {
             _collectibleText.CrossFadeAlpha(0f, 0.5f, false);
+            CollectibleImage.CrossFadeAlpha(0f, 0.5f, false);
         }
     }
 
