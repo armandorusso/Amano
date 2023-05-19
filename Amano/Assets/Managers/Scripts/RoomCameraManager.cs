@@ -39,6 +39,11 @@ public class RoomCameraManager : MonoBehaviour
         {
             _camera.m_Lens.OrthographicSize =
                 Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, OriginalFieldOfView, ref Velocity, SmoothTime);
+
+            if (Mathf.Abs(_camera.m_Lens.OrthographicSize - OriginalFieldOfView) <= 0.2f)
+            {
+                _hasClickedStart = false;
+            }
         }
     }
 

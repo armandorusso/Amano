@@ -110,7 +110,7 @@ public class TeleportAbility : MonoBehaviour
             VanishingEvent.Invoke(this, vanishingEventArgs);
             var playerPosition = gameObject.transform.position;
             gameObject.transform.position = objectToTeleport.position;
-            objectToTeleport.transform.position = playerPosition;
+            // objectToTeleport.transform.position = playerPosition;
 
             ObjectPool.ObjectPoolInstance.ReturnPooledObject(shuriken.gameObject);
 

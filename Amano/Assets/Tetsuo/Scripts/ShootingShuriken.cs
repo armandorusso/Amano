@@ -126,7 +126,7 @@ public class ShootingShuriken : MonoBehaviour
             _lineRenderer.SetPosition(i, point);
             
             // Make the line renderer stop when it hits a wall/collideable object
-            Vector2 lastPosition = _lineRenderer.GetPosition(i - 1);
+            /*Vector2 lastPosition = _lineRenderer.GetPosition(i - 1);
             var hit = Physics2D.Raycast(lastPosition, (point - lastPosition).normalized,
                 (point - lastPosition).magnitude, TrajectoryLayerMask);
 
@@ -135,7 +135,7 @@ public class ShootingShuriken : MonoBehaviour
                 _lineRenderer.SetPosition(i, hit.point);
                 _lineRenderer.positionCount = i + 1; // avoids the old points to be considered
                 return;
-            }
+            }*/
         }
     }
 

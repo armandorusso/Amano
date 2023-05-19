@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+        
+        Screen.SetResolution(640, 320, true);
     }
 
     void Start()

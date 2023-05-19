@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a734c8810739ed479ce19e643c06ad1, type: 3}
   m_Name: Gamebuildconfig
   m_EditorClassIdentifier: 
-  Copylink: b0ZlVDZZdHprcTArMldUYzlMaVR5c3NSV1dldFNTRjExd3JDR3B6c1JIaz0
-  built: 1
+  Copylink: 
+  built: 0
+  token: 

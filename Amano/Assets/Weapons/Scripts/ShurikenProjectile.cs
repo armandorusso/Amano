@@ -11,6 +11,7 @@ public class ShurikenProjectile : MonoBehaviour
 {
     [SerializeField] public float Damage;
     [SerializeField] public Color ShurikenAttachedColor;
+    [SerializeField] public ParticleSystem ShurikenParticleSystem;
     public SpriteRenderer _sprite;
     public Animator _animator;
     public Rigidbody2D _rb;
@@ -70,6 +71,7 @@ public class ShurikenProjectile : MonoBehaviour
         {
             ChangeToOriginalColor();
             SwitchShurikenProperties(false);
+            ShurikenParticleSystem.Stop();
             hitGroundOrWall = false;
         }
     }
@@ -123,6 +125,7 @@ public class ShurikenProjectile : MonoBehaviour
 
             if (otherObject.CompareTag("Teleport"))
             {
+                ShurikenParticleSystem.Play();
                 var contactedCollider = col.GetContact(0).collider;
                 if (contactedCollider != null && contactedCollider.gameObject.layer is 10)
                 {

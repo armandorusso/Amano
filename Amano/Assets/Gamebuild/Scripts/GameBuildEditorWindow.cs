@@ -17,6 +17,7 @@ public class GameBuildEditorWindow : EditorWindow
 {
     
 
+    
 
     private static GameBuildConfig data;
     private static string defaultPath = GameBuildBuilder.defaultPath;
@@ -24,14 +25,16 @@ public class GameBuildEditorWindow : EditorWindow
     
     [SerializeField] private VisualTreeAsset _tree;
     
+    private TextField tokenField;
     private Button buildButton;
     private Button copyLinkButton;
     private Button getStartedButton;
     private Button discordButton;
     private Button feedbackButton;
-    private bool built;
+    private static string api_url = "https://app.gamebuild.io/";
 
     public string copylink;
+
     
     [MenuItem("Gamebuild/Gamebuild")]
     public static void ShowEditor()
@@ -57,9 +60,57 @@ public class GameBuildEditorWindow : EditorWindow
         getStartedButton.clicked += OnGetStartedPressed;
         discordButton.clicked += OnDiscordPressed;
         feedbackButton.clicked += OnFeedbackPressed;
+        
+        tokenField = rootVisualElement.Q<TextField>("TokenText");
+        tokenField.RegisterValueChangedCallback(HandleToken);
 
-        copyLinkButton.clickable.target.visible = false;
+        copyLinkButton.clickable.target.visible = true;
+        init();
 
+    }
+    
+
+    private async void init()
+    {
+        if (tokenField.value.Length == 64)
+        {
+            copylink = await VALIDATE_TOKEN(tokenField.value);
+            if (copylink.Length > 0)
+            {
+                ShowCopyLink();
+            }
+            else
+            {
+                HideCopyLink();
+            }
+            ShowCopyLink();
+        }
+        else
+        {
+            HideCopyLink();
+        }
+    }
+    
+    private async void HandleToken(ChangeEvent<string> value)
+    {
+     //Check length of value
+     if (value.newValue.Length == 64)
+     {
+         copylink = await VALIDATE_TOKEN(value.newValue);
+         if (copylink.Length > 0)
+         {
+             ShowCopyLink();
+         }
+         else
+         {
+             HideCopyLink();
+         }
+     }
+     else
+     {
+         HideCopyLink();
+     }
+     
     }
 
     private void OnBuildPressed()
@@ -68,10 +119,23 @@ public class GameBuildEditorWindow : EditorWindow
         BuildAndZip();
     }
 
-    private void OnCopyLinkPressed()
+    
+    private async void OnCopyLinkPressed()
     {
-        Debug.Log("CopyLinkPressed");
-        Application.OpenURL("https://gamebuild.io/projects/" + copylink);
+        if (tokenField.value.Length == 64)
+        {
+            if (!String.IsNullOrEmpty(copylink))
+            {
+                Debug.Log("CopyLinkPressed");
+                Application.OpenURL(api_url + "projects/" + copylink);
+            }
+        }
+        else
+        {
+            Debug.Log("Please provide a token first");
+            return;
+        }
+        
     }
 
     private void OnGetStartedPressed()
@@ -94,14 +158,17 @@ public class GameBuildEditorWindow : EditorWindow
         Application.OpenURL("https://tally.so/r/w2XMOe");
     }
 
+    
     public void ShowCopyLink()
     {
-        copyLinkButton.clickable.target.visible = true;
+        buildButton.SetEnabled(true);
+        copyLinkButton.SetEnabled(true);
     }
     
     public void HideCopyLink()
     {
-        copyLinkButton.clickable.target.visible = false;
+        buildButton.SetEnabled(false);
+        copyLinkButton.SetEnabled(false);
     }
     
     [InitializeOnLoadMethod]
@@ -125,44 +192,6 @@ public class GameBuildEditorWindow : EditorWindow
         }
     }
 
-    private void LoadGamebuildConfig()
-    {
-        var serializedObject = new SerializedObject(data);
-        // fetches the values of the real instance into the serialized one
-        serializedObject.Update();
-        copylink = serializedObject.FindProperty("Copylink").stringValue;
-        built = serializedObject.FindProperty("built").boolValue;
-
-
-        if (built)
-        {
-            ShowCopyLink();
-        }
-        else
-        {
-            HideCopyLink();
-        }
-
-        if (copylink.Length == 0)
-        {
-            GenerateToken();
-        }
-    }
-
-    private void GenerateToken()
-    {
-        
-        RandomNumberGenerator rng = new RNGCryptoServiceProvider();
-        byte[] tokenData = new byte[32];
-        rng.GetBytes(tokenData);
-        string token = UrlEncode(Convert.ToBase64String(tokenData));;
-        var serializedObject = new SerializedObject(data);
-        // fetches the values of the real instance into the serialized one
-        var configtoken = serializedObject.FindProperty("Copylink");
-        configtoken.stringValue = token;
-        serializedObject.ApplyModifiedProperties();
-    }
-    
     public string UrlEncode(string str)
     {
         if (str == null || str == "")
@@ -181,7 +210,7 @@ public class GameBuildEditorWindow : EditorWindow
         
         try
         {
-            if (copylink == null)
+            if (String.IsNullOrEmpty(tokenField.value))
             {
                 return;
             }
@@ -196,22 +225,14 @@ public class GameBuildEditorWindow : EditorWindow
             string projectname = PlayerSettings.productName;
             string studioname = PlayerSettings.companyName;
 
-            string upload_url = await GET_UPLOAD_URL(copylink, projectname, studioname);
+            string upload_url = await GET_UPLOAD_URL(tokenField.value, projectname, studioname);
             
             Debug.Log(upload_url);
             
-            Upload(targetfile, upload_url, copylink, projectname, studioname);
+            Upload(targetfile, upload_url, tokenField.value, projectname, studioname);
             
             
             //PlayFlowBuilder.cleanUp(zipFile);
-            
-            var serializedObject = new SerializedObject(data);
-            // fetches the values of the real instance into the serialized one
-            built = true;
-            var configbuilt = serializedObject.FindProperty("built");
-            configbuilt.boolValue = built;
-            serializedObject.ApplyModifiedProperties();
-
         }
         finally
         {
@@ -241,6 +262,38 @@ public class GameBuildEditorWindow : EditorWindow
         }
     }
     
+    public static async Task<string> VALIDATE_TOKEN(string token)
+    {
+        string output = "";
+        try
+        {
+            string actionUrl = api_url + "validate_token";
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("token", token);
+                HttpResponseMessage response = await client.GetAsync(actionUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    output = await response.Content.ReadAsStringAsync();
+                    output = output.Trim('"');
+                    return output;
+                }
+                else
+                {
+                    Debug.Log($"Invalid Token: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
+        
+        //Escape output string
+        return output;
+    }
+    
     
     
     public static async Task<string> SUCCESS(string token, string projectname, string studioname)
@@ -248,7 +301,7 @@ public class GameBuildEditorWindow : EditorWindow
         string output = "";
         try
         {
-            string actionUrl = "https://gamebuild.io/" + "success";
+            string actionUrl = api_url + "success";
 
             using (var client = new HttpClient())
             {
@@ -282,7 +335,7 @@ public class GameBuildEditorWindow : EditorWindow
         string output = "";
         try
         {
-            string actionUrl = "https://gamebuild.io/" + "upload_url";
+            string actionUrl = api_url + "upload_url";
 
             using (var client = new HttpClient())
             {
@@ -313,7 +366,6 @@ public class GameBuildEditorWindow : EditorWindow
 
     private void OnGUI()
     {
-        LoadGamebuildConfig();
     }
     
     public void OnInspectorUpdate()
