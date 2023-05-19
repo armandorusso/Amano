@@ -649,7 +649,7 @@ MonoBehaviour:
   groundDustFx: {fileID: 0}
   wallDustFx: {fileID: 580608158163245011}
   leavesFx: {fileID: 2685376308485938850}
-  speedFx: {fileID: 130814148272698025}
+  speedFx: {fileID: 1381683945962000662, guid: c7f249e18d9d9154db18864a23d79287, type: 3}
 --- !u!114 &4774640018617696223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6142,11 +6142,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77fcba21aae3f81428eca7d7d614c9e5, type: 3}
---- !u!198 &130814148272698025 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5612130728572296110, guid: 77fcba21aae3f81428eca7d7d614c9e5, type: 3}
-  m_PrefabInstance: {fileID: 5490721305164032263}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &130814148272698026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5612130728572296109, guid: 77fcba21aae3f81428eca7d7d614c9e5, type: 3}

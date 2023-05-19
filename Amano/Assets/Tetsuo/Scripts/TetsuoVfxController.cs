@@ -82,10 +82,6 @@ public class TetsuoVfxController : MonoBehaviour
         {
             speedFx.Play();
         }
-        else
-        {
-            speedFx.Stop();
-        }
     }
     
     public void OnDeath(bool isEmitting)

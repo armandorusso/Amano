@@ -223,9 +223,10 @@ public class TetsuoController : MonoBehaviour, IMove
     private void OnLeavingPlatform(Vector2 platformVelocity)
     {
         // While running off + jumping a fast moving platform, gain a boost of speed
-        if (JumpBoostButton.IsPressed() && _isJumping)
+        if (JumpBoostButton.IsPressed() && _isJumping && _isRunning)
         {
             rb.velocity += platformVelocity;
+            MaxSpeedExceedEffectAction?.Invoke(true);
         }
     }
     
@@ -234,6 +235,7 @@ public class TetsuoController : MonoBehaviour, IMove
         if (JumpBoostButton.IsPressed() && (_isGrounded || _isJumping || _isFalling))
         {
             hasActivatedTeleportPopOut = true;
+            MaxSpeedExceedEffectAction?.Invoke(true);
             Invoke(nameof(SetTeleportPopOutBooleanToFalse), teleportPopOutTimer);
         }
     }
@@ -288,13 +290,9 @@ public class TetsuoController : MonoBehaviour, IMove
             Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && !_isGrounded)
         {
             acceleration = 0f;
-            MaxSpeedExceedEffectAction?.Invoke(true);
+            // MaxSpeedExceedEffectAction?.Invoke(true);
         }
-        else
-        {
-            MaxSpeedExceedEffectAction?.Invoke(false);
-        }
-        
+
         // Calculate difference between current velocity and desired velocity
         float speedDif = targetSpeed - rb.velocity.x;
         
