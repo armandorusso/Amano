@@ -1203,7 +1203,7 @@ GameObject:
   - component: {fileID: 611758267988404561}
   - component: {fileID: 6521095528444295148}
   m_Layer: 0
-  m_Name: Breakable Platforms
+  m_Name: Background Tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
