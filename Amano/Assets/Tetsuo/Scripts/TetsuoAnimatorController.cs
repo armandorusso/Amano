@@ -21,7 +21,7 @@ public class TetsuoAnimatorController : MonoBehaviour
     private bool _hasDied;
 
     private TetsuoController _tetsuoController;
-    public static Action<bool> EnableInputAction;
+    public static Action<string> EnableInputAction;
     public static Action<bool> EnableHealthUiAction;
 
     private void Awake()
@@ -116,7 +116,7 @@ public class TetsuoAnimatorController : MonoBehaviour
         yield return new WaitForSeconds(zoomOutTime);
         _isSitting = false;
         _animationController.SetBool("isSitting", false);
-        EnableInputAction?.Invoke(hasEnabledInput);
+        EnableInputAction?.Invoke("Player");
         EnableHealthUiAction?.Invoke(hasEnabledInput);
         StopCoroutine(WaitForAnimationToFinish(hasEnabledInput, zoomOutTime));
     }

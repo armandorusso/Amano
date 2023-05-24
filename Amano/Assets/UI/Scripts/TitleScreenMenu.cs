@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class FadeOutTitleScreen : MonoBehaviour
+public class TitleScreenMenu : MonoBehaviour
 {
     [SerializeField] public Button[] TitleScreenButtons;
     private CanvasGroup _titleScreenCanvas;
@@ -14,19 +15,26 @@ public class FadeOutTitleScreen : MonoBehaviour
     {
         _titleScreenCanvas = GetComponent<CanvasGroup>();
         StartGame.FadeStartScreenAction += OnStartGame;
+        
+        EventSystem.current.SetSelectedGameObject(TitleScreenButtons[0].gameObject);
     }
 
     private void Update()
     {
         if (_hasStartedGame)
         {
-            _titleScreenCanvas.alpha = Mathf.Lerp(_titleScreenCanvas.alpha, 0, Time.deltaTime / 1f * 2f);
+            FadeOutTitleScreen();
         }
 
         if (_titleScreenCanvas.alpha <= 0.005f)
         {
             gameObject.SetActive(false);
         }
+    }
+
+    private void FadeOutTitleScreen()
+    {
+        _titleScreenCanvas.alpha = Mathf.Lerp(_titleScreenCanvas.alpha, 0, Time.deltaTime / 1f * 2f);
     }
 
     private void OnStartGame(bool hasStartedGame)
