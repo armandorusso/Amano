@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Platform
   - DeathZone
+  - Shuriken
   layers:
   - Default
   - TransparentFX

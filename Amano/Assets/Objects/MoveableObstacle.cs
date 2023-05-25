@@ -5,35 +5,51 @@ using UnityEngine;
 
 public class MoveableObstacle : MonoBehaviour
 {
-    [SerializeField] private Transform _point1;
-    [SerializeField] private Transform _point2;
+    [SerializeField] private Transform _startPoint;
+    [SerializeField] private Transform _endPoint;
     [SerializeField] private float _speed;
     [SerializeField] private float _delayBetweenPoints;
     [SerializeField] private bool IsFastPlatform;
     
-    private Transform _endPoint;
     private Vector2 _previousPosition;
-    private Transform _newPoint;
     private Rigidbody2D _rb;
+    private bool isPlatformActive;
     public static Action<Vector2> TouchingPlatformAction;
     
     private void Start()
     {
-        _endPoint = _point2;
-        _newPoint = _point1;
         _rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         _previousPosition = transform.position;
-        transform.position = Vector2.Lerp(transform.position, _endPoint.position, Time.deltaTime * _speed);
+        
+        if (isPlatformActive)
+        {
+            MovePlatform();
+        }
+    }
+
+    private void MovePlatform()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, _endPoint.position, Time.deltaTime * (_speed * 1.25f));
+        
         if (Vector2.Distance(transform.position, _endPoint.position) <= 0.5f)
         {
-            var temp = _endPoint;
-            _endPoint = _newPoint;
-            _newPoint = temp;
-            // Coroutine instead?
+            isPlatformActive = false;
+            StartCoroutine(DelayPlatformFromMovingBack());
+        }
+    }
+
+    private IEnumerator DelayPlatformFromMovingBack()
+    {
+        yield return new WaitForSeconds(1f);
+
+        while (Vector2.Distance(transform.position, _startPoint.position) >= 0.5f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _startPoint.position, Time.deltaTime * 1f);
+            yield return null;
         }
     }
 
@@ -44,6 +60,11 @@ public class MoveableObstacle : MonoBehaviour
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.None;
             
             col.collider.transform.SetParent(transform);
+        }
+
+        if (col.gameObject.CompareTag("Shuriken"))
+        {
+            isPlatformActive = true;
         }
     }
 
@@ -62,7 +83,7 @@ public class MoveableObstacle : MonoBehaviour
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.Extrapolate;
             var platformVelocity = ((((Vector2) transform.position - _previousPosition)) / Time.deltaTime) * 1.5f;
             
-            if(IsFastPlatform)
+            if(IsFastPlatform && isPlatformActive)
                 TouchingPlatformAction?.Invoke(platformVelocity);
             
             col.gameObject.transform.SetParent(null);
