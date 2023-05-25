@@ -20,6 +20,9 @@ public class Trampoline : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             col.rigidbody.velocity += _launchDirection * _jumpForceAmount;
+            // Bug: jump + trampoline to gain a huge boost. Could be kept as a feature for fun levels?
+            // The line below fixes this
+            // col.rigidbody.velocity = new Vector2((_launchDirection.x + col.rigidbody.velocity.x) * _jumpForceAmount, _launchDirection.y);
             _animator.SetBool("hasSteppedOn", true);
         }
     }

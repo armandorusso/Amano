@@ -91,7 +91,7 @@ public class TetsuoController : MonoBehaviour, IMove
         _isFacingRight = true;
         _doneDashing = true;
 
-        MoveableObstacle.TouchingPlatformAction += OnLeavingPlatform;
+        FastMovingPlatform.TouchingPlatformAction += OnLeavingPlatform;
         TeleportAbility.TeleportPopOutAction += OnTeleportPopOut;
         TetsuoSlashAttack.SlashBoostAction += OnSlashBoost;
     }

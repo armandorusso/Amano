@@ -123,19 +123,18 @@ public class ShootingShuriken : MonoBehaviour
             var point = startPosition + time * startVelocity;
             point.y = startPosition.y + startVelocity.y * time + (Physics2D.gravity.y / 2f * time * time);
 
-            _lineRenderer.SetPosition(i, point);
-            
-            // Make the line renderer stop when it hits a wall/collideable object
-            /*Vector2 lastPosition = _lineRenderer.GetPosition(i - 1);
-            var hit = Physics2D.Raycast(lastPosition, (point - lastPosition).normalized,
-                (point - lastPosition).magnitude, TrajectoryLayerMask);
+            // Perform collision detection
+            RaycastHit2D hit = Physics2D.Raycast(point, point, Vector2.Distance(point, startPosition), TrajectoryLayerMask);
 
-            if (hit != null)
+            if (hit.collider != null)
             {
-                _lineRenderer.SetPosition(i, hit.point);
-                _lineRenderer.positionCount = i + 1; // avoids the old points to be considered
-                return;
-            }*/
+                // Collision detected
+                // Do something with the collider or the hit information
+                _lineRenderer.SetPosition(i - 1, hit.point);
+                return; // Stop drawing the trajectory if a collision occurs
+            }
+
+            _lineRenderer.SetPosition(i, point);
         }
     }
 

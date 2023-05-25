@@ -10,6 +10,7 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] public float RespawnTime;
     private Vector2 RespawnLocation;
     private Color _originalSpriteColor;
+    private Color _fadedSpriteColor;
     private SpriteRenderer _fallingPlatformSprite;
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
@@ -26,6 +27,7 @@ public class FallingPlatform : MonoBehaviour
         _collider = GetComponent<BoxCollider2D>();
         _rb.bodyType = RigidbodyType2D.Static;
         _originalSpriteColor = _fallingPlatformSprite.color;
+        _fadedSpriteColor = new Color(_originalSpriteColor.r, _originalSpriteColor.g, _originalSpriteColor.b, 0);
         RespawnLocation = transform.position;
     }
 
@@ -41,7 +43,7 @@ public class FallingPlatform : MonoBehaviour
 
         else if(_isPlatformBreaking)
         {
-            _fallingPlatformSprite.color = Color.Lerp(_fallingPlatformSprite.color, Color.red,
+            _fallingPlatformSprite.color = Color.Lerp(_fallingPlatformSprite.color, _fadedSpriteColor,
                 Time.deltaTime / DelayBeforePlatformFalls);
         }
         
@@ -54,8 +56,8 @@ public class FallingPlatform : MonoBehaviour
     private void DelayPlatformFalling()
     {
         _isFalling = true;
-        _rb.bodyType = RigidbodyType2D.Dynamic;
-        _rb.gravityScale = PlatformFallSpeed;
+        // _rb.bodyType = RigidbodyType2D.Dynamic;
+        // _rb.gravityScale = PlatformFallSpeed;
         Invoke(nameof(StartRespawnPlatform), RespawnTime);
     }
 
