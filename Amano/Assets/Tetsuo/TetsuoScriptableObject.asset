@@ -36,11 +36,11 @@ MonoBehaviour:
   wallJumpingDirection: {x: 1.5, y: 2}
   wallJumpForce: 6
   wallJumpingTime: 0.28
-  dashPower: 16.1
-  dashTime: 0.2
+  dashPower: 45
+  dashTime: 0.1
   dashCooldown: 0.8
   dashEndSpeed: 8.2
-  dashEndTime: 0.08
+  dashEndTime: 0.18
   dashCooldownOnGround: 2
   _WallStickingTimer: 2
   SlashingTime: 0.12
