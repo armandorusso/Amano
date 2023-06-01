@@ -64,6 +64,9 @@ public class TetsuoController : MonoBehaviour, IMove
     public static Action<bool, bool> WallSlidingEffectAction;
     public static Action<bool> DashAttackLeafEffectAction;
     public static Action<bool> MaxSpeedExceedEffectAction;
+    public static Action<string> PlaySoundEffectAction;
+    public static Action<string> StopSoundEffectAction;
+    public static Action<bool> PlayRunSoundEffectAction;
     
     public class GroundedDashAttackFxEventArgs : EventArgs
     {
@@ -172,6 +175,7 @@ public class TetsuoController : MonoBehaviour, IMove
             SetGravityScale(_originalGravityScale);
             var wallJumpVector = new Vector2(wallJumpFacingDirection * TetsuoData.wallJumpingDirection.x * TetsuoData.wallJumpForce, TetsuoData.wallJumpingDirection.y * TetsuoData.wallJumpForce);
             rb.velocity = wallJumpVector;
+            PlaySoundEffectAction?.Invoke("Jump");
             
             // wallJumpingCounter = 0.28f;
 
@@ -191,6 +195,7 @@ public class TetsuoController : MonoBehaviour, IMove
         
         if(context.started)
         {
+            PlaySoundEffectAction?.Invoke("Slash");
             _isSlashing = true;
             Invoke(nameof(StopSlashing), TetsuoData.SlashingTime);
         }
@@ -367,6 +372,8 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             _isRunning = false;
         }
+        
+        PlayRunSoundEffectAction?.Invoke(_isRunning);
     }
 
     private void UpdateHasLanded(Collision2D collision)
@@ -382,6 +389,8 @@ public class TetsuoController : MonoBehaviour, IMove
             
             JumpOrLandEffectAction?.Invoke(true);
             JumpOrLandEffectAction?.Invoke(false);
+            
+            PlaySoundEffectAction?.Invoke("Land");
         }
     }
 
@@ -485,6 +494,7 @@ public class TetsuoController : MonoBehaviour, IMove
         if (jumpBufferCounter > 0f && TetsuoData.coyoteTimeCounter > 0f)
         {
             JumpOrLandEffectAction?.Invoke(true);
+            PlaySoundEffectAction?.Invoke("Jump");
             _isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, TetsuoData._jumpingPower);
             jumpBufferCounter = 0f;
@@ -523,6 +533,7 @@ public class TetsuoController : MonoBehaviour, IMove
         rb.velocity = Vector2.zero;
         _isAirDashing = true;
         SetGravityScale(0f);
+        PlaySoundEffectAction?.Invoke("Dash");
         yield return new WaitForSeconds(TetsuoData.dashTime + 0.4f);
         
         var dashDirection = _horizontal != 0 || _vertical != 0

@@ -148,7 +148,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1159915091, guid: b2b711a9b5544664ead0b0aabfe4774f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -172,22 +172,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9453fc0b95ae9429f13ccf0020571e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyParameters: {fileID: 11400000, guid: a89a175f09e0c5c409719b4551b92659, type: 2}
   Timer: {fileID: 7674069901513495694}
   GroundCheck: {fileID: 1508394702720032208}
   TetsuoPosition: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   ThrowPosition: {fileID: 0}
-  Sprite: {fileID: 4751308941784329156}
   LineOfSightDistance: 4
   RayCastLayers:
     serializedVersion: 2
     m_Bits: 832
-  canInvokeQuickTimeEvent: 1
+  EnemyParameters: {fileID: 11400000, guid: a89a175f09e0c5c409719b4551b92659, type: 2}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
-  Rb: {fileID: 4751308941784329157}
-  Collider: {fileID: 4751308941784329154}
   GroundCheckDirectionModifier: {fileID: 2913072184943294638}
   CooldownTimer: {fileID: 4487505153341367011}
   AttackingHitbox: {fileID: 6757076447274174165}

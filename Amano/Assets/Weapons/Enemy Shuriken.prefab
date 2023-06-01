@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 243013295, guid: 895cd917be90c6649b40876d41ec0032, type: 3}
   m_Color: {r: 0.10097957, g: 1, b: 0, a: 1}
   m_FlipX: 0
@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 20
+  ShurikenAttachedColor: {r: 0, g: 0, b: 0, a: 0}
+  ShurikenParticleSystem: {fileID: 0}
+  _sprite: {fileID: 0}
   _animator: {fileID: 0}
   _rb: {fileID: 0}
   _collider: {fileID: 0}
