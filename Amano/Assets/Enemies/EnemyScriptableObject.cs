@@ -8,4 +8,5 @@ public class EnemyScriptableObject : ScriptableObject
     public int Health;
     public float Speed;
     public GameObject ItemUsing;
+    public AudioFactsScriptableObject EnemyAudioFacts;
 }

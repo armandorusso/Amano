@@ -24,6 +24,7 @@ public class TeleportAbility : MonoBehaviour
     private VanishingFxEventArgs vanishingEventArgs;
 
     public static Action<float> TeleportPopOutAction;
+    public static Action<string> TeleportSoundAction;
     public static Action<ShieldRotation> RemoveShieldComponentsAction;
 
     void Awake()
@@ -108,6 +109,7 @@ public class TeleportAbility : MonoBehaviour
             vanishingEventArgs.objectBeingTeleported1 = gameObject;
             vanishingEventArgs.objectBeingTeleported2 = objectToTeleport.gameObject;
             VanishingEvent.Invoke(this, vanishingEventArgs);
+            TeleportSoundAction?.Invoke("Vanish");
             var playerPosition = gameObject.transform.position;
             gameObject.transform.position = objectToTeleport.position;
             // objectToTeleport.transform.position = playerPosition;

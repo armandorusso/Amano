@@ -12,6 +12,8 @@ public class ShurikenProjectile : MonoBehaviour
     [SerializeField] public float Damage;
     [SerializeField] public Color ShurikenAttachedColor;
     [SerializeField] public ParticleSystem ShurikenParticleSystem;
+    [SerializeField] public AudioClip ShurikenSound;
+    private AudioSource _audioSource;
     public SpriteRenderer _sprite;
     public Animator _animator;
     public Rigidbody2D _rb;
@@ -43,9 +45,8 @@ public class ShurikenProjectile : MonoBehaviour
         public ShurikenProjectile shuriken { get; set; }
         public GameObject enemy { get; set; }
     }
-    
 
-    private void Start()
+    private void Awake()
     {
         hitTeleportableObj = false;
         hitGroundOrWall = false;
@@ -55,12 +56,14 @@ public class ShurikenProjectile : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _trailRenderer = GetComponent<TrailRenderer>();
         _instantiatedShurikenProperties = true;
-
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = ShurikenSound;
         _originalColor = _sprite.color;
     }
 
     public void OnEnable()
     {
+        _audioSource.PlayOneShot(ShurikenSound);
         if(_instantiatedShurikenProperties)
             SwitchShurikenProperties(true);
     }
@@ -118,6 +121,7 @@ public class ShurikenProjectile : MonoBehaviour
         
         if (!hitGroundOrWall && otherObject.layer is 7 or 8 or 9 or 10 or 13) // Enemy, Ground, Wall, Item or QuickTimeEvent
         {
+            transform.parent = otherObject.transform;
             hitGroundOrWall = true;
             Assert.IsNotNull(_rb);
             Assert.IsNotNull(_animator);
@@ -132,7 +136,6 @@ public class ShurikenProjectile : MonoBehaviour
                     otherObject = contactedCollider.gameObject;
                 }
                 
-                transform.parent = otherObject.transform;
                 hitTeleportableObj = true;
 
                 GameObject teleportObject = null;

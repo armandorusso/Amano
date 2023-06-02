@@ -36,6 +36,8 @@ public class ShootingShuriken : MonoBehaviour
 
     private Vector3 aimPos;
 
+    public static Action<string> ShootShurikenSoundAction;
+
     private void Start()
     {
         canShoot = true;
@@ -79,6 +81,7 @@ public class ShootingShuriken : MonoBehaviour
         
         if (context.started && canShoot)
         {
+            ShootShurikenSoundAction?.Invoke("Shoot");
             var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject();
             shurikenObj.SetActive(true);
             shurikenObj.GetComponent<Rigidbody2D>().simulated = true;

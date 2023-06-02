@@ -27,6 +27,7 @@ public class TetsuoHealthBar : MonoBehaviour
         public bool isMovementEnabled { get; set; }
     }
     public static event EventHandler<TetsuoDeathEventArgs> tetsuoDeathEvent;
+    public static Action<string> TetsuoHurtOrDeathSoundAction;
 
     void Start()
     {
@@ -64,6 +65,7 @@ public class TetsuoHealthBar : MonoBehaviour
         if (e.hitGameObject == gameObject)
         {
             TetsuoHealthPoints.DecreaseHealth(e.damage);
+            TetsuoHurtOrDeathSoundAction?.Invoke("Hurt");
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
             
@@ -76,6 +78,7 @@ public class TetsuoHealthBar : MonoBehaviour
         if (!isInvulnerable && objectLayer == 6)
         {
             TetsuoHealthPoints.DecreaseHealth(damage);
+            TetsuoHurtOrDeathSoundAction?.Invoke("Hurt");
             healthUIEventArgs.currentHealth = TetsuoHealthPoints.HitPoints;
             healthUIEvent?.Invoke(this, healthUIEventArgs);
 
@@ -116,7 +119,7 @@ public class TetsuoHealthBar : MonoBehaviour
         {
             isInvulnerable = true;
             Invoke(nameof(SetInvulnerabilityFalse), 1.5f);
-            
+            TetsuoHurtOrDeathSoundAction?.Invoke("Death");
             TetsuoHealthPoints.IncreaseHealth(100f);
             healthUIEventArgs = new HealthUIEventArgs
             {

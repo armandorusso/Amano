@@ -14,6 +14,7 @@ public class AmanoStateMachine : MonoBehaviour
     public SpriteRenderer _sprite { get; private set; }
     public Rigidbody2D _rb { get; private set; }
     public Collider2D _collider { get; private set; }
+    public AudioSource _audioSource { get; private set; }
 
     public static event EventHandler<OnStateChangedArgs> onStateChangedEvent;
     public class OnStateChangedArgs : EventArgs
@@ -27,6 +28,7 @@ public class AmanoStateMachine : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Start()

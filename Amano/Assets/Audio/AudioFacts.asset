@@ -22,8 +22,6 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 24e35a5591c569a46a6f512a64bb5dc1, type: 3}
     - Key: Slash
       Value: {fileID: 8300000, guid: 6a63c484849d4784da8764b566039ab7, type: 3}
-    - Key: Shoot
-      Value: {fileID: 8300000, guid: 37f504bae347184448b98079823a435f, type: 3}
     - Key: Vanish
       Value: {fileID: 8300000, guid: 32f6e2947d5ef574597327dbbded6d74, type: 3}
     - Key: Dash

@@ -7,12 +7,15 @@ public class Trampoline : MonoBehaviour
 {
     [SerializeField] private float _jumpForceAmount;
     [SerializeField] private Vector2 _launchDirection;
+    [SerializeField] public AudioClip TrampolineSound;
 
     private Animator _animator;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -24,6 +27,7 @@ public class Trampoline : MonoBehaviour
             // The line below fixes this
             // col.rigidbody.velocity = new Vector2((_launchDirection.x + col.rigidbody.velocity.x) * _jumpForceAmount, _launchDirection.y);
             _animator.SetBool("hasSteppedOn", true);
+            _audioSource.PlayOneShot(TrampolineSound);
         }
     }
 

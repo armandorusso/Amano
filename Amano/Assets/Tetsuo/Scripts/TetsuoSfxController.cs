@@ -14,6 +14,8 @@ public class TetsuoSfxController : MonoBehaviour
         _tetsuoSoundMap = TetsuoSoundFacts.Facts;
 
         TetsuoController.PlaySoundEffectAction += PlayTetsuoSoundEffect;
+        TetsuoHealthBar.TetsuoHurtOrDeathSoundAction += PlayTetsuoSoundEffect;
+        TeleportAbility.TeleportSoundAction += PlayTetsuoSoundEffect;
         TetsuoController.StopSoundEffectAction += StopPlayingTetsuoSoundEffect;
         TetsuoController.PlayRunSoundEffectAction += PlayTetsuoRunSound;
     }
@@ -27,7 +29,6 @@ public class TetsuoSfxController : MonoBehaviour
         
         if (!_oneshotAudioSource.isPlaying)
         {
-            _oneshotAudioSource.clip = _tetsuoSoundMap[soundEffectName];
             _oneshotAudioSource.PlayOneShot(_tetsuoSoundMap[soundEffectName]);
         }
     }

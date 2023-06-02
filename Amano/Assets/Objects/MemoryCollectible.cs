@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class MemoryCollectible : MonoBehaviour
 {
+    [SerializeField] public AudioClip MemoryCollectSound;
     private bool hasCollected = false;
     private Animator _anim;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _anim = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -19,6 +22,7 @@ public class MemoryCollectible : MonoBehaviour
         {
             hasCollected = true;
             _anim.SetBool("collected", true);
+            _audioSource.PlayOneShot(MemoryCollectSound);
             GameManager.Instance.IncrementCollectibleCount();
             
             Invoke(nameof(PlayAnimation), 1.4f);

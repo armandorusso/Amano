@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
     private float MaxHealthPoints;
     private float CurrentHitPoints;
     private SpriteRenderer _sprite;
+    private AudioSource _audioSource;
+    private AudioFactsScriptableObject _audioClipFacts;
     private Color _originalColor;
 
     public class EnemyDeathEventArgs : EventArgs
@@ -21,6 +23,8 @@ public class EnemyHealth : MonoBehaviour
     private void Start()
     {
         var enemySO = GetComponent<EnemyData>().EnemyParameters;
+        _audioSource = GetComponent<AudioSource>();
+        _audioClipFacts = GetComponent<EnemyData>().EnemyParameters.EnemyAudioFacts;
         MaxHealthPoints = enemySO.Health;
         CurrentHitPoints = MaxHealthPoints;
 
@@ -28,6 +32,7 @@ public class EnemyHealth : MonoBehaviour
         SlashingHitbox.SlashHitEvent += OnEnemySlashed;
         
         _sprite = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
         _originalColor = _sprite.color;
     }
 
@@ -55,6 +60,7 @@ public class EnemyHealth : MonoBehaviour
     private void DamageEnemy(float damage)
     {
         DecreaseHealth(damage);
+        _audioSource.PlayOneShot(_audioClipFacts.Facts["Hurt"]);
 
         if (CurrentHitPoints <= 0)
         {
@@ -63,7 +69,7 @@ public class EnemyHealth : MonoBehaviour
                 enemy = gameObject
             };
 
-            EnemyDeathEvent?.Invoke(this, enemyDeathEventArgs);
+            StartCoroutine(PlayAudioBeforeInvokingDeath());
         }
     }
 
@@ -78,6 +84,13 @@ public class EnemyHealth : MonoBehaviour
         _sprite.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         _sprite.color = _originalColor;
+    }
+
+    private IEnumerator PlayAudioBeforeInvokingDeath()
+    {
+        _audioSource.PlayOneShot(_audioClipFacts.Facts["Death"]);
+        yield return new WaitForSeconds(0.2f);
+        EnemyDeathEvent?.Invoke(this, enemyDeathEventArgs);
     }
 
     private void OnDestroy()

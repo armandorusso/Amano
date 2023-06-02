@@ -15,3 +15,4 @@ MonoBehaviour:
   Health: 100
   Speed: 0.5
   ItemUsing: {fileID: 7734737157238360699, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
+  EnemyAudioFacts: {fileID: 11400000, guid: b2825bb0284be7844b1239497cad36f1, type: 2}
