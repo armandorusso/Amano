@@ -10,6 +10,7 @@ public class TetsuoVfxController : MonoBehaviour
     [SerializeField] private ParticleSystem leavesFx;
     [SerializeField] private ParticleSystem speedFx;
 
+    private TrailRenderer _trail;
     private bool isWallDustPlaying;
     private bool isLeavesFlyingPlaying;
 
@@ -20,6 +21,8 @@ public class TetsuoVfxController : MonoBehaviour
         TetsuoController.DashAttackLeafEffectAction += OnDashAttackEvent;
         TetsuoController.MaxSpeedExceedEffectAction += OnExceedingMaxSpeed;
         GameManager.DeathTrailEffectAction += OnDeath;
+
+        _trail = GetComponent<TrailRenderer>();
     }
 
     private void OnWallSlidingEvent(bool isSliding, bool isFacingRight)
@@ -73,6 +76,8 @@ public class TetsuoVfxController : MonoBehaviour
         {
             leavesFx.Stop();
         }
+        
+        _trail.emitting = isDashing;
     }
 
     public void OnExceedingMaxSpeed(bool isGoingFast)

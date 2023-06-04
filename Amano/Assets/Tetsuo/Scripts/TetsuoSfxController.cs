@@ -5,12 +5,13 @@ using UnityEngine;
 public class TetsuoSfxController : MonoBehaviour
 {
     [SerializeField] public AudioFactsScriptableObject TetsuoSoundFacts;
-    private GenericDictionary<string, AudioClip> _tetsuoSoundMap;
     [SerializeField] private AudioSource _oneshotAudioSource;
     [SerializeField] private AudioSource _vanishAudioSource;
     [SerializeField] private AudioSource _loopedAudioSource;
     [SerializeField] private AudioSource _extraAudioSource;
     
+    private GenericDictionary<string, AudioClip> _tetsuoSoundMap;
+
     void Start()
     {
         _tetsuoSoundMap = TetsuoSoundFacts.Facts;
