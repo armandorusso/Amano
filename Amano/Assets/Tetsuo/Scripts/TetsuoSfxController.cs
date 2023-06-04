@@ -7,15 +7,18 @@ public class TetsuoSfxController : MonoBehaviour
     [SerializeField] public AudioFactsScriptableObject TetsuoSoundFacts;
     private GenericDictionary<string, AudioClip> _tetsuoSoundMap;
     [SerializeField] private AudioSource _oneshotAudioSource;
+    [SerializeField] private AudioSource _vanishAudioSource;
     [SerializeField] private AudioSource _loopedAudioSource;
+    [SerializeField] private AudioSource _extraAudioSource;
     
     void Start()
     {
         _tetsuoSoundMap = TetsuoSoundFacts.Facts;
 
-        TetsuoController.PlaySoundEffectAction += PlayTetsuoSoundEffect;
         TetsuoHealthBar.TetsuoHurtOrDeathSoundAction += PlayTetsuoSoundEffect;
-        TeleportAbility.TeleportSoundAction += PlayTetsuoSoundEffect;
+        TeleportAbility.TeleportSoundAction += PlayVanishSound;
+        TetsuoController.PlaySoundEffectAction += PlayTetsuoSoundEffect;
+        TetsuoController.PlayExtraSoundEffectAction += PlayMomentumSound;
         TetsuoController.StopSoundEffectAction += StopPlayingTetsuoSoundEffect;
         TetsuoController.PlayRunSoundEffectAction += PlayTetsuoRunSound;
     }
@@ -49,6 +52,33 @@ public class TetsuoSfxController : MonoBehaviour
             _loopedAudioSource.Stop();
         }
     }
+
+    private void PlayMomentumSound(string soundEffectName)
+    {
+        if (_extraAudioSource.clip != _tetsuoSoundMap[soundEffectName])
+        {
+            _extraAudioSource.Stop();
+        }
+        
+        if (!_extraAudioSource.isPlaying)
+        {
+            _extraAudioSource.PlayOneShot(_tetsuoSoundMap[soundEffectName]);
+        }
+    }
+    
+    private void PlayVanishSound(string soundEffectName)
+    {
+        if (_vanishAudioSource.clip != _tetsuoSoundMap[soundEffectName])
+        {
+            _vanishAudioSource.Stop();
+        }
+        
+        if (!_extraAudioSource.isPlaying)
+        {
+            _vanishAudioSource.PlayOneShot(_tetsuoSoundMap[soundEffectName]);
+        }
+    }
+
 
     private void StopPlayingTetsuoSoundEffect(string soundEffectName)
     {

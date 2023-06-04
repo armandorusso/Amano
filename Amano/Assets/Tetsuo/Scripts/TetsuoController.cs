@@ -65,9 +65,10 @@ public class TetsuoController : MonoBehaviour, IMove
     public static Action<bool> DashAttackLeafEffectAction;
     public static Action<bool> MaxSpeedExceedEffectAction;
     public static Action<string> PlaySoundEffectAction;
-    public static Action<string> StopSoundEffectAction;
+    public static Action<string> PlayExtraSoundEffectAction;
     public static Action<bool> PlayRunSoundEffectAction;
-    
+    public static Action<string> StopSoundEffectAction;
+
     public class GroundedDashAttackFxEventArgs : EventArgs
     {
         public GameObject Tetsuo { get; set; }
@@ -241,6 +242,7 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             hasActivatedTeleportPopOut = true;
             MaxSpeedExceedEffectAction?.Invoke(true);
+            PlayExtraSoundEffectAction?.Invoke("Momentum");
             Invoke(nameof(SetTeleportPopOutBooleanToFalse), teleportPopOutTimer);
         }
     }
@@ -437,7 +439,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void WallSlide()
     {
-        if (IsTouchingWall() && _horizontal != 0 && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
+        if (IsTouchingWall() && _horizontal != 0 && !_isFalling && !_isWallSticking) // if you are falling and are running towards the wall
         {
             _isWallSliding = true;
             WallSlidingEffectAction?.Invoke(_isWallSliding, _isFacingRight);
