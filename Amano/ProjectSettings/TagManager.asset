@@ -9,6 +9,7 @@ TagManager:
   - Platform
   - DeathZone
   - Shuriken
+  - Room
   layers:
   - Default
   - TransparentFX

@@ -89,12 +89,12 @@ public class ShurikenProjectile : MonoBehaviour
         _sprite.color = ShurikenAttachedColor;
     }
 
-    private void SwitchShurikenProperties(bool b)
+    private void SwitchShurikenProperties(bool isEnabled)
     {
-        _animator.enabled = b;
-        _collider.enabled = b;
-        _rb.simulated = b;
-        _trailRenderer.enabled = b;
+        _animator.enabled = isEnabled;
+        _collider.enabled = isEnabled;
+        _rb.simulated = isEnabled;
+        _trailRenderer.enabled = isEnabled;
     }
 
     private void OnCollisionEnter2D(Collision2D col)

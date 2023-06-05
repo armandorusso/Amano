@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    public void OnRoomEnter()
+    {
+        gameObject.SetActive(true);    
+    }
+    
     public void OnRoomExit()
     {
         GameManager.Instance.ReturnAllShuriken();
+        StartCoroutine(DisableRoom());
+    }
+
+    private IEnumerator DisableRoom()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
     }
 }
