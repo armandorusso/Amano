@@ -23,6 +23,15 @@ public class RespawnFallenItem : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Room"))
+        {
+            ResetItemPosition();
+            ResetItemVelocity();
+        }
+    }
+
     private void ResetItemPosition()
     {
         transform.position = _itemSpawnPosition;

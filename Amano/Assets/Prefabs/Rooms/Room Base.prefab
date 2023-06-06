@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3082134529891540103}
   m_Layer: 0
   m_Name: Room Collider
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   OriginalFieldOfView: 5.8
   Velocity: 0
   SmoothTime: 0.5
+  _delayUserInput: 0.58
   _camera: {fileID: 8776994331242625379}
 --- !u!114 &3082134529891540103
 MonoBehaviour:
