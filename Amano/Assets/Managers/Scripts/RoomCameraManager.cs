@@ -11,6 +11,7 @@ public class RoomCameraManager : MonoBehaviour
     [SerializeField] public float OriginalFieldOfView;
     [SerializeField] public float Velocity;
     [SerializeField] public float SmoothTime;
+    [SerializeField] public float _delayUserInput = 0.58f;
     [SerializeField] private CinemachineVirtualCamera _camera; // Change transition speed parameters
 
     private bool _hasClickedStart;
@@ -22,6 +23,7 @@ public class RoomCameraManager : MonoBehaviour
     public static event EventHandler<CameraTransitionArgs> cameraTransitionEvent;
     private CameraTransitionArgs cameraTransitionArgs;
     
+
 
     private void Start()
     {
@@ -68,7 +70,7 @@ public class RoomCameraManager : MonoBehaviour
         Time.timeScale = 0.05f;
         cameraTransitionArgs.isMovementDisabled = false;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(_delayUserInput);
         cameraTransitionArgs.isMovementDisabled = true;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         Time.timeScale = 1f;
