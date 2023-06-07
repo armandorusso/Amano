@@ -63,6 +63,11 @@ public class TetsuoAnimatorController : MonoBehaviour
         SetDeathAnimation();
     }
 
+    public void SetSittingAnimation()
+    {
+        _animationController.SetBool("isSitting", true);
+    }
+
     private void SetRunningAnimation()
     {
         _animationController.SetBool("isRunning", _isRunning);
