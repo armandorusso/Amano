@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class CampfireSit : MonoBehaviour
 {
@@ -11,13 +12,22 @@ public class CampfireSit : MonoBehaviour
     [SerializeField] public UnityEvent LoadNewLevelEvent;
     [SerializeField] public InputAction SittingButton;
 
+    private bool hasPressedCampfireButton;
+
+    private void Update()
+    {
+        hasPressedCampfireButton = Input.GetKeyDown(KeyCode.F) || SittingButton.IsInProgress();
+    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (SittingButton.IsPressed())
+        if(other.CompareTag("Player"))
         {
-            SittingEvent?.Invoke();
-            LoadNewLevelEvent?.Invoke();
+            if (hasPressedCampfireButton)
+            {
+                SittingEvent?.Invoke();
+                LoadNewLevelEvent?.Invoke();
+            }
         }
     }
 }

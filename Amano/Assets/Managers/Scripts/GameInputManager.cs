@@ -15,8 +15,22 @@ public class GameInputManager : MonoBehaviour
     public InputType currentInputType;
     public float inputSwitchCooldown = 0.5f;
     private float lastInputSwitchTime;
+    public static GameInputManager Instance;
 
     public static Action<InputType> SwitchInputAction;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
