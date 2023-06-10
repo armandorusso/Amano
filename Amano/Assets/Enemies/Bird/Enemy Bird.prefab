@@ -12,9 +12,14 @@ GameObject:
   - component: {fileID: 5294583853020180706}
   - component: {fileID: 3757974629779662876}
   - component: {fileID: 2849123385255376319}
+  - component: {fileID: 3718645458982882712}
+  - component: {fileID: 8783093030546906543}
+  - component: {fileID: 6423771187996877500}
+  - component: {fileID: 4176050298404016055}
+  - component: {fileID: 148337259406738133}
   m_Layer: 7
   m_Name: Enemy Bird
-  m_TagString: Untagged
+  m_TagString: Teleport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,3 +137,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &3718645458982882712
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688878833103079531}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 20
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &8783093030546906543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688878833103079531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55729d4cfb054944d8c04844641e0f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6423771187996877500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688878833103079531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92c6afca9df51642a7a7e122286be51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: {fileID: 4176050298404016055}
+  GroundCheck: {fileID: 0}
+  TetsuoPosition: {fileID: 0}
+  ThrowPosition: {fileID: 0}
+  LineOfSightDistance: 0
+  RayCastLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  EnemyParameters: {fileID: 11400000, guid: e4ce28d073d9d374c8f756cba3dde253, type: 2}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  Amplitude: 0.5
+  HeightSpeed: 0.5
+--- !u!114 &4176050298404016055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688878833103079531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d15f94a393646428afffacedc55349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &148337259406738133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688878833103079531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0589758ffd96a40b006ddd9d670bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
