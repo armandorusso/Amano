@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         
-        Screen.SetResolution(640, 320, true);
+        Screen.SetResolution(320, 180, true);
+        DontDestroyOnLoad(Instance);
     }
 
     void Start()
@@ -51,8 +52,10 @@ public class GameManager : MonoBehaviour
 
     private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
     {
+        if(!isTetsuoDead)
+            Invoke(nameof(TetsuoDeathDelay), 0.5f);
+        
         isTetsuoDead = true;
-        Invoke(nameof(TetsuoDeathDelay), 0.5f);
     }
 
     private void TetsuoDeathDelay()

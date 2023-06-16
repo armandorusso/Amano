@@ -117,9 +117,9 @@ public class TetsuoHealthBar : MonoBehaviour
     {
         if (TetsuoHealthPoints.HitPoints <= 0)
         {
-            isInvulnerable = true;
-            Invoke(nameof(SetInvulnerabilityFalse), 1.5f);
             TetsuoHurtOrDeathSoundAction?.Invoke("Death");
+            isInvulnerable = true;
+            Invoke(nameof(SetInvulnerabilityFalse), 2.5f);
             TetsuoHealthPoints.IncreaseHealth(100f);
             healthUIEventArgs = new HealthUIEventArgs
             {

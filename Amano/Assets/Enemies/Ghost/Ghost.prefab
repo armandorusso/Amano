@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 813260653611372152}
   - component: {fileID: 4249074511255385210}
   - component: {fileID: 1326119682022447516}
+  - component: {fileID: 721979176549058315}
+  - component: {fileID: 7741410930006695823}
+  - component: {fileID: 7428989130802662401}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -146,10 +149,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -167,3 +170,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d15f94a393646428afffacedc55349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &721979176549058315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758192707919216855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d0c938fd51797242922f4a8278933b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7741410930006695823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758192707919216855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0589758ffd96a40b006ddd9d670bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7428989130802662401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758192707919216855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edafd9579ab92404ba4c2cf658367280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: {fileID: 0}
+  GroundCheck: {fileID: 0}
+  TetsuoPosition: {fileID: 0}
+  ThrowPosition: {fileID: 0}
+  LineOfSightDistance: 0
+  RayCastLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  EnemyParameters: {fileID: 11400000, guid: cb6b9690f1133714db8bb0bcaf0bd78a, type: 2}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  Amplitude: 0.5
+  HeightSpeed: 0.5

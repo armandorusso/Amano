@@ -439,7 +439,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void WallSlide()
     {
-        if (IsTouchingWall() && _horizontal != 0 && !_isFalling && !_isWallSticking) // if you are falling and are running towards the wall
+        if (IsTouchingWall() && _horizontal != 0 && _isFalling && !_isWallSticking) // if you are falling and are running towards the wall
         {
             _isWallSliding = true;
             WallSlidingEffectAction?.Invoke(_isWallSliding, _isFacingRight);
