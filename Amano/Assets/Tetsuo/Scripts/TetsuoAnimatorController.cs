@@ -68,6 +68,11 @@ public class TetsuoAnimatorController : MonoBehaviour
         _animationController.SetBool("isSitting", true);
     }
 
+    public void SetCollectAnimation()
+    {
+        StartCoroutine(PlayCollectAnimation());
+    }
+
     private void SetRunningAnimation()
     {
         _animationController.SetBool("isRunning", _isRunning);
@@ -124,6 +129,13 @@ public class TetsuoAnimatorController : MonoBehaviour
         EnableInputAction?.Invoke("Player");
         EnableHealthUiAction?.Invoke(hasEnabledInput);
         StopCoroutine(WaitForAnimationToFinish(hasEnabledInput, zoomOutTime));
+    }
+
+    public IEnumerator PlayCollectAnimation()
+    {
+        _animationController.SetBool("hasCollected", true);
+        yield return new WaitForSeconds(1.5f);
+        _animationController.SetBool("hasCollected", false);
     }
 
     private void SetDeathAnimation()

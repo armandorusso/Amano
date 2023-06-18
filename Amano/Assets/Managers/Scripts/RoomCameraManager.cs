@@ -19,19 +19,17 @@ public class RoomCameraManager : MonoBehaviour
     
     public class CameraTransitionArgs : EventArgs
     {
-        public bool isMovementDisabled { get; set; }
+        public bool isMovementEnabled { get; set; }
     }
     public static event EventHandler<CameraTransitionArgs> cameraTransitionEvent;
     private CameraTransitionArgs cameraTransitionArgs;
     
-
-
     private void Start()
     {
         _cmBrain.m_IgnoreTimeScale = true;
         cameraTransitionArgs = new CameraTransitionArgs
         {
-            isMovementDisabled = false
+            isMovementEnabled = false
         };
         StartGame.ZoomOutCameraAction += OnStartGameEvent;
         LevelManager.ZoomInCameraAction += OnEndLevelEvent;
@@ -77,10 +75,10 @@ public class RoomCameraManager : MonoBehaviour
     {
         Debug.Log("Entered Coroutine");
         Time.timeScale = 0.05f;
-        cameraTransitionArgs.isMovementDisabled = false;
+        cameraTransitionArgs.isMovementEnabled = false;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         yield return new WaitForSecondsRealtime(_delayUserInput);
-        cameraTransitionArgs.isMovementDisabled = true;
+        cameraTransitionArgs.isMovementEnabled = true;
         cameraTransitionEvent?.Invoke(this, cameraTransitionArgs);
         Time.timeScale = 1f;
     }

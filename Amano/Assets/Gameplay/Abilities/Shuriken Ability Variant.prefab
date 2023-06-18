@@ -80,6 +80,14 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
+      propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
+      propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
       propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
@@ -88,12 +96,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
+      propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
       propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: EnableOrDisableInputActions
       objectReference: {fileID: 0}
     - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
       propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: OnAbilityUnlocked
+      objectReference: {fileID: 0}
+    - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
+      propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: AbilityHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 811263911600297422, guid: a11a7260a33c7fc4ebc794dbe5fb84d1, type: 3}
       propertyPath: AbilityUnlocked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument

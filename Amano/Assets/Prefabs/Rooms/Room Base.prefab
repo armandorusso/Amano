@@ -154,7 +154,7 @@ MonoBehaviour:
   OriginalFieldOfView: 5.6
   Velocity: 0
   SmoothTime: 0.5
-  _delayUserInput: 0.58
+  _delayUserInput: 0.65
   _camera: {fileID: 8776994331242625379}
 --- !u!114 &3082134529891540103
 MonoBehaviour:
