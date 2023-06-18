@@ -15,6 +15,7 @@ public class RoomCameraManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _camera; // Change transition speed parameters
 
     private bool _hasClickedStart;
+    private bool _hasEndedLevel;
     
     public class CameraTransitionArgs : EventArgs
     {
@@ -33,11 +34,12 @@ public class RoomCameraManager : MonoBehaviour
             isMovementDisabled = false
         };
         StartGame.ZoomOutCameraAction += OnStartGameEvent;
+        LevelManager.ZoomInCameraAction += OnEndLevelEvent;
     }
 
     private void Update()
     {
-        if (_hasClickedStart)
+        if (_hasClickedStart || _hasEndedLevel)
         {
             _camera.m_Lens.OrthographicSize =
                 Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, OriginalFieldOfView, ref Velocity, SmoothTime);
@@ -45,6 +47,7 @@ public class RoomCameraManager : MonoBehaviour
             if (Mathf.Abs(_camera.m_Lens.OrthographicSize - OriginalFieldOfView) <= 0.2f)
             {
                 _hasClickedStart = false;
+                _hasEndedLevel = false;
             }
         }
     }
@@ -53,6 +56,12 @@ public class RoomCameraManager : MonoBehaviour
     {
         _hasClickedStart = hasStartedGame;
         SmoothTime = zoomOutTime - SmoothTime;
+    }
+    
+    private void OnEndLevelEvent()
+    {
+        _hasEndedLevel = true;
+        OriginalFieldOfView = 2f;
     }
 
     public void OnTriggerEnter2D(Collider2D col)

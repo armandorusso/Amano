@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     private bool hasEnteredLevelTransition;
 
+    public static Action ZoomInCameraAction;
+
     private void Awake()
     {
         if (Instance == null)
@@ -35,6 +37,7 @@ public class LevelManager : MonoBehaviour
             var scene = SceneManager.LoadSceneAsync(levelName);
             scene.allowSceneActivation =
                 false; // Don't immediately change the scene, let the screen transition play out first
+            ZoomInCameraAction?.Invoke();
             StartCoroutine(StartScreenTransition(scene));
         }
     }
