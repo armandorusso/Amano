@@ -18642,6 +18642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room #10
       objectReference: {fileID: 0}
+    - target: {fileID: 3604535681371445356, guid: 77ad66d227018294fa5bfe4a0deef4ff, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.58099747
+      objectReference: {fileID: 0}
     - target: {fileID: 4441275887268512726, guid: 77ad66d227018294fa5bfe4a0deef4ff, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
       value: 5.999971
@@ -20905,6 +20909,10 @@ PrefabInstance:
     - target: {fileID: 4441275887268512726, guid: 77ad66d227018294fa5bfe4a0deef4ff, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[2].Array.data[46].Y
       value: -60000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870870248778987759, guid: 77ad66d227018294fa5bfe4a0deef4ff, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.58099747
       objectReference: {fileID: 0}
     - target: {fileID: 6957925349572178654, guid: 77ad66d227018294fa5bfe4a0deef4ff, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.size

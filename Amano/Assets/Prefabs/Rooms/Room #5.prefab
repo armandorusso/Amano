@@ -43748,12 +43748,20 @@ PrefabInstance:
       value: 6.815099
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: -14.92298
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -5.189111
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
-      value: 16.95338
+      value: 16.988466
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
-      value: -5.838485
+      value: -5.136756
       objectReference: {fileID: 0}
     - target: {fileID: 8392017596326766875, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
       propertyPath: m_ColliderPaths.Array.size
