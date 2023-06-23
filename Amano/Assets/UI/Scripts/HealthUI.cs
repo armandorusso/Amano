@@ -13,6 +13,9 @@ public class HealthUI : MonoBehaviour
     {
         TetsuoHealthBar.healthUIEvent += OnHealthUiEvent;
         TetsuoAnimatorController.EnableHealthUiAction += OnStartGame;
+        AbilityDescription.EnableUIAction += EnableUIEvent;
+        AbilityHandler.DisableUIAction += DisableUIEvent;
+        
         HealthBar = GetComponent<Slider>();
         HealthUISprites = GetComponentsInChildren<RectTransform>();
         
@@ -27,6 +30,22 @@ public class HealthUI : MonoBehaviour
         foreach (var sprite in HealthUISprites)
         {
             sprite.gameObject.SetActive(hasStarted);
+        }
+    }
+
+    private void EnableUIEvent()
+    {
+        foreach (var sprite in HealthUISprites)
+        {
+            sprite.gameObject.SetActive(true);
+        }
+    }
+    
+    private void DisableUIEvent()
+    {
+        foreach (var sprite in HealthUISprites)
+        {
+            sprite.gameObject.SetActive(false);
         }
     }
 
