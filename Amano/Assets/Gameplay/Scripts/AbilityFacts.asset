@@ -19,3 +19,17 @@ MonoBehaviour:
     - Key: Dash
       Value: 1
     keyCollision: 0
+  FactsDescription:
+    list:
+    - Key: Shuriken
+      Value: Aim and shoot using the following buttons
+    - Key: Dash
+      Value: Press the following button to dash
+    keyCollision: 0
+  FactsButtonSprites:
+    list:
+    - Key: Shuriken
+      Value: {fileID: -1883667895, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+    - Key: Dash
+      Value: {fileID: -1654249277, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+    keyCollision: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class AbilityHandler : MonoBehaviour
 {
     [SerializeField] public FactsScriptableObject AbilityFacts;
+
+    public static Action<string, Sprite> AbilityInfoTextAction;
 
     public void OnAbilityUnlocked(string AbilityName)
     {
@@ -16,5 +19,7 @@ public class AbilityHandler : MonoBehaviour
         AbilityFacts.Facts[AbilityName] = 1;
         
         Debug.Log($"{AbilityFacts.Facts[AbilityName]}");
+        
+        AbilityInfoTextAction?.Invoke(AbilityFacts.FactsDescription[AbilityName], AbilityFacts.FactsButtonSprites[AbilityName]);
     }
 }
