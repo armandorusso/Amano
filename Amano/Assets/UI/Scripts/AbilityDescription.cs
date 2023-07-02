@@ -33,6 +33,6 @@ public class AbilityDescription : MonoBehaviour
     {
         AbilityCanvas.SetActive(false);
         EnableUIAction?.Invoke();
-        TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
+        TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true); // Can maybe be reworked by using an event instead of a direct call
     }
 }

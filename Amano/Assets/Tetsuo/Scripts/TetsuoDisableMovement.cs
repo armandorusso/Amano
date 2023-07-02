@@ -16,6 +16,8 @@ public class TetsuoDisableMovement : MonoBehaviour
         get { return _instance; }
     }
 
+    public static Action PauseGameAction;
+
     void Awake()
     {
         if (_instance != null && _instance != this)
@@ -66,6 +68,16 @@ public class TetsuoDisableMovement : MonoBehaviour
     {
         ToggleInputAction(actionName);
         // EnableOrDisableInputActions(isInputEnabled);
+    }
+
+    public void OnPauseGame(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Time.timeScale = 0f;
+            EnableOrDisableInputActions(false);
+            PauseGameAction?.Invoke();
+        }
     }
 
     public void EnableOrDisableInputActions(bool isEnabled)
