@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 6120257371743560235}
   - component: {fileID: 3257217968057442099}
   - component: {fileID: 3350432843406664693}
+  - component: {fileID: 1002447078315996017}
   m_Layer: 9
   m_Name: Walls
   m_TagString: Untagged
@@ -514,6 +515,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1002447078315996017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3597186306277804843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdce03196f672b40bc188c6a67c2dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &3997397125894275134
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +543,7 @@ GameObject:
   - component: {fileID: 383283165118714460}
   - component: {fileID: 8392017596326766875}
   - component: {fileID: 1543354721686396705}
+  - component: {fileID: 189006913763869671}
   m_Layer: 8
   m_Name: Spikes
   m_TagString: DeathZone
@@ -711,6 +726,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1049692fca0814498aa62e17d1f2cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &189006913763869671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997397125894275134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdce03196f672b40bc188c6a67c2dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &4700909181245114413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,6 +1147,7 @@ GameObject:
   - component: {fileID: 7853232427006286173}
   - component: {fileID: 8016685960498758905}
   - component: {fileID: 2980115578685544467}
+  - component: {fileID: 2313578207530089728}
   m_Layer: 8
   m_Name: Ground
   m_TagString: Ground
@@ -2888,6 +2917,19 @@ CompositeCollider2D:
       - {x: 4, y: 5.9999704}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+--- !u!114 &2313578207530089728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588746466652023644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdce03196f672b40bc188c6a67c2dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5929352232397929298
 GameObject:
   m_ObjectHideFlags: 0
