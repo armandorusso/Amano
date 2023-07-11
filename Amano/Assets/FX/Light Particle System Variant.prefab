@@ -56,6 +56,10 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7078335811046792516, guid: b3faa09a2f5c94742bd5c3f3154c9d1e, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078335811046792516, guid: b3faa09a2f5c94742bd5c3f3154c9d1e, type: 3}
       propertyPath: ShapeModule.type
       value: 4
       objectReference: {fileID: 0}
@@ -169,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7078335811046792518, guid: b3faa09a2f5c94742bd5c3f3154c9d1e, type: 3}
       propertyPath: m_Name
-      value: Light Particle System
+      value: Light Particle System Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3faa09a2f5c94742bd5c3f3154c9d1e, type: 3}
