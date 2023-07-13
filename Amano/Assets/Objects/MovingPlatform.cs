@@ -8,6 +8,7 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private Transform _Start;
     [SerializeField] private Transform _End;
     [SerializeField] private float _speed;
+    [SerializeField] private bool isSpike;
     
     private Transform _endPoint;
     private Vector2 _previousPosition;
@@ -36,7 +37,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (!isSpike && col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.None;
             
@@ -46,7 +47,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (!isSpike && col.gameObject.CompareTag("Player"))
         {
             col.collider.transform.SetParent(transform);
         }

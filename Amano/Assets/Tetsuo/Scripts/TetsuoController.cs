@@ -439,6 +439,7 @@ public class TetsuoController : MonoBehaviour, IMove
 
     private void WallSlide()
     {
+        Debug.Log($"Is Touching Wall: {IsTouchingWall()}");
         if (IsTouchingWall() && _horizontal != 0 && !_isGrounded && !_isWallSticking) // if you are falling and are running towards the wall
         {
             _isWallSliding = true;
