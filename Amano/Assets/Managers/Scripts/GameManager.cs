@@ -66,11 +66,13 @@ public class GameManager : MonoBehaviour
         
         tetsuoLayers[1].gameObject.layer = LayerMask.NameToLayer(tagName);
         tetsuoLayers[2].gameObject.layer = LayerMask.NameToLayer(tagName);
+        tetsuoLayers[4].gameObject.layer = LayerMask.NameToLayer(tagName);
         
         tetsuoLayers[1].gameObject.tag = tagName;
+        tetsuoLayers[4].gameObject.tag = tagName;
         
         _tetsuo.gameObject.tag = tagName;
-        _tetsuo.gameObject.layer = LayerMask.NameToLayer(tagName);;
+        _tetsuo.gameObject.layer = LayerMask.NameToLayer(tagName);
     }
 
     private void TetsuoDeathDelay()
