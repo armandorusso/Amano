@@ -54,8 +54,23 @@ public class GameManager : MonoBehaviour
     {
         if(!isTetsuoDead)
             Invoke(nameof(TetsuoDeathDelay), 0.5f);
+
+        ChangeTetsuoLayerAndTag("Respawn");
         
         isTetsuoDead = true;
+    }
+
+    private void ChangeTetsuoLayerAndTag(string tagName)
+    {
+        var tetsuoLayers = _tetsuo.GetComponentsInChildren<Transform>();
+        
+        tetsuoLayers[1].gameObject.layer = LayerMask.NameToLayer(tagName);
+        tetsuoLayers[2].gameObject.layer = LayerMask.NameToLayer(tagName);
+        
+        tetsuoLayers[1].gameObject.tag = tagName;
+        
+        _tetsuo.gameObject.tag = tagName;
+        _tetsuo.gameObject.layer = LayerMask.NameToLayer(tagName);;
     }
 
     private void TetsuoDeathDelay()
@@ -89,6 +104,7 @@ public class GameManager : MonoBehaviour
         DeathTrailEffectAction?.Invoke(false);
         _tetsuo.GetComponent<BoxCollider2D>().enabled = true;
         _tetsuo.GetComponent<Rigidbody2D>().gravityScale = 3.5f;
+        ChangeTetsuoLayerAndTag("Player");
         TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true);
     }
 
