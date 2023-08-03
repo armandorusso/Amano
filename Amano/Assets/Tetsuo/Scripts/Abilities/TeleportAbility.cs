@@ -76,8 +76,6 @@ public class TeleportAbility : MonoBehaviour
             _teleportShurikens.Enqueue(shurikenProjectile);
             _teleportableObjects.Enqueue(e.teleportableObject);
             
-            shurikenProjectile.ChangeToNewColor();
-
             if (_teleportShurikens.Count > 5)
             {
                 var shuriken = _teleportShurikens.Dequeue();

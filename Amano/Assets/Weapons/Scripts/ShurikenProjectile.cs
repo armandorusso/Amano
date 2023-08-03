@@ -12,8 +12,6 @@ public class ShurikenProjectile : MonoBehaviour
     [SerializeField] public float Damage;
     [SerializeField] public Color ShurikenAttachedColor;
     [SerializeField] public ParticleSystem ShurikenParticleSystem;
-    [SerializeField] public AudioClip ShurikenSound;
-    private AudioSource _audioSource;
     public SpriteRenderer _sprite;
     public Animator _animator;
     public Rigidbody2D _rb;
@@ -25,6 +23,8 @@ public class ShurikenProjectile : MonoBehaviour
     private bool _instantiatedShurikenProperties = false;
     
     public static event EventHandler<ShurikenAttachedEventArgs> ShurikenAttachedEvent;
+    // TODO: Add UI Button Sprite to the shuriken indicating that it is attached to a teleportable item
+    // TODO: Add a sound effect for when it attaches to a teleportable object
 
     public class ShurikenAttachedEventArgs : EventArgs
     {
@@ -37,6 +37,7 @@ public class ShurikenProjectile : MonoBehaviour
     
     public static event EventHandler<ShurikenHitEventArgs> ShurikenHitEvent;
     public static Action<float, LayerMask, GameObject> ShurikenHitCharacterEvent;
+    public static Action <int> ShurikenHitTeleportObjectAction;
 
     public class ShurikenHitEventArgs : EventArgs
     {
@@ -56,14 +57,11 @@ public class ShurikenProjectile : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _trailRenderer = GetComponent<TrailRenderer>();
         _instantiatedShurikenProperties = true;
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.clip = ShurikenSound;
         _originalColor = _sprite.color;
     }
 
     public void OnEnable()
     {
-        _audioSource.PlayOneShot(ShurikenSound);
         if(_instantiatedShurikenProperties)
             SwitchShurikenProperties(true);
     }
@@ -72,21 +70,9 @@ public class ShurikenProjectile : MonoBehaviour
     {
         if (_instantiatedShurikenProperties)
         {
-            ChangeToOriginalColor();
             SwitchShurikenProperties(false);
-            ShurikenParticleSystem.Stop();
             hitGroundOrWall = false;
         }
-    }
-
-    public void ChangeToOriginalColor()
-    {
-        _sprite.color = _originalColor;
-    }
-    
-    public void ChangeToNewColor()
-    {
-        _sprite.color = ShurikenAttachedColor;
     }
 
     private void SwitchShurikenProperties(bool isEnabled)
@@ -129,7 +115,7 @@ public class ShurikenProjectile : MonoBehaviour
 
             if (otherObject.CompareTag("Teleport"))
             {
-                ShurikenParticleSystem.Play();
+                ShurikenHitTeleportObjectAction?.Invoke(gameObject.GetInstanceID());
                 var contactedCollider = col.GetContact(0).collider;
                 if (contactedCollider != null && contactedCollider.gameObject.layer is 10)
                 {
