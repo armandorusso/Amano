@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
         if(!isTetsuoDead)
             Invoke(nameof(TetsuoDeathDelay), 0.5f);
 
+        _tetsuo.GetComponent<TeleportAbility>().ReturnAllShuriken();
+        
         ChangeTetsuoLayerAndTag("Respawn");
         
         isTetsuoDead = true;
