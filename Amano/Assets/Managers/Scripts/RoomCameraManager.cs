@@ -64,7 +64,7 @@ public class RoomCameraManager : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player") && _cmBrain.ActiveVirtualCamera.VirtualCameraGameObject != VirtualCamera)
+        if (col.CompareTag("Player") && _cmBrain.ActiveVirtualCamera?.VirtualCameraGameObject != VirtualCamera)
         {
             VirtualCamera.SetActive(true);
             StartCoroutine(WaitUntilBlendEnds());
@@ -86,7 +86,10 @@ public class RoomCameraManager : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && _cmBrain.ActiveVirtualCamera.VirtualCameraGameObject != VirtualCamera)
+        Debug.Log($"Player: {other == null}");
+        Debug.Log($"Camera: {_cmBrain.ActiveVirtualCamera?.VirtualCameraGameObject == null}");
+        
+        if(other.CompareTag("Player") && _cmBrain.ActiveVirtualCamera?.VirtualCameraGameObject != VirtualCamera)
             VirtualCamera.SetActive(false);
     }
 }

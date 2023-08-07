@@ -31,4 +31,10 @@ public class Parallax : MonoBehaviour
         var pos = startPosition + travel * parallaxFactor;
         transform.position = new Vector3(pos.x, pos.y, startZ);
     }
+
+    private void OnDestroy()
+    {
+        camera = null;
+        player = null;
+    }
 }
