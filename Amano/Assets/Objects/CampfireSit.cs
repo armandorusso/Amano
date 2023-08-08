@@ -25,7 +25,10 @@ public class CampfireSit : MonoBehaviour
 
     private void Update()
     {
-        hasPressedCampfireButton = Input.GetKeyDown(KeyCode.F) || SittingButton.IsInProgress();
+        if(GameInputManager.Instance.currentInputType == GameInputManager.InputType.KeyboardMouse)
+            hasPressedCampfireButton = Input.GetKeyDown(KeyCode.F);
+        else
+            hasPressedCampfireButton = Gamepad.current.yButton.isPressed;
     }
 
     private void OnTriggerStay2D(Collider2D other)

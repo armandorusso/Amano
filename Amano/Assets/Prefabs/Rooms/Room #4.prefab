@@ -17401,11 +17401,6 @@ TilemapCollider2D:
   m_CorrespondingSourceObject: {fileID: 7492013211589878712, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
   m_PrefabInstance: {fileID: 3448709844445026603}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6202127954227283236 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8776994330225482767, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
-  m_PrefabInstance: {fileID: 3448709844445026603}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4000725427396108115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17869,11 +17864,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 6202127954227283236}
+    m_TransformParent: {fileID: 4459579819631709864}
     m_Modifications:
     - target: {fileID: 1563977497366463581, guid: 75f9657f6e195414ea5806f0f8c3458a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1563977497366463581, guid: 75f9657f6e195414ea5806f0f8c3458a, type: 3}
       propertyPath: m_LocalPosition.x

@@ -480,7 +480,15 @@ public class TetsuoController : MonoBehaviour, IMove
 
         if (hasActivatedTeleportPopOut)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 20);
+            if (Math.Abs(_horizontal) > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x + (2.1f * _horizontal), 17.5f);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 20f);
+            }
+            
             return;
         }
         

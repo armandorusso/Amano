@@ -5,11 +5,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2013771104384666877}
+    m_TransformParent: {fileID: 8071475904826673009}
     m_Modifications:
     - target: {fileID: 359089181963307520, guid: dbfccb9152c5c094e946ded3d818eb0a, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 359089181963307520, guid: dbfccb9152c5c094e946ded3d818eb0a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,11 +66,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2013771104384666877}
+    m_TransformParent: {fileID: 8071475904826673009}
     m_Modifications:
     - target: {fileID: 359089181963307520, guid: dbfccb9152c5c094e946ded3d818eb0a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 359089181963307520, guid: dbfccb9152c5c094e946ded3d818eb0a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20404,8 +20404,8 @@ TilemapCollider2D:
   m_CorrespondingSourceObject: {fileID: 7492013211589878712, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
   m_PrefabInstance: {fileID: 7078673388046012658}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2013771104384666877 stripped
+--- !u!4 &8071475904826673009 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8776994330225482767, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1315010834718513027, guid: a2a84c02c095c9b4bbfbafcde8766cb4, type: 3}
   m_PrefabInstance: {fileID: 7078673388046012658}
   m_PrefabAsset: {fileID: 0}
