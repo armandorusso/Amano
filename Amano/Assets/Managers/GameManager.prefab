@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f9a249af3d27c4ba8e700fa7eba4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ZoomOutTime: 0
 --- !u!114 &1733921002243111321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +208,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Controller Input
       m_Flags: 0
+    - m_Name: 
+      m_Id: ba46f0c6-2061-4bbe-89f8-23dc3b6e668a
+      m_Path: <Gamepad>/rightTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
     m_Flags: 0
   _keyboardAndMouseInput:
     m_Name: Keyboard And Mouse Input
@@ -233,5 +242,6 @@ MonoBehaviour:
       m_Action: Keyboard And Mouse Input
       m_Flags: 0
     m_Flags: 0
+  playerInput: {fileID: 0}
   currentInputType: 0
   inputSwitchCooldown: 0.5

@@ -1152,14 +1152,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2713606433761734073, guid: bdb13e46e88c3994d9839ed391695cad, type: 3}
-      propertyPath: _controllerInput.m_SingletonActionBindings.Array.data[14].m_Id
-      value: c6fb4e27-06fe-405b-9dba-3617535091cd
-      objectReference: {fileID: 0}
-    - target: {fileID: 2713606433761734073, guid: bdb13e46e88c3994d9839ed391695cad, type: 3}
-      propertyPath: _controllerInput.m_SingletonActionBindings.Array.data[14].m_Action
-      value: Controller Input
-      objectReference: {fileID: 0}
     - target: {fileID: 3787491049051698439, guid: bdb13e46e88c3994d9839ed391695cad, type: 3}
       propertyPath: m_Name
       value: GameManager
