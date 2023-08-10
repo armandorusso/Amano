@@ -7,7 +7,7 @@ public class AbilityHandler : MonoBehaviour
 {
     [SerializeField] public FactsScriptableObject AbilityFacts;
 
-    public static Action<string, Sprite> AbilityInfoTextAction;
+    public static Action<string, Sprite[]> AbilityInfoTextAction;
     public static Action DisableUIAction;
 
     public void OnAbilityUnlocked(string AbilityName)

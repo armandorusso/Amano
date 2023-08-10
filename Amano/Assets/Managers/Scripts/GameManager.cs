@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         
-        Screen.SetResolution(320, 180, true);
+        Screen.SetResolution(1920, 1080, true);
         DontDestroyOnLoad(Instance);
     }
 

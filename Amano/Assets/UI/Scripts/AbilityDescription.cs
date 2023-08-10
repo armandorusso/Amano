@@ -13,20 +13,28 @@ public class AbilityDescription : MonoBehaviour
     [SerializeField] private Image AbilityButtonSprite;
     [SerializeField] private Button ContinueButton;
 
+    private Sprite[] _currentInputSprites;
     public static Action EnableUIAction;
     
     void Start()
     {
         AbilityCanvas.SetActive(false);
         AbilityHandler.AbilityInfoTextAction += OnAbilityUnlock;
+        GameInputManager.SwitchInputAction += OnInputSwitch;
     }
 
-    private void OnAbilityUnlock(string abilityDescription, Sprite abilityButtonSprite)
+    private void OnAbilityUnlock(string abilityDescription, Sprite[] abilityButtonSprites)
     {
         AbilityCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(ContinueButton.gameObject);
-        AbilityButtonSprite.sprite = abilityButtonSprite;
+        _currentInputSprites = abilityButtonSprites;
+        AbilityButtonSprite.sprite = GameInputManager.Instance.currentInputType == GameInputManager.InputType.Controller ? abilityButtonSprites[0] : abilityButtonSprites[1];
         AbilityInfoText.text = abilityDescription;
+    }
+
+    private void OnInputSwitch(GameInputManager.InputType inputType)
+    {
+        AbilityButtonSprite.sprite = inputType == GameInputManager.InputType.Controller ? _currentInputSprites[0] : _currentInputSprites[1];
     }
 
     public void OnClickContinue()

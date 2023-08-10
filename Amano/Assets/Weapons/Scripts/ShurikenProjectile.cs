@@ -138,7 +138,7 @@ public class ShurikenProjectile : MonoBehaviour
                 ShurikenAttachedEvent?.Invoke(this, args);
                 hitTeleportableObj = false;
             }
-            else
+            else // TODO: Don't depend on certain layers to return shuriken into the pool. Some objects don't have specific layers so the shuriken don't return
             {
                 ShurikenHitEventArgs args = new ShurikenHitEventArgs
                 {

@@ -598,6 +598,7 @@ GameObject:
   - component: {fileID: 6317171230462811166}
   - component: {fileID: 249826698162872276}
   - component: {fileID: 6954234005615733657}
+  - component: {fileID: 4782147521217083008}
   m_Layer: 0
   m_Name: Level Transition Sprite
   m_TagString: Untagged
@@ -683,6 +684,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4782147521217083008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738743122682396527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abf4b726d4339f4396c91d6f5f92399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2615349628943706782
 GameObject:
   m_ObjectHideFlags: 0
