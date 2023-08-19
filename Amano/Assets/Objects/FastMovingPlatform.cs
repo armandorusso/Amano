@@ -8,8 +8,7 @@ public class FastMovingPlatform : MonoBehaviour
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _endPoint;
     [SerializeField] private float _speed;
-    [SerializeField] private float _delayBetweenPoints;
-    
+
     private Vector2 _previousPosition;
     private Rigidbody2D _rb;
     private bool isPlatformActive;

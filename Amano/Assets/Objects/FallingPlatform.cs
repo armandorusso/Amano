@@ -19,7 +19,6 @@ public class FallingPlatform : MonoBehaviour
     private bool _isFalling;
     private bool _canRespawn;
     
-    // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();

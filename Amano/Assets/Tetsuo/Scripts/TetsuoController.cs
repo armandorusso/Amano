@@ -173,6 +173,7 @@ public class TetsuoController : MonoBehaviour, IMove
             wallJumpFacingDirection = -transform.localScale.x;
             Debug.Log("Walljump direction: " + wallJumpFacingDirection);
             _isWallJumping = true;
+            hasPressedJump = false;
             SetGravityScale(_originalGravityScale);
             var wallJumpVector = new Vector2(wallJumpFacingDirection * TetsuoData.wallJumpingDirection.x * TetsuoData.wallJumpForce, TetsuoData.wallJumpingDirection.y * TetsuoData.wallJumpForce);
             rb.velocity = wallJumpVector;
@@ -501,9 +502,10 @@ public class TetsuoController : MonoBehaviour, IMove
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-
+        
         if (jumpBufferCounter > 0f && TetsuoData.coyoteTimeCounter > 0f)
         {
+            Debug.Log($"Jumped. Buffer: {jumpBufferCounter} Coyote Time {TetsuoData.coyoteTimeCounter}");
             JumpOrLandEffectAction?.Invoke(true);
             PlaySoundEffectAction?.Invoke("Jump");
             _isJumping = true;
