@@ -56,13 +56,20 @@ public class ObjectPool : MonoBehaviour
         currentActiveObjs--;
     }
 
+    public void ReturnAllPooledObjects()
+    {
+        foreach (var pooledObject in pooledObjects)
+        {
+            pooledObject.SetActive(false);
+            pooledObject.transform.parent = transform;
+        }
+        
+        currentActiveObjs = 0;
+    }
+
     public bool IsObjectAvailable()
     {
         return !pooledObjects[0].activeInHierarchy;
     }
-
-    private void Update()
-    {
-
-    }
+    
 }

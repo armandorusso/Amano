@@ -83,13 +83,17 @@ public class ShootingShuriken : MonoBehaviour
         {
             ShootShurikenSoundAction?.Invoke("Shoot");
             var shurikenObj = ObjectPool.ObjectPoolInstance.GetFirstPooledObject();
-            shurikenObj.SetActive(true);
-            shurikenObj.GetComponent<Rigidbody2D>().simulated = true;
-            shurikenObj.transform.position = ShurikenThrowTransform.position;
-            shurikenObj.transform.rotation = Quaternion.identity;
-            ShootShuriken(shurikenObj);
-            canShoot = false;
-            StartCoroutine(ShurikenCooldown());
+
+            if (shurikenObj != null)
+            {
+                shurikenObj.SetActive(true);
+                shurikenObj.GetComponent<Rigidbody2D>().simulated = true;
+                shurikenObj.transform.position = ShurikenThrowTransform.position;
+                shurikenObj.transform.rotation = Quaternion.identity;
+                ShootShuriken(shurikenObj);
+                canShoot = false;
+                StartCoroutine(ShurikenCooldown());
+            }
         }
     }
     

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -130,20 +131,23 @@ public class TeleportAbility : MonoBehaviour
 
     public void ReturnAllShuriken()
     {
-        while(_normalShurikens.Count != 0)
-        {
-            ObjectPool.ObjectPoolInstance.ReturnPooledObject(_normalShurikens.Dequeue().gameObject);
-        }
-        
-        while(_teleportShurikens.Count != 0)
-        {
-            ObjectPool.ObjectPoolInstance.ReturnPooledObject(_teleportShurikens.Dequeue().gameObject);
-        }
-
         while (_teleportableObjects.Count != 0)
         {
             _teleportableObjects.Dequeue();
         }
+
+        while (_normalShurikens.Count != 0)
+        {
+            _normalShurikens.Dequeue();
+        }
+        
+        while (_teleportShurikens.Count != 0)
+        {
+            _teleportShurikens.Dequeue();
+        }
+        
+        // Return all the shuriken flying in the air as well
+        ObjectPool.ObjectPoolInstance.ReturnAllPooledObjects();
     }
 
     private void OnDestroy()
