@@ -10,7 +10,6 @@ public class InteractButton : MonoBehaviour
     [SerializeField] public Sprite MouseTeleportButton;
     [SerializeField] public Camera MainCamera;
     [SerializeField] public Vector3 ImageOffset;
-    
 
     private Image _buttonSprite;
     private bool _isRendered;
@@ -27,7 +26,6 @@ public class InteractButton : MonoBehaviour
         TeleportAbility.RemoveInteractButtonAction += OnLastShurikenConsumed;
         TeleportAbility.ShurikenConsumedAction += OnShurikenConsumed;
     }
-
 
     private void Update()
     {
@@ -65,5 +63,13 @@ public class InteractButton : MonoBehaviour
     private void OnLastShurikenConsumed()
     {
         _buttonSprite.enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        GameInputManager.SwitchInputAction -= OnInputSwitch;
+        ShurikenProjectile.ShurikenHitTeleportObjectAction -= OnShurikenAttachedToTeleportableObject;
+        TeleportAbility.RemoveInteractButtonAction -= OnLastShurikenConsumed;
+        TeleportAbility.ShurikenConsumedAction -= OnShurikenConsumed;
     }
 }

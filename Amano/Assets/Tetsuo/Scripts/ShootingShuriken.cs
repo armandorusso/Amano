@@ -19,6 +19,9 @@ public class ShootingShuriken : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer;
     
     [SerializeField] private float _linePoints = 25;
+    /// <summary>
+    /// Defines how many steps we need to take. Ex: every 0.01 seconds, a new point is defined
+    /// </summary>
     [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints;
     [SerializeField] private LayerMask TrajectoryLayerMask;
     private bool _isHoldingAim;
@@ -59,6 +62,7 @@ public class ShootingShuriken : MonoBehaviour
             aimPos = aimTracker.GetRightStickDirection();
             float zRotation = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
             rotationPosition.rotation = Quaternion.Euler(0, 0, zRotation);
+            Debug.Log($"Aim Rotation: {zRotation}");
         }
         
         if (transform.localScale.x != rotationPosition.localScale.x)
@@ -131,14 +135,17 @@ public class ShootingShuriken : MonoBehaviour
             point.y = startPosition.y + startVelocity.y * time + (Physics2D.gravity.y / 2f * time * time);
 
             // Perform collision detection
-            RaycastHit2D hit = Physics2D.Raycast(point, point, Vector2.Distance(point, startPosition), TrajectoryLayerMask);
+            RaycastHit2D hit = Physics2D.Raycast(startPosition, point - startPosition, Vector2.Distance(point, startPosition), TrajectoryLayerMask);
 
             if (hit.collider != null)
             {
                 // Collision detected
                 // Do something with the collider or the hit information
                 _lineRenderer.SetPosition(i - 1, hit.point);
-                return; // Stop drawing the trajectory if a collision occurs
+                
+                // Set the line renderer position count to ensure that it only renders up to the collision point
+                _lineRenderer.positionCount = i;
+                return;
             }
 
             _lineRenderer.SetPosition(i, point);

@@ -243,5 +243,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   playerInput: {fileID: 0}
+  AbilityFacts: {fileID: 11400000, guid: 005fada98f1e0134197335aebcdb20c2, type: 2}
   currentInputType: 0
   inputSwitchCooldown: 0.5

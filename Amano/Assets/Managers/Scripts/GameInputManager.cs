@@ -13,6 +13,7 @@ public class GameInputManager : MonoBehaviour
     [SerializeField] public InputAction _controllerInput;
     [SerializeField] public InputAction _keyboardAndMouseInput;
     [SerializeField] public PlayerInput playerInput; // TODO: Use this instead to check for a new control scheme. There's a variable currentControlScheme which says which control scheme is currently active
+    
     public InputType currentInputType;
     public float inputSwitchCooldown = 0.5f;
     private float lastInputSwitchTime;
@@ -53,7 +54,9 @@ public class GameInputManager : MonoBehaviour
             {
                 currentInputType = InputType.KeyboardMouse;
                 lastInputSwitchTime = Time.time;
+                
                 SwitchInputAction?.Invoke(currentInputType);
+                
                 Debug.Log("Using Keyboard and Mouse");
             }
         }

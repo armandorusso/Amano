@@ -34,7 +34,8 @@ public class AbilityDescription : MonoBehaviour
 
     private void OnInputSwitch(GameInputManager.InputType inputType)
     {
-        AbilityButtonSprite.sprite = inputType == GameInputManager.InputType.Controller ? _currentInputSprites[0] : _currentInputSprites[1];
+        if(_currentInputSprites != null)
+            AbilityButtonSprite.sprite = inputType == GameInputManager.InputType.Controller ? _currentInputSprites[0] : _currentInputSprites[1];
     }
 
     public void OnClickContinue()
