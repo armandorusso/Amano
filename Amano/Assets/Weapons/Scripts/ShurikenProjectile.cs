@@ -37,7 +37,7 @@ public class ShurikenProjectile : MonoBehaviour
     
     public static event EventHandler<ShurikenHitEventArgs> ShurikenHitEvent;
     public static Action<float, LayerMask, GameObject> ShurikenHitCharacterEvent;
-    public static Action <int> ShurikenHitTeleportObjectAction;
+    public static Action <int, GameObject> ShurikenHitTeleportObjectAction;
 
     public class ShurikenHitEventArgs : EventArgs
     {
@@ -115,7 +115,7 @@ public class ShurikenProjectile : MonoBehaviour
 
             if (otherObject.CompareTag("Teleport"))
             {
-                ShurikenHitTeleportObjectAction?.Invoke(gameObject.GetInstanceID());
+                ShurikenHitTeleportObjectAction?.Invoke(gameObject.GetInstanceID(), gameObject);
                 var contactedCollider = col.GetContact(0).collider;
                 if (contactedCollider != null && contactedCollider.gameObject.layer is 10)
                 {

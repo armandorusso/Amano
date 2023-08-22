@@ -10,10 +10,7 @@ public class ShurikenProjectileEffects : MonoBehaviour
     [SerializeField] public ParticleSystem ShurikenParticleSystem;
     [SerializeField] public AudioClip ShurikenThrowSound;
     [SerializeField] public AudioClip ShurikenAttachedSound;
-    [SerializeField] public Sprite ControllerTeleportButton;
-    [SerializeField] public Sprite MouseTeleportButton;
-    [SerializeField] public SpriteRenderer ButtonSprite;
-    
+
     private AudioSource _audioSource;
     private Color _originalColor;
     private SpriteRenderer _sprite;
@@ -30,7 +27,6 @@ public class ShurikenProjectileEffects : MonoBehaviour
 
     void Start()
     {
-        GameInputManager.SwitchInputAction += OnInputSwitch;
         ShurikenProjectile.ShurikenHitTeleportObjectAction += OnShurikenAttachedToTeleportableObject;
     }
 
@@ -38,7 +34,6 @@ public class ShurikenProjectileEffects : MonoBehaviour
     {
         if (_isInstantiated)
         {
-            ButtonSprite.enabled = false;
             _audioSource.PlayOneShot(ShurikenThrowSound);
         }
     }
@@ -47,30 +42,16 @@ public class ShurikenProjectileEffects : MonoBehaviour
     {
         if (_isInstantiated)
         {
-            ButtonSprite.enabled = false;
             ShurikenParticleSystem.Stop();
             ChangeToOriginalColor();
         }
     }
+    
 
-    private void OnInputSwitch(GameInputManager.InputType inputType)
-    {
-        if (inputType == GameInputManager.InputType.Controller)
-        {
-            ButtonSprite.sprite = ControllerTeleportButton;
-        }
-        else
-        {
-            ButtonSprite.sprite = MouseTeleportButton;
-        }
-    }
-
-    public void OnShurikenAttachedToTeleportableObject(int gameObjectId)
+    public void OnShurikenAttachedToTeleportableObject(int gameObjectId, GameObject shuriken)
     {
         if(gameObject.GetInstanceID() == gameObjectId)
         {
-            ButtonSprite.enabled = true;
-            ButtonSprite.sprite = GameInputManager.Instance.currentInputType == GameInputManager.InputType.KeyboardMouse ? MouseTeleportButton : ControllerTeleportButton;
             ShurikenParticleSystem.Play();
             _audioSource.PlayOneShot(ShurikenAttachedSound);
             ChangeToNewColor();
@@ -86,5 +67,4 @@ public class ShurikenProjectileEffects : MonoBehaviour
     {
         _sprite.color = ShurikenAttachedColor;
     }
-    
 }

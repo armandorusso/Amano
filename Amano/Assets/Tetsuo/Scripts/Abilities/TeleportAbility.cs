@@ -27,6 +27,8 @@ public class TeleportAbility : MonoBehaviour
     public static Action<float> TeleportPopOutAction;
     public static Action<string> TeleportSoundAction;
     public static Action<ShieldRotation> RemoveShieldComponentsAction;
+    public static Action ShurikenConsumedAction;
+    public static Action RemoveInteractButtonAction;
 
     void Awake()
     {
@@ -104,6 +106,7 @@ public class TeleportAbility : MonoBehaviour
             Debug.Log("Swapping positions");
             _teleportShurikens.Dequeue();
             var objectToTeleport = _teleportableObjects.Dequeue();
+            ShurikenConsumedAction?.Invoke();
             Assert.IsNotNull(shuriken);
             vanishingEventArgs.objectBeingTeleported1 = gameObject;
             vanishingEventArgs.objectBeingTeleported2 = objectToTeleport.gameObject;
@@ -125,6 +128,7 @@ public class TeleportAbility : MonoBehaviour
             if (_teleportShurikens.Count < 1)
             {
                 canTeleport = false;
+                RemoveInteractButtonAction?.Invoke();
             }
         }
     }
