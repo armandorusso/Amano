@@ -31,13 +31,14 @@ public class AimDirectionTracker : MonoBehaviour
         CurrentInput = isUsingController;
     }
 
-    private void Update()
-    {
-    }
-
     public Vector3 GetMousePositionInWorld()
     {
         return mousePositionInWorld;
+    }
+
+    public Vector2 GetMousePositionInScreen()
+    {
+        return camera.WorldToViewportPoint(mousePositionInWorld);
     }
 
     public Vector2 GetRightStickDirection()
@@ -45,7 +46,7 @@ public class AimDirectionTracker : MonoBehaviour
         return rightStickDirection;
     }
 
-    public void OnShootWeapon(InputAction.CallbackContext context)
+    public void OnMoveAimButton(InputAction.CallbackContext context)
     {
         if (AbilityFacts.Facts["Shuriken"] == 0)
         {

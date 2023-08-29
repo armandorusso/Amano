@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 7467234691515861703}
   - component: {fileID: 4987418365884749352}
   - component: {fileID: 6404459012572077078}
+  - component: {fileID: 9129144786980208583}
   m_Layer: 6
   m_Name: Tetsuo
   m_TagString: Player
@@ -533,8 +534,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7893756533738633826}
-        m_TargetAssemblyTypeName: MousePosTracker, Assembly-CSharp
-        m_MethodName: OnShootWeapon
+        m_TargetAssemblyTypeName: AimDirectionTracker, Assembly-CSharp
+        m_MethodName: OnMoveAimButton
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -594,6 +595,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cdff6c1b-3add-4ada-b0f6-3cedaa963e69
     m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9129144786980208583}
+        m_TargetAssemblyTypeName: TetsuoZoom, Assembly-CSharp
+        m_MethodName: OnZoomButtonClicked
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 315a3dd0-cdb1-4ebc-8ecd-40c5a6fdacc3
+    m_ActionName: Player/Zoom[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1374,6 +1391,19 @@ MonoBehaviour:
   m_ShapePathHash: 1380128354
   m_Mesh: {fileID: 0}
   m_InstanceId: 51726
+--- !u!114 &9129144786980208583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365518849668369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568616fcd9434fb45a4acd99f4cb74cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AimTracker: {fileID: 7893756533738633826}
 --- !u!1 &7574503943195773515
 GameObject:
   m_ObjectHideFlags: 0

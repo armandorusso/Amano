@@ -16,14 +16,17 @@ public class RoomCameraManager : MonoBehaviour
 
     private bool _hasClickedStart;
     private bool _hasEndedLevel;
-    
+    private bool _isOffsetTriggered;
+    private AimDirectionTracker _aimTracker;
+    private CinemachineFramingTransposer _transposer;
+
     public class CameraTransitionArgs : EventArgs
     {
         public bool isMovementEnabled { get; set; }
     }
     public static event EventHandler<CameraTransitionArgs> cameraTransitionEvent;
     private CameraTransitionArgs cameraTransitionArgs;
-    
+
     private void Start()
     {
         _cmBrain.m_IgnoreTimeScale = true;
@@ -33,6 +36,20 @@ public class RoomCameraManager : MonoBehaviour
         };
         StartGame.ZoomOutCameraAction += OnStartGameEvent;
         LevelManager.ZoomInCameraAction += OnEndLevelEvent;
+        TetsuoZoom.ZoomTriggeredAction += OnZoomButtonTriggered;
+    }
+
+    private void OnZoomButtonTriggered(bool isOffsetTriggered, AimDirectionTracker aimTracker)
+    {
+        _isOffsetTriggered = isOffsetTriggered;
+        _aimTracker = aimTracker;
+        
+        _transposer = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+        if (!_isOffsetTriggered)
+        {
+            ResetCamera();
+        }
     }
 
     private void Update()
@@ -48,6 +65,28 @@ public class RoomCameraManager : MonoBehaviour
                 _hasEndedLevel = false;
             }
         }
+        
+        ApplyOffset();
+    }
+
+    private void ApplyOffset()
+    {
+        if (_isOffsetTriggered)
+        {
+            Debug.Log("Offset Activated");
+            var newOffset = _aimTracker.CurrentInput == GameInputManager.InputType.Controller ? _aimTracker.GetRightStickDirection() * 4f : (Vector2) _aimTracker.GetMousePositionInScreen().normalized * 4f;
+            
+            newOffset.x = Mathf.Clamp(newOffset.x, -4, 4);
+            newOffset.y = Mathf.Clamp(newOffset.y, -4, 4);
+
+            _transposer.m_TrackedObjectOffset = newOffset;
+        }
+    }
+
+    private void ResetCamera()
+    {
+        Debug.Log("Offset Deactivated");
+        _transposer.m_TrackedObjectOffset = Vector3.zero;
     }
 
     private void OnStartGameEvent(bool hasStartedGame, float zoomOutTime)

@@ -8,10 +8,10 @@ using UnityEngine.UI;
 
 public class AbilityDescription : MonoBehaviour
 {
-    [SerializeField] private GameObject AbilityCanvas;
-    [SerializeField] private TextMeshProUGUI AbilityInfoText;
-    [SerializeField] private Image AbilityButtonSprite;
-    [SerializeField] private Button ContinueButton;
+    [SerializeField] public GameObject AbilityCanvas;
+    [SerializeField] public TextMeshProUGUI AbilityInfoText;
+    [SerializeField] public Image AbilityButtonSprite;
+    [SerializeField] public Button ContinueButton;
 
     private Sprite[] _currentInputSprites;
     public static Action EnableUIAction;

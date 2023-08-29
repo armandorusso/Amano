@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ButtonInfoAnimation : MonoBehaviour
 {
-    [SerializeField] private AnimatorController KeyboardAnimator;
-    [SerializeField] private AnimatorController ControllerAnimator;
+    [SerializeField] public AnimatorController KeyboardAnimator;
+    [SerializeField] public AnimatorController ControllerAnimator;
 
     private Animator _animator;
 
