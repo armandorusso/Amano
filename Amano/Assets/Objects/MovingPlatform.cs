@@ -52,7 +52,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (!isSpike && col.gameObject.CompareTag("Player"))
+        if (!isSpike && col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Teleport"))
         {
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.None;
             
@@ -62,7 +62,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D col)
     {
-        if (!isSpike && col.gameObject.CompareTag("Player"))
+        if (!isSpike && col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Teleport"))
         {
             col.collider.transform.SetParent(transform);
         }
@@ -70,7 +70,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        if (!isSpike && col.gameObject.CompareTag("Player"))
+        if (!isSpike && col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Teleport"))
         {
             col.gameObject.transform.SetParent(null);
 
