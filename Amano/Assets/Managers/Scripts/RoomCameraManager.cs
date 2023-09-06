@@ -74,18 +74,23 @@ public class RoomCameraManager : MonoBehaviour
         if (_isOffsetTriggered)
         {
             Debug.Log("Offset Activated");
-            var newOffset = _aimTracker.CurrentInput == GameInputManager.InputType.Controller ? _aimTracker.GetRightStickDirection() * 4f : (Vector2) _aimTracker.GetMousePositionInScreen().normalized * 4f;
-            
-            newOffset.x = Mathf.Clamp(newOffset.x, -4, 4);
-            newOffset.y = Mathf.Clamp(newOffset.y, -4, 4);
+            var inputVector = _aimTracker.CurrentInput == GameInputManager.InputType.Controller ? _aimTracker.GetRightStickDirection(): (Vector2) _aimTracker.GetMousePositionInScreen().normalized;
 
-            _transposer.m_TrackedObjectOffset = newOffset;
+            // Move camera in the x and y direction depending on the input provided
+            Debug.Log($"right: {transform.up}");
+            var moveDirection = transform.right * inputVector.x + transform.up * inputVector.y;
+
+            var moveSpeed = 8f;
+            _transposer.m_TrackedObjectOffset += moveDirection * moveSpeed * Time.deltaTime;
+            _transposer.m_TrackedObjectOffset.x = Mathf.Clamp(_transposer.m_TrackedObjectOffset.x, -5f, 5f);
+            _transposer.m_TrackedObjectOffset.y = Mathf.Clamp(_transposer.m_TrackedObjectOffset.y, -5f, 5f);
         }
     }
 
     private void ResetCamera()
     {
         Debug.Log("Offset Deactivated");
+        _camera.transform.position -= _transposer.m_TrackedObjectOffset;
         _transposer.m_TrackedObjectOffset = Vector3.zero;
     }
 

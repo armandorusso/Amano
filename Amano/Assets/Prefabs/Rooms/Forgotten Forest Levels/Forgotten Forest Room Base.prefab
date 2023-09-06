@@ -3238,7 +3238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8776994330225482767}
   m_Layer: 2
-  m_Name: Room Base
+  m_Name: Forgotten Forest Room Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
