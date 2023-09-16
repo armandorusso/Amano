@@ -1,18 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Internal;
 
 public class FastMovingPlatform : MonoBehaviour
 {
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _endPoint;
     [SerializeField] private float _speed;
+    [SerializeField] private float _moveBackSpeed;
+    [SerializeField] private float _moveBackDelay;
 
     private Vector2 _previousPosition;
     private Rigidbody2D _rb;
     private bool isPlatformActive;
     public static Action<Vector2> TouchingPlatformAction;
+    private bool _hasLeftPlatform;
     
     private void Start()
     {
@@ -22,7 +27,10 @@ public class FastMovingPlatform : MonoBehaviour
     void Update()
     {
         _previousPosition = transform.position;
-        
+    }
+
+    private void FixedUpdate()
+    {
         if (isPlatformActive)
         {
             MovePlatform();
@@ -36,17 +44,19 @@ public class FastMovingPlatform : MonoBehaviour
         if (Vector2.Distance(transform.position, _endPoint.position) <= 0.5f)
         {
             isPlatformActive = false;
-            StartCoroutine(DelayPlatformFromMovingBack());
+            StartCoroutine(MovePlatformBackToOriginalPosition());
         }
     }
 
-    private IEnumerator DelayPlatformFromMovingBack()
+    private IEnumerator MovePlatformBackToOriginalPosition()
     {
-        yield return new WaitForSeconds(1f);
+        // Delay before moving back
+        yield return new WaitForSeconds(_moveBackDelay);
 
+        // Move platform back to original position once delay is over
         while (Vector2.Distance(transform.position, _startPoint.position) >= 0.5f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _startPoint.position, Time.deltaTime * 1f);
+            transform.position = Vector2.MoveTowards(transform.position, _startPoint.position, Time.deltaTime * _moveBackSpeed);
             yield return null;
         }
     }
@@ -55,6 +65,8 @@ public class FastMovingPlatform : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
+            _hasLeftPlatform = false;
+            
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.None;
             
             col.collider.transform.SetParent(transform);
@@ -76,10 +88,11 @@ public class FastMovingPlatform : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") && !_hasLeftPlatform)
         {
+            _hasLeftPlatform = true;
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.Extrapolate;
-            var platformVelocity = ((((Vector2) transform.position - _previousPosition)) / Time.deltaTime) * 1.5f;
+            var platformVelocity = ((((Vector2) transform.position - _previousPosition)) / Time.fixedDeltaTime) * 1.5f;
             
             if(isPlatformActive)
                 TouchingPlatformAction?.Invoke(platformVelocity);

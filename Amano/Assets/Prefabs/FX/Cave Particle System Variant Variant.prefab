@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4585814190577802265, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
       propertyPath: m_Name
-      value: Cave Particle System Variant
+      value: Cave Particle System Variant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4585814190577802266, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -25,6 +25,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
       propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
+      propertyPath: InitialModule.size3D
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
@@ -46,6 +50,18 @@ PrefabInstance:
     - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
+      propertyPath: InitialModule.startSizeZ.scalar
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4585814190577802267, guid: 1529b17814cdfc949b7c4b49304feac6, type: 3}
       propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.size

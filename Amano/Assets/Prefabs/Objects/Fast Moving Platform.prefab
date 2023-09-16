@@ -190,6 +190,8 @@ MonoBehaviour:
   _startPoint: {fileID: 290413794120219171}
   _endPoint: {fileID: 290413794180035645}
   _speed: 16
+  _moveBackSpeed: 3.5
+  _moveBackDelay: 1.2
 --- !u!50 &5025418526399007359
 Rigidbody2D:
   serializedVersion: 4
