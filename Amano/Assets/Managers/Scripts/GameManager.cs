@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void ChangeTetsuoLayerAndTag(string tagName)
     {
+        _tetsuo.transform.parent = null;
         var tetsuoLayers = _tetsuo.GetComponentsInChildren<Transform>();
         
         tetsuoLayers[1].gameObject.layer = LayerMask.NameToLayer(tagName);

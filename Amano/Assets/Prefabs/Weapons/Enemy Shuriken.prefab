@@ -103,8 +103,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0.2
   m_Material: {fileID: 6200000, guid: 9ae46282df69d9a46a5d46d8bb9f0128, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -125,7 +125,6 @@ MonoBehaviour:
   Damage: 20
   ShurikenAttachedColor: {r: 0, g: 0, b: 0, a: 0}
   ShurikenParticleSystem: {fileID: 0}
-  ShurikenSound: {fileID: 0}
   _sprite: {fileID: 0}
   _animator: {fileID: 0}
   _rb: {fileID: 0}

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class NormalSamuraiData : EnemyData
 {
-    
+    [SerializeField] public float ShootForce;
 }

@@ -21,13 +21,13 @@ public class EnemyShootState : IAmanoState
     public void UpdateState(AmanoStateMachine stateMachine)
     {
         var enemyPosition = stateMachine.transform.position;
-        if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) < 2f && _timer.IsTimerDone())
+        if (Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) < _enemyData.LineOfSightDistance && _timer.IsTimerDone())
         {
             IsShootingAction?.Invoke(stateMachine.gameObject, true);
 
             ShootWeapon(enemyPosition, stateMachine);
         }
-        else if(Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) > 2f)
+        else if(Vector2.Distance(_enemyData.TetsuoPosition.position, enemyPosition) > _enemyData.LineOfSightDistance)
         {
             stateMachine.SwitchState("EnemyPatrolState");
         }
@@ -46,7 +46,7 @@ public class EnemyShootState : IAmanoState
             _enemyData.ThrowPosition.position, Quaternion.identity);
         var rbOfProjectile = projectileInScene.GetComponent<Rigidbody2D>();
 
-        rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * 20f;
+        rbOfProjectile.velocity = new Vector2(directionToShootProjectile.x, directionToShootProjectile.y) * _enemyData.ShootForce;
         stateMachine.StartCoroutine(SetThrowingAnimationToFalse(stateMachine));
         _timer.StartTimer(2f);
     }

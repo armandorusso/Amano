@@ -73,7 +73,6 @@ public class MovingPlatform : MonoBehaviour
         if (!isSpike && col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Teleport"))
         {
             col.gameObject.transform.SetParent(null);
-
         }
     }
 }

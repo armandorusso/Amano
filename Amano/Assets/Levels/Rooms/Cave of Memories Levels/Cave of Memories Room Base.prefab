@@ -977,6 +977,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1315010834718513027}
   - component: {fileID: 4925400484331834238}
+  - component: {fileID: 1009995213077101634}
+  - component: {fileID: 7777300528201313371}
   m_Layer: 0
   m_Name: Room Components
   m_TagString: Untagged
@@ -1015,6 +1017,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19973b8131f47d54f83e766434c6b65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1009995213077101634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5057283506763428914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e8bfa9be11ae4478a6832969e27f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7777300528201313371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5057283506763428914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db985c86d02401b40847647f88bde19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &5096802946829054354
 GameObject:
   m_ObjectHideFlags: 0

@@ -173,7 +173,7 @@ MonoBehaviour:
   GroundCheck: {fileID: 1508394702720032208}
   TetsuoPosition: {fileID: 3365518849668369168, guid: 21c30ea44660f5f4ea5a48e9e272f0c2, type: 3}
   ThrowPosition: {fileID: 7262230595521616340}
-  LineOfSightDistance: 5
+  LineOfSightDistance: 7
   RayCastLayers:
     serializedVersion: 2
     m_Bits: 832
@@ -181,6 +181,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
+  ShootForce: 14
 --- !u!50 &4751308941784329157
 Rigidbody2D:
   serializedVersion: 4

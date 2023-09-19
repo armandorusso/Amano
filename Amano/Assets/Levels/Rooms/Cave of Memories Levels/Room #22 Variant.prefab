@@ -5448,6 +5448,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[13].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 1563055372863914406, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2055884264539515333, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Size.x
       value: 14
@@ -11612,6 +11616,14 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[125].Y
       value: 90000100
       objectReference: {fileID: 0}
+    - target: {fileID: 6819678173067769877, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Size.y
+      value: 6.581947
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819678173067769877, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.14018035
+      objectReference: {fileID: 0}
     - target: {fileID: 7384254570030201456, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 72
@@ -12900,6 +12912,38 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[174].second.m_TileSpriteIndex
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: 4.744206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 6.9955287
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -15.978349
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 6.9647245
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: -15.99418
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -5.6541133
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 4.8203874
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: -5.7029033
+      objectReference: {fileID: 0}
     - target: {fileID: 8392017596326766875, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 2
@@ -14091,6 +14135,14 @@ PrefabInstance:
     - target: {fileID: 8393475179021804768, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[11].Y
       value: 27500100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619905483484747280, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.491241
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619905483484747280, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.8113952
       objectReference: {fileID: 0}
     - target: {fileID: 8776994330225482753, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Name
