@@ -46,6 +46,11 @@ public class TetsuoHealthBar : MonoBehaviour
         DeathZone.TetsuoDeathZoneAction += OnDeathFall;
     }
 
+    private void Update()
+    {
+        Debug.Log($"Is Invulnerable: {isInvulnerable}");
+    }
+
     private void OnDisable()
     {
         healthUIEventArgs = new HealthUIEventArgs
@@ -118,7 +123,6 @@ public class TetsuoHealthBar : MonoBehaviour
         if (TetsuoHealthPoints.HitPoints <= 0)
         {
             TetsuoHurtOrDeathSoundAction?.Invoke("Death");
-            isInvulnerable = true;
             Invoke(nameof(SetInvulnerabilityFalse), 2.5f);
             TetsuoHealthPoints.IncreaseHealth(100f);
             healthUIEventArgs = new HealthUIEventArgs
