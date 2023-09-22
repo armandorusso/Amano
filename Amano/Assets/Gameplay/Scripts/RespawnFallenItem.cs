@@ -39,6 +39,9 @@ public class RespawnFallenItem : MonoBehaviour
 
     private void ResetItemVelocity()
     {
-        _rb.velocity = Vector2.zero;
+        if (_rb != null)
+        {
+            _rb.velocity = Vector2.zero;
+        }
     }
 }

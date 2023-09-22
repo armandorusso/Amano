@@ -14,9 +14,14 @@ public class Health : IHealth
         MaxHealth = health;
     }
     
-    public void IncreaseHealth(float additionalHealthValue)
+    public void SetHealth(float newHealth)
     {
-        _currentHealth += additionalHealthValue;
+        _currentHealth = newHealth;
+    }
+
+    public void IncreaseHealth(float additionalHealth)
+    {
+        _currentHealth += additionalHealth;
     }
 
     public void DecreaseHealth(float damage)

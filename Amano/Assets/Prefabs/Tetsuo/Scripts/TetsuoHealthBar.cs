@@ -124,7 +124,7 @@ public class TetsuoHealthBar : MonoBehaviour
         {
             TetsuoHurtOrDeathSoundAction?.Invoke("Death");
             Invoke(nameof(SetInvulnerabilityFalse), 2.5f);
-            TetsuoHealthPoints.IncreaseHealth(100f);
+            TetsuoHealthPoints.SetHealth(100f);
             healthUIEventArgs = new HealthUIEventArgs
             {
                 currentHealth = 100f
