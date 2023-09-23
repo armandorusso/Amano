@@ -90,14 +90,13 @@ public class FastMovingPlatform : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player") && !_hasLeftPlatform)
         {
+            col.gameObject.transform.SetParent(null);
             _hasLeftPlatform = true;
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.Extrapolate;
-            var platformVelocity = ((((Vector2) transform.position - _previousPosition)) / Time.fixedDeltaTime) * 1.5f;
-            
+            var platformVelocity = ((((Vector2) transform.position - _previousPosition)) / Time.deltaTime) * 1.5f;
+
             if(isPlatformActive)
                 TouchingPlatformAction?.Invoke(platformVelocity);
-            
-            col.gameObject.transform.SetParent(null);
         }
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShieldRotation : QuickTimeComponent
@@ -20,10 +17,18 @@ public class ShieldRotation : QuickTimeComponent
     {
         ApplyQuickTimeProperty();
     }
-
+    
     private void OnDisable()
     {
-        gameObject.AddComponent<Rigidbody2D>();
+        /*if (gameObject.TryGetComponent(out Rigidbody2D rb))
+        {
+            Destroy(rb);
+        }*/
+    }
+
+    public void OnEnemyEnabled()
+    {
+        gameObject.transform.parent = RotationPoint;
     }
 
     private void AdjustShieldRotation()

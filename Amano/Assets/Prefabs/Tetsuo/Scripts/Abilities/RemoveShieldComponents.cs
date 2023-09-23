@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class RemoveShieldComponents : MonoBehaviour
 {
@@ -15,7 +11,14 @@ public class RemoveShieldComponents : MonoBehaviour
     private void OnTeleport(ShieldRotation shield)
     {
         shield.transform.parent = null;
-        Destroy(shield.GetComponent<ShieldRotation>());
+        
+        if(shield.TryGetComponent(out ShieldRotation shieldRotationComponent))
+        {
+            shieldRotationComponent.enabled = false;
+        }
+
+        // shield.AddComponent<Rigidbody2D>();
+        
         TeleportAbility.RemoveShieldComponentsAction -= OnTeleport;
     }
 

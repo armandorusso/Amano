@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 5966730442935504146}
   - component: {fileID: 1308076985004992719}
   - component: {fileID: -797841706388058914}
+  - component: {fileID: 760836557878491125}
   m_Layer: 7
   m_Name: Shield Samurai
   m_TagString: Teleport
@@ -428,6 +429,58 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &760836557878491125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751308941784329155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917dc38863c49bf41849538348441443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_useLayerMask: 0
+  m_onCollisionEnter2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onCollsionExit2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onTriggerEnter2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onTriggerExit2D:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onAwake:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onEnable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9118376403532475019}
+        m_TargetAssemblyTypeName: ShieldRotation, Assembly-CSharp
+        m_MethodName: OnEnemyEnabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6757076447274174165
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,3 +689,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6448684369923646482, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
   m_PrefabInstance: {fileID: 8615379937596747297}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9118376403532475019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8573444738611395414, guid: b96af4ba25dbadc4b955117c3cf08e0b, type: 3}
+  m_PrefabInstance: {fileID: 8615379937596747297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136dfb1efc5be964e886622f297f08ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

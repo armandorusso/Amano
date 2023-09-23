@@ -116,7 +116,7 @@ public class ShurikenProjectile : MonoBehaviour
             if (otherObject.CompareTag("Teleport"))
             {
                 ShurikenHitTeleportObjectAction?.Invoke(gameObject.GetInstanceID(), gameObject);
-                var contactedCollider = col.GetContact(0).collider;
+                var contactedCollider = col.GetContact(0).otherCollider;
                 if (contactedCollider != null && contactedCollider.gameObject.layer is 10)
                 {
                     otherObject = contactedCollider.gameObject;
