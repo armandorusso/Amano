@@ -46,4 +46,9 @@ public class TitleScreenMenu : MonoBehaviour
             button.enabled = false;
         }
     }
+
+    private void OnDestroy()
+    {
+        StartGame.FadeStartScreenAction -= OnStartGame;
+    }
 }

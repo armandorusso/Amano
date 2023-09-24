@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Levels/Forgotten Forest.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Levels/Cave of Memories.unity
+    guid: 931d7c351013da140b63d78617d803a4
+  - enabled: 1
     path: Assets/Levels/Thanks for Playing.unity
     guid: 5f76971911dce5f40bb0bbf65abe8963
   - enabled: 0
-    path: Assets/Scenes/Cave of Memories.unity
-    guid: 76dae3ca21e65d148845fd7ef06bb852
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

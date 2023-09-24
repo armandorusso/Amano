@@ -31,7 +31,6 @@ public class ShurikenProjectile : MonoBehaviour
         public bool objectCanTeleport { get; set; }
         public Transform teleportableObject { get; set; }
         public bool quickTimeTeleport { get; set; }
-        public GameObject enemy { get; set; }
     }
     public static event EventHandler ShurikenDestroyedEvent;
     
@@ -116,7 +115,7 @@ public class ShurikenProjectile : MonoBehaviour
             if (otherObject.CompareTag("Teleport"))
             {
                 ShurikenHitTeleportObjectAction?.Invoke(gameObject.GetInstanceID(), gameObject);
-                var contactedCollider = col.GetContact(0).otherCollider;
+                var contactedCollider = col.otherCollider;
                 if (contactedCollider != null && contactedCollider.gameObject.layer is 10)
                 {
                     otherObject = contactedCollider.gameObject;
@@ -132,7 +131,6 @@ public class ShurikenProjectile : MonoBehaviour
                     objectCanTeleport = hitTeleportableObj,
                     teleportableObject = teleportObjectLayer == 13 ? teleportObject.transform : otherObject.transform,
                     quickTimeTeleport = teleportObjectLayer == 13 ? teleportObject.transform : false, // if doesn't exist, false
-                    enemy = otherObject
                 };
                 
                 ShurikenAttachedEvent?.Invoke(this, args);

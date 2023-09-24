@@ -30,6 +30,11 @@ public class ShurikenProjectileEffects : MonoBehaviour
         ShurikenProjectile.ShurikenHitTeleportObjectAction += OnShurikenAttachedToTeleportableObject;
     }
 
+    private void OnDestroy()
+    {
+        ShurikenProjectile.ShurikenHitTeleportObjectAction -= OnShurikenAttachedToTeleportableObject;
+    }
+
     private void OnEnable()
     {
         if (_isInstantiated)

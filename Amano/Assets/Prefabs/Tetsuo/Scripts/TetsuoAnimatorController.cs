@@ -37,6 +37,11 @@ public class TetsuoAnimatorController : MonoBehaviour
         StartGame.PlayGetUpAnimationAction += OnStartGame;
     }
 
+    private void OnDestroy()
+    {
+        StartGame.PlayGetUpAnimationAction -= OnStartGame;
+    }
+
     private void Update()
     {
         if (_tetsuoController)

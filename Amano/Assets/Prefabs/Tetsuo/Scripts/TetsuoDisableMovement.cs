@@ -108,7 +108,5 @@ public class TetsuoDisableMovement : MonoBehaviour
         RoomCameraManager.cameraTransitionEvent -= OnCameraTransitionEvent;
         TetsuoHealthBar.tetsuoDeathEvent -= OnTetsuoDeath;
         TetsuoAnimatorController.EnableInputAction -= OnStartGame;
-
-        _tetsuoMovement = null; // TODO: delete this line when you make the second level
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,16 @@ public class TetsuoSfxController : MonoBehaviour
         TetsuoController.PlayExtraSoundEffectAction += PlayMomentumSound;
         TetsuoController.StopSoundEffectAction += StopPlayingTetsuoSoundEffect;
         TetsuoController.PlayRunSoundEffectAction += PlayTetsuoRunSound;
+    }
+
+    private void OnDestroy()
+    {
+        TetsuoHealthBar.TetsuoHurtOrDeathSoundAction -= PlayTetsuoSoundEffect;
+        TeleportAbility.TeleportSoundAction -= PlayVanishSound;
+        TetsuoController.PlaySoundEffectAction -= PlayTetsuoSoundEffect;
+        TetsuoController.PlayExtraSoundEffectAction -= PlayMomentumSound;
+        TetsuoController.StopSoundEffectAction -= StopPlayingTetsuoSoundEffect;
+        TetsuoController.PlayRunSoundEffectAction -= PlayTetsuoRunSound;
     }
 
     private void PlayTetsuoSoundEffect(string soundEffectName)

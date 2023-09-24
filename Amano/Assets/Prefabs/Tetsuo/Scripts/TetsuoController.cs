@@ -255,6 +255,13 @@ public class TetsuoController : MonoBehaviour, IMove
         Invoke(nameof(SetConservationMomentum), 1.2f);
     }
 
+    private void OnDestroy()
+    {
+        FastMovingPlatform.TouchingPlatformAction -= OnLeavingPlatform;
+        TeleportAbility.TeleportPopOutAction -= OnTeleportPopOut;
+        TetsuoSlashAttack.SlashBoostAction -= OnSlashBoost;
+    }
+
     private void SetConservationMomentum()
     {
         TetsuoData.ConserveMomentum = true;
