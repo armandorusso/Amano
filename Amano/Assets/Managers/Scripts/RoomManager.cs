@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    [SerializeField] public GameObject Tetsuo;
+    public static Action<Vector2> AdjustParallaxBackgroundAction;
+
     public void OnRoomEnter()
     {
-        gameObject.SetActive(true);    
+        gameObject.SetActive(true);
+        AdjustParallaxBackgroundAction?.Invoke(Tetsuo.transform.position);
     }
     
     public void OnRoomExit()

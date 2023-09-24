@@ -24,6 +24,8 @@ public class Parallax : MonoBehaviour
     {
         startPosition = transform.position;
         startZ = transform.position.z;
+        
+        RoomManager.AdjustParallaxBackgroundAction += OnNewRoomEntered;
     }
 
     private void Update()
@@ -36,5 +38,12 @@ public class Parallax : MonoBehaviour
     {
         camera = null;
         player = null;
+        
+        RoomManager.AdjustParallaxBackgroundAction -= OnNewRoomEntered;
+    }
+
+    private void OnNewRoomEntered(Vector2 tetsuoNewStartPosition)
+    {
+        startPosition = tetsuoNewStartPosition;
     }
 }
