@@ -19,6 +19,10 @@ public class RoomCameraManager : MonoBehaviour
     private bool _isOffsetTriggered;
     private AimDirectionTracker _aimTracker;
     private CinemachineFramingTransposer _transposer;
+    private float _originalDeadZoneWidth;
+    private float _originalDeadZoneHeight;
+    private float _originalSoftzoneWidth;
+    private float _originalSoftzoneHeight;
 
     public class CameraTransitionArgs : EventArgs
     {
@@ -45,6 +49,11 @@ public class RoomCameraManager : MonoBehaviour
         _aimTracker = aimTracker;
         
         _transposer = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        
+        _originalDeadZoneWidth = _transposer.m_DeadZoneWidth;
+        _originalDeadZoneHeight = _transposer.m_DeadZoneHeight;
+        _originalSoftzoneWidth = _transposer.m_SoftZoneWidth;
+        _originalSoftzoneHeight = _transposer.m_SoftZoneHeight;
 
         if (!_isOffsetTriggered)
         {
@@ -75,6 +84,13 @@ public class RoomCameraManager : MonoBehaviour
         {
             Debug.Log("Offset Activated");
             var inputVector = _aimTracker.CurrentInput == GameInputManager.InputType.Controller ? _aimTracker.GetRightStickDirection(): (Vector2) _aimTracker.GetMousePositionInScreen().normalized;
+            
+            // Set the deadzone values so the offset is more noticeable
+            _transposer.m_DeadZoneWidth = 0f;
+            _transposer.m_DeadZoneHeight = 0f;
+
+            _transposer.m_SoftZoneWidth = 0f;
+            _transposer.m_SoftZoneHeight = 0f;
 
             // Move camera in the x and y direction depending on the input provided
             Debug.Log($"right: {transform.up}");
@@ -90,6 +106,12 @@ public class RoomCameraManager : MonoBehaviour
     private void ResetCamera()
     {
         Debug.Log("Offset Deactivated");
+        _transposer.m_DeadZoneWidth = _originalDeadZoneWidth;
+        _transposer.m_DeadZoneHeight = _originalDeadZoneHeight;
+
+        _transposer.m_SoftZoneWidth = _originalSoftzoneWidth;
+        _transposer.m_SoftZoneHeight = _originalSoftzoneHeight;
+        
         _camera.transform.position -= _transposer.m_TrackedObjectOffset;
         _transposer.m_TrackedObjectOffset = Vector3.zero;
     }
