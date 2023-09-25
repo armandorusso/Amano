@@ -93,6 +93,8 @@ public class TeleportAbility : MonoBehaviour
             _teleportShurikens.Dequeue();
             _teleportableObjects.Dequeue();
         }
+
+        RemoveInteractButtonAction?.Invoke();
     }
 
     public void TeleportToObject(InputAction.CallbackContext context)
