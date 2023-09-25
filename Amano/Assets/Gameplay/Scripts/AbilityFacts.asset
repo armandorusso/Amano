@@ -24,16 +24,17 @@ MonoBehaviour:
     - Key: Shuriken
       Value: Aim and shoot using the following buttons
     - Key: Dash
-      Value: Aim using the mouse or right stick & Press the following button to dash
+      Value: Aim using the move keys or left stick & Press the following button to
+        dash
     keyCollision: 0
   FactsButtonSprites:
     list:
     - Key: Shuriken
       Value:
-      - {fileID: -1883667895, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
-      - {fileID: 52701295, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+      - {fileID: 1982757913, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+      - {fileID: -1401344308, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
     - Key: Dash
       Value:
-      - {fileID: -1654249277, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
-      - {fileID: -998940729, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+      - {fileID: -1356870318, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+      - {fileID: -750245158, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
     keyCollision: 0

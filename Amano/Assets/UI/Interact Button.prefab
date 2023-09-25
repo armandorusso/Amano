@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70c020355aedc2479b0d6bcacf97ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControllerTeleportButton: {fileID: -759863394, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
-  MouseTeleportButton: {fileID: 52701295, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+  ControllerTeleportButton: {fileID: 52701295, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+  MouseTeleportButton: {fileID: 2086136084, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
   MainCamera: {fileID: 0}
   ImageOffset: {x: -0.47, y: 0, z: 0}
