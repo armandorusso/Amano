@@ -289,7 +289,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.449
+  m_Volume: 0.507
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -388,7 +388,7 @@ MonoBehaviour:
   ShurikenAttachedColor: {r: 0, g: 0.7622583, b: 1, a: 1}
   ShurikenParticleSystem: {fileID: 7496780462877137939}
   ShurikenThrowSound: {fileID: 8300000, guid: 37f504bae347184448b98079823a435f, type: 3}
-  ShurikenAttachedSound: {fileID: 8300000, guid: 987a493b968532541b83649ce3a1c8d8, type: 3}
+  ShurikenAttachedSound: {fileID: 8300000, guid: c174cb6ec42bb4a4eb637ee6c5471e15, type: 3}
 --- !u!1001 &3325122146085749688
 PrefabInstance:
   m_ObjectHideFlags: 0
