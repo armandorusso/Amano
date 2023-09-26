@@ -6,7 +6,7 @@ public class ShieldRotation : QuickTimeComponent
     [SerializeField] public SpriteRenderer EnemySprite;
     private Transform _enemyTransform;
     private Transform _tetsuoTransform;
-    
+
     void Start()
     {
         _enemyTransform = GetComponentInParent<ShieldSamuraiData>().transform;
@@ -17,18 +17,24 @@ public class ShieldRotation : QuickTimeComponent
     {
         ApplyQuickTimeProperty();
     }
-    
-    private void OnDisable()
-    {
-        /*if (gameObject.TryGetComponent(out Rigidbody2D rb))
-        {
-            Destroy(rb);
-        }*/
-    }
 
     public void OnEnemyEnabled()
     {
+        if (gameObject.TryGetComponent(out Rigidbody2D rb))
+        {
+            Destroy(rb);
+        }
+        
+        // Set the parent back to the shield samurai's rotation point
         gameObject.transform.parent = RotationPoint;
+        
+        // Enable the shield rotation script again
+        enabled = true;
+        
+        // Place the shield back in front of the Shield Samurai
+        gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+        gameObject.transform.localPosition  = new Vector2(0.5584999f, 0.047f);
+        gameObject.transform.localRotation = Quaternion.identity;
     }
 
     private void AdjustShieldRotation()
