@@ -49,11 +49,14 @@ public class RoomCameraManager : MonoBehaviour
         _aimTracker = aimTracker;
         
         _transposer = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
-        
-        _originalDeadZoneWidth = _transposer.m_DeadZoneWidth;
-        _originalDeadZoneHeight = _transposer.m_DeadZoneHeight;
-        _originalSoftzoneWidth = _transposer.m_SoftZoneWidth;
-        _originalSoftzoneHeight = _transposer.m_SoftZoneHeight;
+
+        if (_isOffsetTriggered)
+        {
+            _originalDeadZoneWidth = _transposer.m_DeadZoneWidth;
+            _originalDeadZoneHeight = _transposer.m_DeadZoneHeight;
+            _originalSoftzoneWidth = _transposer.m_SoftZoneWidth;
+            _originalSoftzoneHeight = _transposer.m_SoftZoneHeight;
+        }
 
         if (!_isOffsetTriggered)
         {
@@ -106,14 +109,15 @@ public class RoomCameraManager : MonoBehaviour
     private void ResetCamera()
     {
         Debug.Log("Offset Deactivated");
+        _transposer.m_TrackedObjectOffset = Vector3.zero;
+        
         _transposer.m_DeadZoneWidth = _originalDeadZoneWidth;
         _transposer.m_DeadZoneHeight = _originalDeadZoneHeight;
 
         _transposer.m_SoftZoneWidth = _originalSoftzoneWidth;
         _transposer.m_SoftZoneHeight = _originalSoftzoneHeight;
-        
+
         _camera.transform.position -= _transposer.m_TrackedObjectOffset;
-        _transposer.m_TrackedObjectOffset = Vector3.zero;
     }
 
     private void OnStartGameEvent(bool hasStartedGame, float zoomOutTime)
