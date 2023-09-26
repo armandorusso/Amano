@@ -99,7 +99,8 @@ public class ShurikenProjectile : MonoBehaviour
             };
 
             ShurikenHitCharacterEvent?.Invoke(Damage, otherObject.gameObject.layer, null);
-            ObjectPool.ObjectPoolInstance.ReturnPooledObject(gameObject);
+            
+            gameObject.SetActive(false);
 
             return;
         }
@@ -111,6 +112,9 @@ public class ShurikenProjectile : MonoBehaviour
             Assert.IsNotNull(_rb);
             Assert.IsNotNull(_animator);
             Assert.IsNotNull(_collider);
+
+            if (1 << gameObject.layer == 11) // Weapons layer/enemy shuriken should not be able to teleport tetsuo
+                return;
 
             if (otherObject.CompareTag("Teleport"))
             {
