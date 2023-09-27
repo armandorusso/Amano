@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PauseGame : MonoBehaviour
 {
     [SerializeField] private GameObject PauseScreen;
+    [SerializeField] private GameObject SettingsScreen;
 
     private void Start()
     {
@@ -22,6 +23,18 @@ public class PauseGame : MonoBehaviour
 
     public void OnClickPause()
     {
+        PauseScreen.SetActive(true);
+    }
+
+    public void OnSettingsButtonClicked()
+    {
+        SettingsScreen.SetActive(true);
+        PauseScreen.SetActive(false);
+    }
+    
+    public void OnBackButtonClicked()
+    {
+        SettingsScreen.SetActive(false);
         PauseScreen.SetActive(true);
     }
 }
