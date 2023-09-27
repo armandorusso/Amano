@@ -10,8 +10,6 @@ using UnityEngine.Events;
 public class ShurikenProjectile : MonoBehaviour
 {
     [SerializeField] public float Damage;
-    [SerializeField] public Color ShurikenAttachedColor;
-    [SerializeField] public ParticleSystem ShurikenParticleSystem;
     public SpriteRenderer _sprite;
     public Animator _animator;
     public Rigidbody2D _rb;

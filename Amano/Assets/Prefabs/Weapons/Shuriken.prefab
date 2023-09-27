@@ -126,8 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 20
-  ShurikenAttachedColor: {r: 0, g: 0.5191989, b: 1, a: 1}
-  ShurikenParticleSystem: {fileID: 7496780462877137939}
   _sprite: {fileID: 0}
   _animator: {fileID: 0}
   _rb: {fileID: 0}
@@ -385,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fcb4df980c9834ebe80d7dbcd1a7eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShurikenAttachedColor: {r: 0, g: 0.7622583, b: 1, a: 1}
+  ShurikenAttachedColor: {r: 0.88955355, g: 0, b: 1, a: 1}
   ShurikenParticleSystem: {fileID: 7496780462877137939}
   ShurikenThrowSound: {fileID: 8300000, guid: 37f504bae347184448b98079823a435f, type: 3}
   ShurikenAttachedSound: {fileID: 8300000, guid: c174cb6ec42bb4a4eb637ee6c5471e15, type: 3}
