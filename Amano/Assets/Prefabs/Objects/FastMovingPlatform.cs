@@ -15,6 +15,7 @@ public class FastMovingPlatform : MonoBehaviour
 
     private Vector2 _previousPosition;
     private Rigidbody2D _rb;
+    private AudioSource _audioSource;
     private bool isPlatformActive;
     public static Action<Vector2> TouchingPlatformAction;
     private bool _hasLeftPlatform;
@@ -22,6 +23,7 @@ public class FastMovingPlatform : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -95,8 +97,11 @@ public class FastMovingPlatform : MonoBehaviour
             col.gameObject.GetComponent<Rigidbody2D>().interpolation = RigidbodyInterpolation2D.Extrapolate;
             var platformVelocity = ((((Vector2) transform.position - _previousPosition)) / Time.deltaTime) * 1.5f;
 
-            if(isPlatformActive)
+            if (isPlatformActive)
+            {
                 TouchingPlatformAction?.Invoke(platformVelocity);
+                _audioSource.Play();
+            }
         }
     }
 }

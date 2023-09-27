@@ -1,18 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private AudioSource _audioSource;
+
+    private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
         
+        RoomManager.StartPlayingMusicAction += OnEnteredRoom;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnteredRoom()
     {
-        
+        if(!_audioSource.isPlaying)
+            _audioSource.PlayDelayed(0.8f);
     }
 }
