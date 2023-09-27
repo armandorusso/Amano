@@ -24,6 +24,8 @@ public class RoomCameraManager : MonoBehaviour
     private float _originalSoftzoneWidth;
     private float _originalSoftzoneHeight;
 
+    public static Action<bool> ShowCameraIconAction;
+
     public class CameraTransitionArgs : EventArgs
     {
         public bool isMovementEnabled { get; set; }
@@ -47,6 +49,8 @@ public class RoomCameraManager : MonoBehaviour
     {
         _isOffsetTriggered = isOffsetTriggered;
         _aimTracker = aimTracker;
+        
+        ShowCameraIconAction?.Invoke(_isOffsetTriggered);
         
         _transposer = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
 

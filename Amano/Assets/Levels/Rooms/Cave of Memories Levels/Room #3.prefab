@@ -29485,6 +29485,10 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[238].Y
       value: -80000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4925400484331834238, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: StartPlayingMusic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6537312248503686473, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.534599
