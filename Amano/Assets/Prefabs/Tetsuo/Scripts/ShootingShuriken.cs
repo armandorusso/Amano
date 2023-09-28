@@ -108,7 +108,7 @@ public class ShootingShuriken : MonoBehaviour
             return;
         }
         
-        if (aimTracker.GetRightStickDirection() != Vector2.zero && context.performed)
+        if (context.performed && (aimTracker.CurrentInput == GameInputManager.InputType.KeyboardMouse && aimTracker.GetMousePositionInScreen() != Vector2.zero || aimTracker.GetRightStickDirection() != Vector2.zero))
         {
             _isHoldingAim = true;
         }
@@ -123,7 +123,12 @@ public class ShootingShuriken : MonoBehaviour
         _lineRenderer.enabled = true;
         _lineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
         Vector2 startPosition = ShurikenThrowTransform.position;
-        Vector2 startVelocity = (new Vector2(aimPos.x, aimPos.y).normalized * shurikenForce) / 1f;
+
+        Vector2 direction = aimTracker.CurrentInput == GameInputManager.InputType.KeyboardMouse
+            ? aimPos - transform.position
+            : new Vector2(aimPos.x, aimPos.y);
+        
+        Vector2 startVelocity = direction.normalized * shurikenForce / 1f;
 
         int i = 0;
         _lineRenderer.SetPosition(i, startPosition);

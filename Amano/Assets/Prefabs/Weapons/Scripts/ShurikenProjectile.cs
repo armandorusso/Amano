@@ -111,7 +111,7 @@ public class ShurikenProjectile : MonoBehaviour
             Assert.IsNotNull(_animator);
             Assert.IsNotNull(_collider);
 
-            if (1 << gameObject.layer == 11) // Weapons layer/enemy shuriken should not be able to teleport tetsuo
+            if (gameObject.layer is 11) // Weapons layer/enemy shuriken should not be able to teleport tetsuo
                 return;
 
             if (otherObject.CompareTag("Teleport"))
