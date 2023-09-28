@@ -75,4 +75,13 @@ public class MovingPlatform : MonoBehaviour
             col.gameObject.transform.SetParent(null);
         }
     }
+
+    private void OnEnable()
+    {
+        _endPoint = _End;
+        _newPoint = _Start;
+        _canMovePlatform = true;
+
+        transform.position = _Start.position;
+    }
 }

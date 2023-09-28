@@ -15,6 +15,8 @@ public class AmanoStateMachine : MonoBehaviour
     public Collider2D _collider { get; private set; }
     public AudioSource _audioSource { get; private set; }
 
+    private Vector3 _startPosition;
+
     public static event EventHandler<OnStateChangedArgs> onStateChangedEvent;
     public class OnStateChangedArgs : EventArgs
     {
@@ -28,6 +30,8 @@ public class AmanoStateMachine : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _audioSource = GetComponent<AudioSource>();
+
+        _startPosition = transform.position;
     }
 
     protected virtual void Start()
@@ -58,5 +62,10 @@ public class AmanoStateMachine : MonoBehaviour
             previousState = previousState.GetType().Name,
             newState = _currentState.GetType().Name
         });*/
+    }
+
+    private void OnEnable()
+    {
+        transform.position = _startPosition;
     }
 }

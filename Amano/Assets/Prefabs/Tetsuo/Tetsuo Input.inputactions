@@ -327,10 +327,10 @@
                 {
                     "name": "",
                     "id": "e7e1b1d1-b1b7-4ec0-8831-f7b2aac677b9",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Keyboard&Mouse",
                     "action": "Trajectory Line",
                     "isComposite": false,
                     "isPartOfComposite": false
