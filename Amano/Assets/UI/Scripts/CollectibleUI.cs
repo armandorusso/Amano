@@ -14,7 +14,7 @@ public class CollectibleUI : MonoBehaviour
     void Start()
     {
         _collectibleText = GetComponent<TextMeshProUGUI>();
-        GameManager.CollectibleAction += OnCollectibleCollected;
+        CollectibleManager.CollectibleAction += OnCollectibleCollected;
     }
 
     private void Update()
@@ -42,5 +42,10 @@ public class CollectibleUI : MonoBehaviour
         hasTextUpdated = true;
         yield return new WaitForSeconds(0.5f);
         hasTextUpdated = false;
+    }
+
+    private void OnDestroy()
+    {
+        CollectibleManager.CollectibleAction -= OnCollectibleCollected;
     }
 }

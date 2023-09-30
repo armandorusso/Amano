@@ -9,6 +9,8 @@ public class MemoryCollectible : MonoBehaviour
     private bool hasCollected = false;
     private Animator _anim;
     private AudioSource _audioSource;
+    
+    public static Action IncrementCollectibleCountAction;
 
     private void Start()
     {
@@ -23,9 +25,9 @@ public class MemoryCollectible : MonoBehaviour
             hasCollected = true;
             _anim.SetBool("collected", true);
             _audioSource.PlayOneShot(MemoryCollectSound);
-            GameManager.Instance.IncrementCollectibleCount();
+            IncrementCollectibleCountAction?.Invoke();
             
-            Invoke(nameof(PlayAnimation), 1.4f);
+            Invoke(nameof(PlayAnimation), 1.5f);
         }
     }
 

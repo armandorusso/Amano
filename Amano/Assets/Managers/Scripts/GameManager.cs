@@ -23,8 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject FKeyUI;
     [SerializeField] private GameObject _tetsuo;
     
-    public static int CollectibleCount { get; private set; }
-    
     public GameObject CurrentSpawnPoint { get; set; }
 
     private void Awake()
@@ -47,7 +45,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyHealth.EnemyDeathEvent += OnEnemyDeath;
         TetsuoHealthBar.tetsuoDeathEvent += OnTetsuoDeath;
-        CollectibleCount = 0;
+        // CollectibleCount = 0;
     }
 
     private void OnTetsuoDeath(object sender, TetsuoHealthBar.TetsuoDeathEventArgs e)
@@ -145,11 +143,5 @@ public class GameManager : MonoBehaviour
     public void ReturnAllShuriken()
     {
         _tetsuo.GetComponent<TeleportAbility>().ReturnAllShuriken();
-    }
-
-    public void IncrementCollectibleCount()
-    {
-        CollectibleCount++;
-        CollectibleAction?.Invoke(CollectibleCount);
     }
 }

@@ -1,18 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static int CollectibleCount { get; private set; }
+    public static Action<int> CollectibleAction;
+    
+    private void Awake()
     {
-        
+        DontDestroyOnLoad(this);
+
+        MemoryCollectible.IncrementCollectibleCountAction += OnCollectibleObtained;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnCollectibleObtained()
     {
-        
+        CollectibleCount++;
+        CollectibleAction?.Invoke(CollectibleCount);
+    }
+
+    private void OnDestroy()
+    {
+        MemoryCollectible.IncrementCollectibleCountAction -= OnCollectibleObtained;
     }
 }

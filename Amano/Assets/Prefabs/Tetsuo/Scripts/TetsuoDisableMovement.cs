@@ -67,7 +67,6 @@ public class TetsuoDisableMovement : MonoBehaviour
     private void OnStartGame(string actionName)
     {
         ToggleInputAction(actionName);
-        // EnableOrDisableInputActions(isInputEnabled);
     }
 
     public void OnPauseGame(InputAction.CallbackContext context)
