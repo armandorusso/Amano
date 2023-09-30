@@ -64,4 +64,9 @@ public class CampfireSit : MonoBehaviour
             InteractButton.sprite = InteractButtonKeyboard;
         }
     }
+
+    private void OnDestroy()
+    {
+        GameInputManager.SwitchInputAction -= OnSwitchInput;
+    }
 }

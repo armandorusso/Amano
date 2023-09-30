@@ -17,4 +17,9 @@ public class CameraIconUI : MonoBehaviour
     {
         _cameraIconImage.enabled = isButtonClicked;
     }
+
+    private void OnDestroy()
+    {
+        RoomCameraManager.ShowCameraIconAction -= OnCameraPanButtonActivated;
+    }
 }

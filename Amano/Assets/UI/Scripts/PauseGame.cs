@@ -37,4 +37,9 @@ public class PauseGame : MonoBehaviour
         SettingsScreen.SetActive(false);
         PauseScreen.SetActive(true);
     }
+
+    private void OnDestroy()
+    {
+        TetsuoDisableMovement.PauseGameAction -= OnClickPause;
+    }
 }

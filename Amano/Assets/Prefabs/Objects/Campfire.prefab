@@ -375,7 +375,7 @@ MonoBehaviour:
     m_Flags: 0
   InteractButton: {fileID: 8987978439225586752}
   InteractButtonKeyboard: {fileID: 80765914, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
-  InteractButtonController: {fileID: -741443462, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
+  InteractButtonController: {fileID: -1356870318, guid: e8c534d83fcb55f4cb805bef5df4a22d, type: 3}
 --- !u!61 &8758289325213927308
 BoxCollider2D:
   m_ObjectHideFlags: 0

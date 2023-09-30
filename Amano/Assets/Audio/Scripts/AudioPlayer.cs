@@ -19,4 +19,9 @@ public class AudioPlayer : MonoBehaviour
         if(!_audioSource.isPlaying)
             _audioSource.PlayDelayed(0.8f);
     }
+
+    private void OnDestroy()
+    {
+        RoomManager.StartPlayingMusicAction -= OnEnteredRoom;
+    }
 }

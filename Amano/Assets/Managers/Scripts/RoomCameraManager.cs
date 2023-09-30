@@ -166,4 +166,11 @@ public class RoomCameraManager : MonoBehaviour
         if(other.CompareTag("Player") && _cmBrain.ActiveVirtualCamera?.VirtualCameraGameObject != VirtualCamera)
             VirtualCamera.SetActive(false);
     }
+
+    private void OnDestroy()
+    {
+        StartGame.ZoomOutCameraAction -= OnStartGameEvent;
+        LevelManager.ZoomInCameraAction -= OnEndLevelEvent;
+        TetsuoZoom.ZoomTriggeredAction -= OnZoomButtonTriggered;
+    }
 }

@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class ButtonInfoAnimation : MonoBehaviour
 {
-    [SerializeField] public AnimatorController KeyboardAnimator;
-    [SerializeField] public AnimatorController ControllerAnimator;
+    [SerializeField] public RuntimeAnimatorController  KeyboardAnimator;
+    [SerializeField] public RuntimeAnimatorController  ControllerAnimator;
 
     private Animator _animator;
 
@@ -21,5 +21,10 @@ public class ButtonInfoAnimation : MonoBehaviour
     {
         _animator.runtimeAnimatorController = input == GameInputManager.InputType.Controller ? ControllerAnimator
             : KeyboardAnimator;
+    }
+
+    private void OnDestroy()
+    {
+        GameInputManager.SwitchInputAction -= OnInputSwitch;
     }
 }
