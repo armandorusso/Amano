@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
 {
-    public static int CollectibleCount { get; private set; }
+    public int CollectibleCount { get; private set; }
     public static Action<int> CollectibleAction;
     
     private void Awake()
