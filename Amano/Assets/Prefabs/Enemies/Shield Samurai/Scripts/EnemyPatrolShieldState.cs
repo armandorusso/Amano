@@ -42,11 +42,6 @@ public class EnemyPatrolShieldState : IAmanoState
         var hit = Physics2D.Raycast(enemyPosition, _playerDirection, _enemyData.LineOfSightDistance,
             _enemyData.RayCastLayers);
         Debug.DrawRay(enemyPosition, _playerDirection.normalized, Color.magenta);
-        
-        if (Vector2.Distance(enemyPosition, tetsuoPosition) <= 1f)
-        {
-            stateMachine.SwitchState("EnemySlashState");
-        }
     }
 
     private void Patrol(AmanoStateMachine stateMachine)

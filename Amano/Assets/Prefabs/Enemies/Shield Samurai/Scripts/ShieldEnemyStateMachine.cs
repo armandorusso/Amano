@@ -7,7 +7,6 @@ public class ShieldEnemyStateMachine : AmanoStateMachine
         _states = new HashSet<IAmanoState>(10);
         _defaultState = new EnemyPatrolShieldState();
         _states.Add(_defaultState);
-        _states.Add(new EnemySlashState());
         base.Start();
     }
 }

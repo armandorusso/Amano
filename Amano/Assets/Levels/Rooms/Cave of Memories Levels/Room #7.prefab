@@ -73060,7 +73060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8776994331158064912, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_ScreenX
-      value: 0.377
+      value: 0.352
       objectReference: {fileID: 0}
     - target: {fileID: 8776994331242625379, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Lens.OrthographicSize
