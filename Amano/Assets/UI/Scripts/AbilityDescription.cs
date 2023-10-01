@@ -44,4 +44,10 @@ public class AbilityDescription : MonoBehaviour
         EnableUIAction?.Invoke();
         TetsuoDisableMovement.Instance.EnableOrDisableInputActions(true); // Can maybe be reworked by using an event instead of a direct call
     }
+
+    private void OnDestroy()
+    {
+        AbilityHandler.AbilityInfoTextAction -= OnAbilityUnlock;
+        GameInputManager.SwitchInputAction -= OnInputSwitch;
+    }
 }
