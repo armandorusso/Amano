@@ -15,9 +15,9 @@ MonoBehaviour:
   Facts:
     list:
     - Key: Shuriken
-      Value: 1
+      Value: 0
     - Key: Dash
-      Value: 1
+      Value: 0
     keyCollision: 0
   FactsDescription:
     list:
