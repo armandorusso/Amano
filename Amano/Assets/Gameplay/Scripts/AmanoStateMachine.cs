@@ -32,6 +32,8 @@ public class AmanoStateMachine : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         _startPosition = transform.position;
+
+        GameManager.ResetGameElementsAction += OnTetsuoDeath;
     }
 
     protected virtual void Start()
@@ -64,7 +66,22 @@ public class AmanoStateMachine : MonoBehaviour
         });*/
     }
 
+    private void OnDestroy()
+    {
+        GameManager.ResetGameElementsAction -= OnTetsuoDeath;
+    }
+
     private void OnEnable()
+    {
+        ResetEnemyPosition();
+    }
+
+    private void OnTetsuoDeath()
+    {
+        ResetEnemyPosition();
+    }
+
+    private void ResetEnemyPosition()
     {
         transform.position = _startPosition;
     }

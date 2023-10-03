@@ -20,6 +20,8 @@ public class MovingPlatform : MonoBehaviour
         _endPoint = _End;
         _newPoint = _Start;
         _canMovePlatform = true;
+
+        GameManager.ResetGameElementsAction += OnTetsuoDeath;
     }
 
     void Update()
@@ -77,6 +79,21 @@ public class MovingPlatform : MonoBehaviour
     }
 
     private void OnEnable()
+    {
+        ResetPlatform();
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.ResetGameElementsAction -= OnTetsuoDeath;
+    }
+
+    private void OnTetsuoDeath()
+    {
+        ResetPlatform();
+    }
+
+    private void ResetPlatform()
     {
         _endPoint = _End;
         _newPoint = _Start;

@@ -16733,11 +16733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
-      value: 5.8626614
+      value: 5.891617
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
-      value: 7.033609
+      value: 7.6127315
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
@@ -16745,7 +16745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
-      value: 7.1351748
+      value: 7.569518
       objectReference: {fileID: 0}
     - target: {fileID: 8131815065237632110, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
@@ -17832,6 +17832,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676256222718711874}
     m_Modifications:
+    - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
+      propertyPath: _speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
+      propertyPath: _delayBetweenMoveBack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.236046

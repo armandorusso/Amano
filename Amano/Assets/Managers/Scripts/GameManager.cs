@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     
     public GameObject CurrentSpawnPoint { get; set; }
 
+    public static Action ResetGameElementsAction;
+
     private void Awake()
     {
         // If there is already an instance that exists AND the current instance that is set is not equal to this instance
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
         
         isTetsuoDead = false;
         DeathTrailEffectAction?.Invoke(false);
+        ResetGameElementsAction?.Invoke();
         _tetsuo.GetComponent<BoxCollider2D>().enabled = true;
         _tetsuo.GetComponent<Rigidbody2D>().gravityScale = 3.5f;
         ChangeTetsuoLayerAndTag("Player");
