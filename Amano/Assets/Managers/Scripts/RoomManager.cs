@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] public bool StartPlayingMusic;
     public static Action<Vector2> AdjustParallaxBackgroundAction;
     public static Action StartPlayingMusicAction;
+    public static Action RoomExitAction;
 
     public void OnRoomEnter()
     {
@@ -21,6 +22,7 @@ public class RoomManager : MonoBehaviour
     
     public void OnRoomExit()
     {
+        RoomExitAction?.Invoke();
         GameManager.Instance.ReturnAllShuriken();
         StartCoroutine(DisableRoom());
     }

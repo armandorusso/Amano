@@ -78,11 +78,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _speed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _delayBetweenMoveBack
-      value: 1.1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -151,11 +151,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _speed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _delayBetweenMoveBack
-      value: 1.1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _delayBetweenMoveBack
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -298,11 +298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _delayBetweenMoveBack
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.959198
+      value: 4.433823
       objectReference: {fileID: 0}
     - target: {fileID: 8593674091296928876, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_Name
@@ -46042,11 +46042,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _speed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _delayBetweenMoveBack
-      value: 0.2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x

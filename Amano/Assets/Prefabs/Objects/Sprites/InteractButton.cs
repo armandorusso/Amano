@@ -25,6 +25,8 @@ public class InteractButton : MonoBehaviour
         ShurikenProjectile.ShurikenHitTeleportObjectAction += OnShurikenAttachedToTeleportableObject;
         TeleportAbility.RemoveInteractButtonAction += OnLastShurikenConsumed;
         TeleportAbility.ShurikenConsumedAction += OnShurikenConsumed;
+        GameManager.ResetGameElementsAction += OnTetsuoDeath;
+        RoomManager.RoomExitAction += OnRoomExit;
     }
 
     private void Update()
@@ -62,6 +64,21 @@ public class InteractButton : MonoBehaviour
 
     private void OnLastShurikenConsumed()
     {
+        HideButtonSprite();
+    }
+    
+    private void OnTetsuoDeath()
+    {
+        HideButtonSprite();
+    }
+    
+    private void OnRoomExit()
+    {
+        HideButtonSprite();
+    }
+
+    private void HideButtonSprite()
+    {
         _buttonSprite.enabled = false;
     }
 
@@ -71,5 +88,7 @@ public class InteractButton : MonoBehaviour
         ShurikenProjectile.ShurikenHitTeleportObjectAction -= OnShurikenAttachedToTeleportableObject;
         TeleportAbility.RemoveInteractButtonAction -= OnLastShurikenConsumed;
         TeleportAbility.ShurikenConsumedAction -= OnShurikenConsumed;
+        GameManager.ResetGameElementsAction -= OnTetsuoDeath;
+        RoomManager.RoomExitAction -= OnRoomExit;
     }
 }

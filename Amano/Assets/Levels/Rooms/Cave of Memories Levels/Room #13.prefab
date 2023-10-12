@@ -520,11 +520,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _speed
-      value: 3.2
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 36111857050536759, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: _delayBetweenMoveBack
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3961130580957544852, guid: d7d7ec2efcfa0c448944ad6cff6c792e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -43973,7 +43973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8776994331158064912, guid: 76a6ae160e599324f94cac4693999351, type: 3}
       propertyPath: m_ScreenX
-      value: 0.725
+      value: 0.505
+      objectReference: {fileID: 0}
+    - target: {fileID: 8776994331158064912, guid: 76a6ae160e599324f94cac4693999351, type: 3}
+      propertyPath: m_ScreenY
+      value: 0.59
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76a6ae160e599324f94cac4693999351, type: 3}
