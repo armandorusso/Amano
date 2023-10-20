@@ -145,6 +145,15 @@ public class RoomCameraManager : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider col)
+    {
+        if (col.CompareTag("Player") && _cmBrain.ActiveVirtualCamera?.VirtualCameraGameObject != VirtualCamera)
+        {
+            VirtualCamera.SetActive(true);
+            StartCoroutine(WaitUntilBlendEnds());
+        }
+    }
+
     private IEnumerator WaitUntilBlendEnds()
     {
         Debug.Log("Entered Coroutine");

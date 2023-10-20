@@ -26,8 +26,8 @@ MonoBehaviour:
   FullHopFallMultiplier: 0
   JumpHangTime: 1
   _jumpingPower: 12
-  coyoteTime: 0.2
-  coyoteTimeCounter: 0.2
+  coyoteTime: 0.112
+  coyoteTimeCounter: 0.112
   jumpBufferTime: 0.2
   wallSlideSpeed: 1.2
   wallLayer:

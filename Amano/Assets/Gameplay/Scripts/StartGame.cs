@@ -6,7 +6,6 @@ using UnityEngine;
 public class StartGame : MonoBehaviour
 {
     [SerializeField] public float ZoomOutTime;
-    // Start is called before the first frame update
     public static Action<bool> FadeStartScreenAction;
     public static Action<bool, float> PlayGetUpAnimationAction;
     public static Action<bool, float> ZoomOutCameraAction;
