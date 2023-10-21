@@ -145,12 +145,12 @@ public class RoomCameraManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if (col.CompareTag("Player") && _cmBrain.ActiveVirtualCamera?.VirtualCameraGameObject != VirtualCamera)
         {
+            VirtualCamera.SetActive(false);
             VirtualCamera.SetActive(true);
-            StartCoroutine(WaitUntilBlendEnds());
         }
     }
 
