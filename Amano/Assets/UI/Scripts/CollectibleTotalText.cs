@@ -25,7 +25,7 @@ public class CollectibleTotalText : MonoBehaviour
                 _memoryImage.enabled = false;
                 break;
             case {} when _collectibleManager.CollectibleCount is >= 10 and < 15:
-                _memoryTotalText.text += "It puts a smile on your face - and can't help but reminiscence back home.";
+                _memoryTotalText.text += "It puts a smile on your face - and \ncan't help but reminiscence back home.";
                 _memoryImage.enabled = true;
                 break;
             case {} when _collectibleManager.CollectibleCount is >= 15 and < 20:

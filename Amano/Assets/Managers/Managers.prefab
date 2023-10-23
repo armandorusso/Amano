@@ -1673,7 +1673,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5082077662517679049}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
-        m_MethodName: OnClickContinue
+        m_MethodName: OnClickRestart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

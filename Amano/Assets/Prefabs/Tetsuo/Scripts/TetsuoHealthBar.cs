@@ -44,6 +44,12 @@ public class TetsuoHealthBar : MonoBehaviour
         ShieldDamageKnockback.DamageTetsuoAction += OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent += OnMeleeSlashHit;
         DeathZone.TetsuoDeathZoneAction += OnDeathFall;
+        PauseGame.RestartRoomAction += OnRestartRoom;
+    }
+
+    private void OnRestartRoom()
+    {
+        OnDeathFall(false);
     }
 
     private void Update()
@@ -63,6 +69,7 @@ public class TetsuoHealthBar : MonoBehaviour
         ShurikenProjectile.ShurikenHitCharacterEvent -= OnTetsuoDamaged;
         SlashingHitbox.SlashHitEvent -= OnMeleeSlashHit;
         DeathZone.TetsuoDeathZoneAction -= OnDeathFall;
+        PauseGame.RestartRoomAction -= OnRestartRoom;
     }
 
     private void OnMeleeSlashHit(object sender, SlashingHitbox.SlashHitEventArgs e)

@@ -9,6 +9,8 @@ public class PauseGame : MonoBehaviour
     [SerializeField] private GameObject PauseScreen;
     [SerializeField] private GameObject SettingsScreen;
 
+    public static Action RestartRoomAction;
+
     private void Start()
     {
         TetsuoDisableMovement.PauseGameAction += OnClickPause;
@@ -36,6 +38,12 @@ public class PauseGame : MonoBehaviour
     {
         SettingsScreen.SetActive(false);
         PauseScreen.SetActive(true);
+    }
+    
+    public void OnClickRestart()
+    {
+        OnClickContinue();
+        RestartRoomAction?.Invoke();
     }
 
     private void OnDestroy()
